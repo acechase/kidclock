@@ -12,7 +12,8 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
 | | |
 |---|---|
 | ![Sky face with weather and the quote of the day](docs/screenshots/sky.webp) | ![Night mode: amber digits on black with the red okay-to-wake moon](docs/screenshots/night.webp) |
-| ![Gentle wake-up: bright screen, quote card and I'm awake button](docs/screenshots/gentle-wake.webp) | ![Analog face with the quote in the right column](docs/screenshots/analog.webp) |
+| ![Gentle wake-up: bright screen, quote card and I'm awake button](docs/screenshots/gentle-wake.webp) | ![Analog look: a dial over the Sky background with the digital time, date and quote on the right](docs/screenshots/analog.webp) |
+| ![Choosing a look: the Sketch look with the Choose a look banner, chevrons and pager dots](docs/screenshots/looks.webp) | ![Magnets look: each digit on its own tilted coloured tile](docs/screenshots/magnets.webp) |
 
 ## Features
 - Seven swipeable backgrounds: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,
