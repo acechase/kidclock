@@ -15,8 +15,7 @@ import com.acechase.kidclock.Prefs
  *   -a com.acechase.kidclock.TEST_MISSED --ei minutes_ago 5   pretend a snooze registered 5 min
  *                                                              ago was lost (as if the device had
  *                                                              been off), then reschedule
- *   -a com.acechase.kidclock.TEST_NIGHT  --ez on true         force the night window to all day
- *                                                              (on false restores the saved window)
+ *   -a com.acechase.kidclock.TEST_NIGHT  --ez on true         flip the "Always night" setting
  */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -26,7 +25,7 @@ class BootReceiver : BroadcastReceiver() {
             return
         }
         if (intent.action == ACTION_TEST_NIGHT) {
-            forceNight(Prefs(context), intent.getBooleanExtra("on", true))
+            Prefs(context).alwaysNight = intent.getBooleanExtra("on", true)
             return
         }
         if (intent.action == ACTION_TEST_MISSED) {
@@ -37,23 +36,6 @@ class BootReceiver : BroadcastReceiver() {
             }
         }
         AlarmScheduler.rescheduleAll(context)
-    }
-
-    /** Night all day long for checking the amber looks, remembering the real window to put back. */
-    private fun forceNight(prefs: Prefs, on: Boolean) {
-        if (on) {
-            if (prefs.testNightBackupStart < 0) {
-                prefs.testNightBackupStart = prefs.nightStartMin
-                prefs.testNightBackupEnd = prefs.nightEndMin
-            }
-            prefs.nightStartMin = 0
-            prefs.nightEndMin = 24 * 60
-        } else if (prefs.testNightBackupStart >= 0) {
-            prefs.nightStartMin = prefs.testNightBackupStart
-            prefs.nightEndMin = prefs.testNightBackupEnd
-            prefs.testNightBackupStart = -1
-            prefs.testNightBackupEnd = -1
-        }
     }
 
     companion object {

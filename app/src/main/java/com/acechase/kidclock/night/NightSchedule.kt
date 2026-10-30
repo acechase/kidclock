@@ -9,12 +9,8 @@ class NightSchedule(private val prefs: Prefs) {
 
     private fun minuteOfDay(now: Calendar) = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
 
-    fun isNight(now: Calendar = Calendar.getInstance()): Boolean {
-        val m = minuteOfDay(now)
-        val s = prefs.nightStartMin
-        val e = prefs.nightEndMin
-        return if (s <= e) m in s until e else (m >= s || m < e)
-    }
+    fun isNight(now: Calendar = Calendar.getInstance()): Boolean =
+        isNight(minuteOfDay(now), prefs.nightStartMin, prefs.nightEndMin, prefs.alwaysNight)
 
     /** WAKE_OK shows a green light for 90 minutes after the night ends. */
     /** True while a gentle wake-up is in progress or after "I'm awake" until the cancelled alarm's time. */
@@ -30,5 +26,17 @@ class NightSchedule(private val prefs: Prefs) {
         if (isNight(now)) return Phase.NIGHT
         val sinceEnd = ((minuteOfDay(now) - prefs.nightEndMin) + 24 * 60) % (24 * 60)
         return if (sinceEnd < 90) Phase.WAKE_OK else Phase.DAY
+    }
+
+    companion object {
+        /**
+         * Whether [minuteOfDay] falls in the night window from [startMin] until [endMin] (which may
+         * cross midnight), or always when [alwaysNight] is set. Pure, so it is unit-tested.
+         */
+        fun isNight(minuteOfDay: Int, startMin: Int, endMin: Int, alwaysNight: Boolean): Boolean {
+            if (alwaysNight) return true
+            return if (startMin <= endMin) minuteOfDay in startMin until endMin
+            else minuteOfDay >= startMin || minuteOfDay < endMin
+        }
     }
 }

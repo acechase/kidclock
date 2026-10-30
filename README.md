@@ -25,7 +25,7 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
 - Alarms via `AlarmManager.setAlarmClock`, re-registered on boot. Per-alarm days of week; one-shot alarms disable themselves.
 - Ring screen with giant Snooze / Off buttons and **offline voice commands** ("snooze", "stop", "alarm off", "I'm awake")
   using Vosk. The microphone is opened only while ringing and released on snooze, dismiss, or the 10 minute timeout.
-- **Night window** (default 8:30 pm to 6:30 am): black background, amber digits, screen dimmed via the window brightness
+- **Night window** (default 8:30 pm to 6:30 am, or **Always night** in Settings for round-the-clock dark): black background, amber digits, screen dimmed via the window brightness
   attribute plus a dark overlay; the ambient light sensor nudges brightness. No WRITE_SETTINGS needed.
 - **Okay-to-wake lamp**: red crescent during the night window, green dot for 90 minutes after it ends.
 - **Weather** from Open-Meteo (no API key): current temp, icon, today's high/low. Location from settings or an IP guess.
