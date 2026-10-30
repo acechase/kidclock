@@ -20,6 +20,15 @@ class Prefs(context: Context) {
         get() = sp.getInt("nightEnd", 6 * 60 + 30)
         set(v) = sp.edit().putInt("nightEnd", v).apply()
 
+    /** The night window saved by the TEST_NIGHT developer hook before it forced night on; -1 when not forced. */
+    var testNightBackupStart: Int
+        get() = sp.getInt("testNightStart", -1)
+        set(v) = sp.edit().putInt("testNightStart", v).apply()
+
+    var testNightBackupEnd: Int
+        get() = sp.getInt("testNightEnd", -1)
+        set(v) = sp.edit().putInt("testNightEnd", v).apply()
+
     var snoozeMinutes: Int
         get() = sp.getInt("snoozeMin", 9)
         set(v) = sp.edit().putInt("snoozeMin", v.coerceIn(1, 30)).apply()
@@ -31,6 +40,11 @@ class Prefs(context: Context) {
     var faceIndex: Int
         get() = sp.getInt("face", 0)
         set(v) = sp.edit().putInt("face", v).apply()
+
+    /** Which look (font and layout) draws the time over the background; see looks/LookCatalog. */
+    var lookIndex: Int
+        get() = sp.getInt("look", 0)
+        set(v) = sp.edit().putInt("look", v).apply()
 
     /** Pending snooze, 0 when none. */
     var snoozeAtMs: Long
