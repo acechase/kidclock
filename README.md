@@ -15,9 +15,13 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
 | ![Gentle wake-up: bright screen, quote card and I'm awake button](docs/screenshots/gentle-wake.webp) | ![Analog face with the quote in the right column](docs/screenshots/analog.webp) |
 
 ## Features
-- Eight swipeable faces: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**, **Rainbow**,
-  **Galaxy** (nebula and shooting stars), **Fireflies** (dusk forest; a few stay lit at night), **Aurora**, **Meadow**
-  (flowers and butterflies), and **Analog** (a real dial with a sweeping second hand, for learning to read clocks).
+- Seven swipeable backgrounds: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,
+  **Rainbow**, **Galaxy** (nebula and shooting stars), **Fireflies** (dusk forest; a few stay lit at night), **Aurora**
+  and **Meadow** (flowers and butterflies).
+- Eight **looks** for the time itself, chosen separately from the background: hold the time for two seconds, then swipe
+  sideways and tap to keep. **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
+  sweeping second hand, for learning to read clocks), **Sketch** (hand-drawn on a paper scrap), **Whacky** (every digit
+  a different font and tilt), **Pixel** (retro game) and **Magnets** (fridge tiles). Every look has an amber night version.
 - Alarms via `AlarmManager.setAlarmClock`, re-registered on boot. Per-alarm days of week; one-shot alarms disable themselves.
 - Ring screen with giant Snooze / Off buttons and **offline voice commands** ("snooze", "stop", "alarm off", "I'm awake")
   using Vosk. The microphone is opened only while ringing and released on snooze, dismiss, or the 10 minute timeout.
@@ -73,7 +77,8 @@ plain Android apps and you have adb access) and a computer with `adb`. Nothing h
    adb shell dumpsys deviceidle whitelist +com.acechase.kidclock   # keep the ticker and weather thread out of doze
    ```
 4. Hold the top-right corner of the clock for two seconds to open Settings: add alarms, pick sounds and
-   volumes, set the weather location. Swipe left or right to change the face.
+   volumes, set the weather location. Swipe left or right to change the background; hold the time for two seconds,
+   then swipe, to change the look.
 
 The APK bundles the ~68 MB offline speech model, so it is about 80 MB. Builds are signed with the Android
 debug key of the machine that built them; to update a Portal from a different machine, uninstall first

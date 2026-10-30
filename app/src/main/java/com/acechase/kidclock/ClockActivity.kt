@@ -16,6 +16,10 @@ import com.acechase.kidclock.alarm.AlarmScheduler
 import com.acechase.kidclock.alarm.AlarmSoundPlayer
 import com.acechase.kidclock.alarm.GentleSound
 import com.acechase.kidclock.faces.ClockFace
+import com.acechase.kidclock.looks.Look
+import com.acechase.kidclock.looks.LookCatalog
+import com.acechase.kidclock.looks.LookPickerOverlay
+import com.acechase.kidclock.looks.LookPickerState
 import com.acechase.kidclock.night.Dimmer
 import com.acechase.kidclock.night.NightSchedule
 import com.acechase.kidclock.settings.SettingsActivity
@@ -30,8 +34,9 @@ import java.util.Calendar
 import kotlin.math.abs
 
 /**
- * The HOME activity. Fullscreen clock face, swipe left/right to change the face, hold the
- * top-right corner for two seconds to reach settings. Never sleeps the screen.
+ * The HOME activity. Fullscreen clock face: swipe left/right to change the background, hold the
+ * time for two seconds then swipe to change the look (font and layout), hold the top-right corner
+ * for two seconds to reach settings. Never sleeps the screen.
  */
 class ClockActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
@@ -47,6 +52,8 @@ class ClockActivity : AppCompatActivity() {
     private lateinit var awakeButton: Button
     private var wakeVoice: VoiceCommandListener? = null
     private var wakeVoiceListening = false
+    private lateinit var pickerOverlay: LookPickerOverlay
+    private val picker = LookPickerState()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,12 +66,14 @@ class ClockActivity : AppCompatActivity() {
         keyguardLock = (getSystemService(KEYGUARD_SERVICE) as android.app.KeyguardManager).newKeyguardLock("kidclock")
 
         root = FrameLayout(this)
+        pickerOverlay = LookPickerOverlay(this).apply { visibility = View.GONE }
         overlay = View(this).apply { setBackgroundColor(Color.BLACK); alpha = 0f; isClickable = false }
         setContentView(root)
+        root.addView(pickerOverlay, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         root.addView(overlay, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         dimmer = Dimmer(this, overlay)
         awakeButton = Button(this).apply {
-            text = "I'm awake!  \u2600\ufe0f"
+            text = "I'm awake!  ☀️"
             textSize = 24f
             isAllCaps = false
             setTextColor(Color.WHITE)
@@ -77,11 +86,17 @@ class ClockActivity : AppCompatActivity() {
             gravity = Gravity.BOTTOM or Gravity.END
             bottomMargin = 28; rightMargin = 36
         })
+        // Installs from before looks existed stored Analog as the last background.
+        LookCatalog.migrateAnalogBackground(prefs.faceIndex, ClockFace.COUNT)?.let { look ->
+            prefs.lookIndex = look
+            prefs.faceIndex = 0
+        }
         showFace(prefs.faceIndex)
 
         val gestures = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onDown(e: MotionEvent) = true
             override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                if (picker.tap()) { exitPicker(); return true }
                 val f = face ?: return false
                 if (f.alarmRect.contains(e.x, e.y)) {
                     val id = shownAlarmId() ?: return false
@@ -96,6 +111,7 @@ class ClockActivity : AppCompatActivity() {
                 return false
             }
             override fun onDoubleTap(e: MotionEvent): Boolean {
+                if (picker.picking) return true
                 val f = face ?: return false
                 if (prefs.weatherEnabled && f.weatherRect.contains(e.x, e.y)) {
                     startActivity(Intent(this@ClockActivity, WeatherDetailActivity::class.java))
@@ -107,7 +123,13 @@ class ClockActivity : AppCompatActivity() {
                 if (e1 == null) return false
                 val dx = e2.x - e1.x
                 if (abs(dx) > 150 && abs(vx) > 400 && abs(dx) > abs(e2.y - e1.y)) {
-                    showFace(prefs.faceIndex + if (dx < 0) 1 else -1)
+                    val step = picker.swipe(dx, System.currentTimeMillis())
+                    if (step != null) {
+                        showLook(prefs.lookIndex + step)
+                        armIdleExit()
+                    } else {
+                        showFace(prefs.faceIndex + if (dx < 0) 1 else -1)
+                    }
                     return true
                 }
                 return false
@@ -115,6 +137,7 @@ class ClockActivity : AppCompatActivity() {
         })
         root.setOnTouchListener { v, ev ->
             handleCornerHold(v, ev)
+            handleTimeHold(ev)
             gestures.onTouchEvent(ev)
             true
         }
@@ -151,9 +174,64 @@ class ClockActivity : AppCompatActivity() {
         prefs.faceIndex = i
         face?.let { root.removeView(it) }
         face = ClockFace.create(this, i).also {
+            it.look = Look.create(prefs.lookIndex)
+            it.picking = picker.picking
             root.addView(it, 0, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
         }
         tick()
+    }
+
+    private fun showLook(index: Int) {
+        val i = LookCatalog.wrap(index)
+        prefs.lookIndex = i
+        face?.look = Look.create(i)
+        pickerOverlay.lookName = LookCatalog.names[i]
+        pickerOverlay.index = i
+        pickerOverlay.count = LookCatalog.count
+    }
+
+    // Hold the time for two seconds to open the look picker. The face shows a filling ring meanwhile.
+    private val holdCheck = Runnable {
+        if (picker.advance(System.currentTimeMillis()) == LookPickerState.Event.ENTERED) enterPicker()
+    }
+    private val idleCheck = Runnable {
+        if (picker.advance(System.currentTimeMillis()) == LookPickerState.Event.EXITED) exitPicker()
+    }
+    private fun handleTimeHold(ev: MotionEvent) {
+        val f = face ?: return
+        val now = System.currentTimeMillis()
+        when (ev.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                if (picker.picking) armIdleExit()
+                if (picker.down(ev.x, ev.y, f.timeRect.contains(ev.x, ev.y), now)) {
+                    f.beginHold(ev.x, ev.y, now)
+                    handler.postDelayed(holdCheck, LookPickerState.HOLD_MS + 10)
+                }
+            }
+            MotionEvent.ACTION_MOVE -> if (picker.move(ev.x, ev.y)) cancelHold()
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> { picker.up(); cancelHold() }
+        }
+    }
+    private fun cancelHold() {
+        handler.removeCallbacks(holdCheck)
+        face?.endHold()
+    }
+    private fun enterPicker() {
+        face?.endHold()
+        face?.picking = true
+        showLook(prefs.lookIndex)
+        pickerOverlay.night = schedule.phase(Calendar.getInstance()) == NightSchedule.Phase.NIGHT
+        pickerOverlay.visibility = View.VISIBLE
+        armIdleExit()
+    }
+    private fun exitPicker() {
+        handler.removeCallbacks(idleCheck)
+        pickerOverlay.visibility = View.GONE
+        face?.picking = false
+    }
+    private fun armIdleExit() {
+        handler.removeCallbacks(idleCheck)
+        handler.postDelayed(idleCheck, LookPickerState.IDLE_MS + 10)
     }
 
     // Hold the top-right corner to open settings; a deliberate gesture so a stray tap never opens it.
@@ -193,14 +271,15 @@ class ClockActivity : AppCompatActivity() {
             return "$day$t"
         }
         f.nextAlarmText = when {
-            gentle -> "Good morning \u2600\ufe0f Alarm at ${fmt(prefs.wakeUntilMs)}" +
-                if (wakeVoiceListening) "  \u00b7  say \u201cI'm awake\u201d" else "  \u00b7  tap when you're up"
-            wakeWindow -> "You're up! Alarm is off for today. Have a great day \u2600\ufe0f"
+            gentle -> "Good morning ☀️ Alarm at ${fmt(prefs.wakeUntilMs)}" +
+                if (wakeVoiceListening) "  ·  say “I'm awake”" else "  ·  tap when you're up"
+            wakeWindow -> "You're up! Alarm is off for today. Have a great day ☀️"
             nextMain == null -> ""
             nextMain.isSnooze -> "Snoozed until ${fmt(nextMain.atMs)}"
             else -> fmt(nextMain.atMs)
         }
         dimmer.apply(phase == NightSchedule.Phase.NIGHT, forceBright = wakeWindow)
+        pickerOverlay.night = phase == NightSchedule.Phase.NIGHT
         f.weather = if (prefs.weatherEnabled) WeatherService.cached(this) else null
         WeatherService.maybeRefresh(this) { w -> face?.weather = w }
     }
@@ -244,6 +323,9 @@ class ClockActivity : AppCompatActivity() {
         gentlePlayer?.stop(); gentlePlayer = null
         handler.removeCallbacks(ticker)
         handler.removeCallbacks(openSettings)
+        cancelHold()
+        picker.reset()
+        exitPicker()
         dimmer.stop()
     }
 
