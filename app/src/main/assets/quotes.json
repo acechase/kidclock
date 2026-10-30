@@ -1,0 +1,2434 @@
+{
+ "version": 1,
+ "quotes": [
+  {
+   "text": "You must do the thing you think you cannot do.",
+   "author": "Eleanor Roosevelt",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 1
+  },
+  {
+   "text": "No one can make you feel inferior without your consent.",
+   "author": "Eleanor Roosevelt",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 2
+  },
+  {
+   "text": "The most difficult thing is the decision to act; the rest is merely tenacity.",
+   "author": "Amelia Earhart",
+   "source": null,
+   "tags": [
+    "courage",
+    "perseverance"
+   ],
+   "id": 3
+  },
+  {
+   "text": "Adventure is worthwhile in itself.",
+   "author": "Amelia Earhart",
+   "source": null,
+   "tags": [
+    "adventure"
+   ],
+   "id": 4
+  },
+  {
+   "text": "Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less.",
+   "author": "Marie Curie",
+   "source": null,
+   "tags": [
+    "curiosity",
+    "courage"
+   ],
+   "id": 5
+  },
+  {
+   "text": "Be less curious about people and more curious about ideas.",
+   "author": "Marie Curie",
+   "source": null,
+   "tags": [
+    "curiosity"
+   ],
+   "id": 6
+  },
+  {
+   "text": "I was taught that the way of progress was neither swift nor easy.",
+   "author": "Marie Curie",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 7
+  },
+  {
+   "text": "Life is either a daring adventure or nothing at all.",
+   "author": "Helen Keller",
+   "source": null,
+   "tags": [
+    "adventure",
+    "courage"
+   ],
+   "id": 8
+  },
+  {
+   "text": "Optimism is the faith that leads to achievement. Nothing can be done without hope and confidence.",
+   "author": "Helen Keller",
+   "source": null,
+   "tags": [
+    "hope"
+   ],
+   "id": 9
+  },
+  {
+   "text": "Keep your face to the sunshine and you cannot see a shadow.",
+   "author": "Helen Keller",
+   "source": null,
+   "tags": [
+    "hope"
+   ],
+   "id": 10
+  },
+  {
+   "text": "Alone we can do so little; together we can do so much.",
+   "author": "Helen Keller",
+   "source": null,
+   "tags": [
+    "friendship"
+   ],
+   "id": 11
+  },
+  {
+   "text": "The best and most beautiful things in the world cannot be seen or even touched. They must be felt with the heart.",
+   "author": "Helen Keller",
+   "source": null,
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 12
+  },
+  {
+   "text": "Courage is resistance to fear, mastery of fear, not absence of fear.",
+   "author": "Mark Twain",
+   "source": "Pudd'nhead Wilson",
+   "tags": [
+    "courage"
+   ],
+   "id": 13
+  },
+  {
+   "text": "You can be scared and brave at the same time. Brave is doing it anyway.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 14
+  },
+  {
+   "text": "What would life be if we had no courage to attempt anything?",
+   "author": "Vincent van Gogh",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 15
+  },
+  {
+   "text": "Life shrinks or expands in proportion to one's courage.",
+   "author": "Anaïs Nin",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 16
+  },
+  {
+   "text": "It is not because things are difficult that we do not dare; it is because we do not dare that things are difficult.",
+   "author": "Seneca",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 17
+  },
+  {
+   "text": "A ship in harbor is safe, but that is not what ships are built for.",
+   "author": "John A. Shedd",
+   "source": null,
+   "tags": [
+    "courage",
+    "adventure"
+   ],
+   "id": 18
+  },
+  {
+   "text": "I'd rather regret the risks that didn't work out than the chances I didn't take at all.",
+   "author": "Simone Biles",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 19
+  },
+  {
+   "text": "You may be disappointed if you fail, but you are doomed if you don't try.",
+   "author": "Beverly Sills",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 20
+  },
+  {
+   "text": "You miss 100 percent of the shots you don't take.",
+   "author": "Wayne Gretzky",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 21
+  },
+  {
+   "text": "Courage, dear heart.",
+   "author": "C.S. Lewis",
+   "source": "The Voyage of the Dawn Treader",
+   "tags": [
+    "courage"
+   ],
+   "id": 22
+  },
+  {
+   "text": "I am deliberate and afraid of nothing.",
+   "author": "Audre Lorde",
+   "source": null,
+   "tags": [
+    "courage",
+    "self-worth"
+   ],
+   "id": 23
+  },
+  {
+   "text": "Our fate lives within us. You only have to be brave enough to see it.",
+   "author": "Merida",
+   "source": "Brave",
+   "tags": [
+    "courage"
+   ],
+   "id": 24
+  },
+  {
+   "text": "Venture outside your comfort zone. The rewards are worth it.",
+   "author": "Rapunzel",
+   "source": "Tangled",
+   "tags": [
+    "courage",
+    "adventure"
+   ],
+   "id": 25
+  },
+  {
+   "text": "The moment you doubt whether you can fly, you cease forever to be able to do it.",
+   "author": "J.M. Barrie",
+   "source": "Peter Pan",
+   "tags": [
+    "courage",
+    "imagination"
+   ],
+   "id": 26
+  },
+  {
+   "text": "Do. Or do not. There is no try.",
+   "author": "Yoda",
+   "source": "The Empire Strikes Back",
+   "tags": [
+    "courage"
+   ],
+   "id": 27
+  },
+  {
+   "text": "It's okay to be the only one who raises her hand.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 28
+  },
+  {
+   "text": "It does not matter how slowly you go as long as you do not stop.",
+   "author": "Confucius",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 29
+  },
+  {
+   "text": "Our greatest glory is not in never falling, but in rising every time we fall.",
+   "author": "Confucius",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 30
+  },
+  {
+   "text": "Fall seven times, stand up eight.",
+   "author": "Japanese proverb",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 31
+  },
+  {
+   "text": "It always seems impossible until it's done.",
+   "author": "Nelson Mandela",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 32
+  },
+  {
+   "text": "I have not failed. I've just found ten thousand ways that won't work.",
+   "author": "Thomas Edison",
+   "source": null,
+   "tags": [
+    "perseverance",
+    "mistakes"
+   ],
+   "id": 33
+  },
+  {
+   "text": "I've failed over and over and over again in my life. And that is why I succeed.",
+   "author": "Michael Jordan",
+   "source": null,
+   "tags": [
+    "perseverance",
+    "mistakes"
+   ],
+   "id": 34
+  },
+  {
+   "text": "I really think a champion is defined not by their wins but by how they can recover when they fall.",
+   "author": "Serena Williams",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 35
+  },
+  {
+   "text": "Champions keep playing until they get it right.",
+   "author": "Billie Jean King",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 36
+  },
+  {
+   "text": "Pressure is a privilege.",
+   "author": "Billie Jean King",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 37
+  },
+  {
+   "text": "It's not whether you get knocked down, it's whether you get up.",
+   "author": "Vince Lombardi",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 38
+  },
+  {
+   "text": "If you can't fly then run, if you can't run then walk, if you can't walk then crawl, but whatever you do you have to keep moving forward.",
+   "author": "Martin Luther King Jr.",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 39
+  },
+  {
+   "text": "You don't have to see the whole staircase, just take the first step.",
+   "author": "Martin Luther King Jr.",
+   "source": null,
+   "tags": [
+    "perseverance",
+    "courage"
+   ],
+   "id": 40
+  },
+  {
+   "text": "Life is like riding a bicycle. To keep your balance, you must keep moving.",
+   "author": "Albert Einstein",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 41
+  },
+  {
+   "text": "The best way out is always through.",
+   "author": "Robert Frost",
+   "source": "A Servant to Servants",
+   "tags": [
+    "perseverance"
+   ],
+   "id": 42
+  },
+  {
+   "text": "Nothing is particularly hard if you divide it into small jobs.",
+   "author": "Henry Ford",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 43
+  },
+  {
+   "text": "Whether you think you can, or you think you can't, you're right.",
+   "author": "Henry Ford",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 44
+  },
+  {
+   "text": "Energy and persistence conquer all things.",
+   "author": "Benjamin Franklin",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 45
+  },
+  {
+   "text": "Just keep swimming.",
+   "author": "Dory",
+   "source": "Finding Nemo",
+   "tags": [
+    "perseverance",
+    "humor"
+   ],
+   "id": 46
+  },
+  {
+   "text": "I think I can, I think I can.",
+   "author": "The Little Engine That Could",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 47
+  },
+  {
+   "text": "Slow and steady wins the race.",
+   "author": "Aesop",
+   "source": "The Tortoise and the Hare",
+   "tags": [
+    "perseverance"
+   ],
+   "id": 48
+  },
+  {
+   "text": "Little by little, one travels far.",
+   "author": "Spanish proverb",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 49
+  },
+  {
+   "text": "A smooth sea never made a skilled sailor.",
+   "author": "Proverb",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 50
+  },
+  {
+   "text": "There are no shortcuts to any place worth going.",
+   "author": "Beverly Sills",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 51
+  },
+  {
+   "text": "Hard work beats talent when talent doesn't work hard.",
+   "author": "Tim Notke",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 52
+  },
+  {
+   "text": "The brick walls are there for a reason. They give us a chance to show how badly we want something.",
+   "author": "Randy Pausch",
+   "source": "The Last Lecture",
+   "tags": [
+    "perseverance"
+   ],
+   "id": 53
+  },
+  {
+   "text": "Have no fear of perfection. You'll never reach it.",
+   "author": "Salvador Dalí",
+   "source": null,
+   "tags": [
+    "mistakes",
+    "creativity"
+   ],
+   "id": 54
+  },
+  {
+   "text": "Mistakes mean you're learning. Make interesting ones.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "mistakes"
+   ],
+   "id": 55
+  },
+  {
+   "text": "Nobody is good at anything the first time. Keep going.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "perseverance",
+    "mistakes"
+   ],
+   "id": 56
+  },
+  {
+   "text": "Practice doesn't make perfect. Practice makes better, and better is the goal.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 57
+  },
+  {
+   "text": "Being wrong out loud and then fixing it is how experts are made.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "mistakes",
+    "learning"
+   ],
+   "id": 58
+  },
+  {
+   "text": "Hard things are usually just lots of small things stacked up. Do the first one.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 59
+  },
+  {
+   "text": "I am still learning.",
+   "author": "Michelangelo",
+   "source": null,
+   "tags": [
+    "learning",
+    "perseverance"
+   ],
+   "id": 60
+  },
+  {
+   "text": "The important thing is not to stop questioning. Curiosity has its own reason for existing.",
+   "author": "Albert Einstein",
+   "source": null,
+   "tags": [
+    "curiosity"
+   ],
+   "id": 61
+  },
+  {
+   "text": "Imagination is more important than knowledge.",
+   "author": "Albert Einstein",
+   "source": null,
+   "tags": [
+    "imagination"
+   ],
+   "id": 62
+  },
+  {
+   "text": "Look deep into nature, and then you will understand everything better.",
+   "author": "Albert Einstein",
+   "source": null,
+   "tags": [
+    "curiosity",
+    "nature"
+   ],
+   "id": 63
+  },
+  {
+   "text": "The more that you read, the more things you will know. The more that you learn, the more places you'll go.",
+   "author": "Dr. Seuss",
+   "source": "I Can Read With My Eyes Shut!",
+   "tags": [
+    "learning"
+   ],
+   "id": 64
+  },
+  {
+   "text": "Think left and think right and think low and think high. Oh, the thinks you can think up if only you try!",
+   "author": "Dr. Seuss",
+   "source": "Oh, the Thinks You Can Think!",
+   "tags": [
+    "imagination"
+   ],
+   "id": 65
+  },
+  {
+   "text": "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.",
+   "author": "Dr. Seuss",
+   "source": "Oh, the Places You'll Go!",
+   "tags": [
+    "self-belief"
+   ],
+   "id": 66
+  },
+  {
+   "text": "You're off to great places! Today is your day! Your mountain is waiting, so get on your way!",
+   "author": "Dr. Seuss",
+   "source": "Oh, the Places You'll Go!",
+   "tags": [
+    "adventure"
+   ],
+   "id": 67
+  },
+  {
+   "text": "Isn't it splendid to think of all the things there are to find out about? It just makes me feel glad to be alive. It's such an interesting world.",
+   "author": "L.M. Montgomery",
+   "source": "Anne of Green Gables",
+   "tags": [
+    "curiosity"
+   ],
+   "id": 68
+  },
+  {
+   "text": "Above all, watch with glittering eyes the whole world around you, because the greatest secrets are always hidden in the most unlikely places.",
+   "author": "Roald Dahl",
+   "source": "The Minpins",
+   "tags": [
+    "curiosity"
+   ],
+   "id": 69
+  },
+  {
+   "text": "Those who don't believe in magic will never find it.",
+   "author": "Roald Dahl",
+   "source": "The Minpins",
+   "tags": [
+    "imagination"
+   ],
+   "id": 70
+  },
+  {
+   "text": "Learning never exhausts the mind.",
+   "author": "Leonardo da Vinci",
+   "source": null,
+   "tags": [
+    "learning"
+   ],
+   "id": 71
+  },
+  {
+   "text": "Real knowledge is to know the extent of one's ignorance.",
+   "author": "Confucius",
+   "source": null,
+   "tags": [
+    "learning"
+   ],
+   "id": 72
+  },
+  {
+   "text": "An investment in knowledge pays the best interest.",
+   "author": "Benjamin Franklin",
+   "source": null,
+   "tags": [
+    "learning"
+   ],
+   "id": 73
+  },
+  {
+   "text": "Curiosity is the wick in the candle of learning.",
+   "author": "William Arthur Ward",
+   "source": null,
+   "tags": [
+    "curiosity"
+   ],
+   "id": 74
+  },
+  {
+   "text": "Science and everyday life cannot and should not be separated.",
+   "author": "Rosalind Franklin",
+   "source": null,
+   "tags": [
+    "science"
+   ],
+   "id": 75
+  },
+  {
+   "text": "The cosmos is within us. We are made of star stuff.",
+   "author": "Carl Sagan",
+   "source": null,
+   "tags": [
+    "science",
+    "wonder"
+   ],
+   "id": 76
+  },
+  {
+   "text": "Look up at the stars and not down at your feet.",
+   "author": "Stephen Hawking",
+   "source": null,
+   "tags": [
+    "science",
+    "wonder"
+   ],
+   "id": 77
+  },
+  {
+   "text": "However difficult life may seem, there is always something you can do and succeed at.",
+   "author": "Stephen Hawking",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 78
+  },
+  {
+   "text": "That brain of mine is something more than merely mortal, as time will show.",
+   "author": "Ada Lovelace",
+   "source": null,
+   "tags": [
+    "self-belief",
+    "science"
+   ],
+   "id": 79
+  },
+  {
+   "text": "Like what you do, and then you will do your best.",
+   "author": "Katherine Johnson",
+   "source": null,
+   "tags": [
+    "learning"
+   ],
+   "id": 80
+  },
+  {
+   "text": "Never limit yourself because of others' limited imagination; never limit others because of your own limited imagination.",
+   "author": "Mae Jemison",
+   "source": null,
+   "tags": [
+    "imagination",
+    "self-belief"
+   ],
+   "id": 81
+  },
+  {
+   "text": "Don't let anyone rob you of your imagination, your creativity, or your curiosity.",
+   "author": "Mae Jemison",
+   "source": null,
+   "tags": [
+    "imagination"
+   ],
+   "id": 82
+  },
+  {
+   "text": "Young girls need to see role models in whatever careers they may choose. You can't be what you can't see.",
+   "author": "Sally Ride",
+   "source": null,
+   "tags": [
+    "dreams"
+   ],
+   "id": 83
+  },
+  {
+   "text": "The stars don't look bigger, but they do look brighter.",
+   "author": "Sally Ride",
+   "source": null,
+   "tags": [
+    "wonder"
+   ],
+   "id": 84
+  },
+  {
+   "text": "Somewhere, sometime, something incredible is waiting to be learned. Go find it.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "curiosity"
+   ],
+   "id": 85
+  },
+  {
+   "text": "Everything is theoretically impossible, until it is done.",
+   "author": "Robert A. Heinlein",
+   "source": null,
+   "tags": [
+    "science",
+    "perseverance"
+   ],
+   "id": 86
+  },
+  {
+   "text": "The best way to predict the future is to invent it.",
+   "author": "Alan Kay",
+   "source": null,
+   "tags": [
+    "creativity",
+    "science"
+   ],
+   "id": 87
+  },
+  {
+   "text": "There is no friend as loyal as a book.",
+   "author": "Ernest Hemingway",
+   "source": null,
+   "tags": [
+    "reading"
+   ],
+   "id": 88
+  },
+  {
+   "text": "Reading is to the mind what exercise is to the body.",
+   "author": "Joseph Addison",
+   "source": null,
+   "tags": [
+    "reading"
+   ],
+   "id": 89
+  },
+  {
+   "text": "A room without books is like a body without a soul.",
+   "author": "Cicero",
+   "source": null,
+   "tags": [
+    "reading"
+   ],
+   "id": 90
+  },
+  {
+   "text": "Some day you will be old enough to start reading fairy tales again.",
+   "author": "C.S. Lewis",
+   "source": null,
+   "tags": [
+    "reading",
+    "imagination"
+   ],
+   "id": 91
+  },
+  {
+   "text": "Sometimes I've believed as many as six impossible things before breakfast.",
+   "author": "Lewis Carroll",
+   "source": "Through the Looking-Glass",
+   "tags": [
+    "imagination",
+    "humor"
+   ],
+   "id": 92
+  },
+  {
+   "text": "Ask one good question today. Curious people are never bored.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "curiosity"
+   ],
+   "id": 93
+  },
+  {
+   "text": "Boredom is the doorway to good ideas. Walk through it.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "creativity"
+   ],
+   "id": 94
+  },
+  {
+   "text": "The most interesting people are interested people.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "curiosity"
+   ],
+   "id": 95
+  },
+  {
+   "text": "You learn something every day if you pay attention.",
+   "author": "Ray LeBlond",
+   "source": null,
+   "tags": [
+    "learning"
+   ],
+   "id": 96
+  },
+  {
+   "text": "You can be smart and still ask for help. That's what smart people do.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "learning",
+    "self-worth"
+   ],
+   "id": 97
+  },
+  {
+   "text": "Read something today just because it's fun.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "reading"
+   ],
+   "id": 98
+  },
+  {
+   "text": "There are three ways to ultimate success: the first way is to be kind. The second way is to be kind. The third way is to be kind.",
+   "author": "Fred Rogers",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 99
+  },
+  {
+   "text": "You've made this day a special day, by just your being you.",
+   "author": "Fred Rogers",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 100
+  },
+  {
+   "text": "Often when you think you're at the end of something, you're at the beginning of something else.",
+   "author": "Fred Rogers",
+   "source": null,
+   "tags": [
+    "hope"
+   ],
+   "id": 101
+  },
+  {
+   "text": "It's not so much what we have in this life that matters. It's what we do with what we have.",
+   "author": "Fred Rogers",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 102
+  },
+  {
+   "text": "If you want to lift yourself up, lift up someone else.",
+   "author": "Booker T. Washington",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 103
+  },
+  {
+   "text": "No act of kindness, no matter how small, is ever wasted.",
+   "author": "Aesop",
+   "source": "The Lion and the Mouse",
+   "tags": [
+    "kindness"
+   ],
+   "id": 104
+  },
+  {
+   "text": "Kind words can be short and easy to speak, but their echoes are truly endless.",
+   "author": "Mother Teresa",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 105
+  },
+  {
+   "text": "Not all of us can do great things. But we can do small things with great love.",
+   "author": "Mother Teresa",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 106
+  },
+  {
+   "text": "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
+   "author": "Mother Teresa",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 107
+  },
+  {
+   "text": "Peace begins with a smile.",
+   "author": "Mother Teresa",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 108
+  },
+  {
+   "text": "Be kind whenever possible. It is always possible.",
+   "author": "Dalai Lama",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 109
+  },
+  {
+   "text": "Happiness is not something ready made. It comes from your own actions.",
+   "author": "Dalai Lama",
+   "source": null,
+   "tags": [
+    "happiness"
+   ],
+   "id": 110
+  },
+  {
+   "text": "A little consideration, a little thought for others, makes all the difference.",
+   "author": "Eeyore",
+   "source": "Winnie-the-Pooh, by A.A. Milne",
+   "tags": [
+    "kindness"
+   ],
+   "id": 111
+  },
+  {
+   "text": "Try to be a rainbow in someone's cloud.",
+   "author": "Maya Angelou",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 112
+  },
+  {
+   "text": "People will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
+   "author": "Maya Angelou",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 113
+  },
+  {
+   "text": "How wonderful it is that nobody need wait a single moment before starting to improve the world.",
+   "author": "Anne Frank",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 114
+  },
+  {
+   "text": "Whoever is happy will make others happy too.",
+   "author": "Anne Frank",
+   "source": null,
+   "tags": [
+    "happiness",
+    "kindness"
+   ],
+   "id": 115
+  },
+  {
+   "text": "No one has ever become poor by giving.",
+   "author": "Anne Frank",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 116
+  },
+  {
+   "text": "Do your little bit of good where you are; it's those little bits of good put together that overwhelm the world.",
+   "author": "Desmond Tutu",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 117
+  },
+  {
+   "text": "Hope is being able to see that there is light despite all of the darkness.",
+   "author": "Desmond Tutu",
+   "source": null,
+   "tags": [
+    "hope"
+   ],
+   "id": 118
+  },
+  {
+   "text": "Wherever there is a human being, there is an opportunity for a kindness.",
+   "author": "Seneca",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 119
+  },
+  {
+   "text": "A kind word is like a spring day.",
+   "author": "Russian proverb",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 120
+  },
+  {
+   "text": "Kindness is always fashionable.",
+   "author": "Amelia Barr",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 121
+  },
+  {
+   "text": "Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.",
+   "author": "Martin Luther King Jr.",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 122
+  },
+  {
+   "text": "In a gentle way, you can shake the world.",
+   "author": "Mahatma Gandhi",
+   "source": null,
+   "tags": [
+    "kindness",
+    "courage"
+   ],
+   "id": 123
+  },
+  {
+   "text": "Where there is love there is life.",
+   "author": "Mahatma Gandhi",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 124
+  },
+  {
+   "text": "It is the little things citizens do. That's what will make the difference. My little thing is planting trees.",
+   "author": "Wangari Maathai",
+   "source": null,
+   "tags": [
+    "kindness",
+    "nature"
+   ],
+   "id": 125
+  },
+  {
+   "text": "What you do makes a difference, and you have to decide what kind of difference you want to make.",
+   "author": "Jane Goodall",
+   "source": null,
+   "tags": [
+    "kindness",
+    "purpose"
+   ],
+   "id": 126
+  },
+  {
+   "text": "Every individual matters. Every individual has a role to play. Every individual makes a difference.",
+   "author": "Jane Goodall",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 127
+  },
+  {
+   "text": "Act as if what you do makes a difference. It does.",
+   "author": "William James",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 128
+  },
+  {
+   "text": "Being kind is a kind of brave.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "kindness",
+    "courage"
+   ],
+   "id": 129
+  },
+  {
+   "text": "Be the person who says, 'Come sit with us.'",
+   "author": null,
+   "source": null,
+   "tags": [
+    "kindness",
+    "friendship"
+   ],
+   "id": 130
+  },
+  {
+   "text": "When you don't know what to do, do the kind thing.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 131
+  },
+  {
+   "text": "Listening is a superpower almost nobody practices.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "kindness",
+    "friendship"
+   ],
+   "id": 132
+  },
+  {
+   "text": "Say thank you to someone who helps you today, and watch what it does to their face.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 133
+  },
+  {
+   "text": "Today, be the kind of friend you'd like to have.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "friendship"
+   ],
+   "id": 134
+  },
+  {
+   "text": "Strong people stand up for themselves. The strongest people stand up for others.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "kindness",
+    "courage"
+   ],
+   "id": 135
+  },
+  {
+   "text": "If you want to go fast, go alone. If you want to go far, go together.",
+   "author": "Proverb",
+   "source": null,
+   "tags": [
+    "friendship"
+   ],
+   "id": 136
+  },
+  {
+   "text": "Talent wins games, but teamwork and intelligence win championships.",
+   "author": "Michael Jordan",
+   "source": null,
+   "tags": [
+    "friendship"
+   ],
+   "id": 137
+  },
+  {
+   "text": "Today you are You, that is truer than true. There is no one alive who is Youer than You.",
+   "author": "Dr. Seuss",
+   "source": "Happy Birthday to You!",
+   "tags": [
+    "self-worth"
+   ],
+   "id": 138
+  },
+  {
+   "text": "A person's a person, no matter how small.",
+   "author": "Dr. Seuss",
+   "source": "Horton Hears a Who!",
+   "tags": [
+    "self-worth"
+   ],
+   "id": 139
+  },
+  {
+   "text": "Though she be but little, she is fierce.",
+   "author": "William Shakespeare",
+   "source": "A Midsummer Night's Dream",
+   "tags": [
+    "self-worth",
+    "courage"
+   ],
+   "id": 140
+  },
+  {
+   "text": "We know what we are, but know not what we may be.",
+   "author": "William Shakespeare",
+   "source": "Hamlet",
+   "tags": [
+    "dreams"
+   ],
+   "id": 141
+  },
+  {
+   "text": "I am no bird; and no net ensnares me: I am a free human being with an independent will.",
+   "author": "Charlotte Brontë",
+   "source": "Jane Eyre",
+   "tags": [
+    "self-worth"
+   ],
+   "id": 142
+  },
+  {
+   "text": "Always be a first-rate version of yourself, instead of a second-rate version of somebody else.",
+   "author": "Judy Garland",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 143
+  },
+  {
+   "text": "Be who you are and say what you feel, because those who mind don't matter and those who matter don't mind.",
+   "author": "Bernard Baruch",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 144
+  },
+  {
+   "text": "Find out who you are and do it on purpose.",
+   "author": "Dolly Parton",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 145
+  },
+  {
+   "text": "If you don't like the road you're walking, start paving another one.",
+   "author": "Dolly Parton",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 146
+  },
+  {
+   "text": "Normal is nothing more than a cycle on a washing machine.",
+   "author": "Whoopi Goldberg",
+   "source": null,
+   "tags": [
+    "self-worth",
+    "humor"
+   ],
+   "id": 147
+  },
+  {
+   "text": "A girl should be two things: who and what she wants.",
+   "author": "Coco Chanel",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 148
+  },
+  {
+   "text": "Well-behaved women seldom make history.",
+   "author": "Laurel Thatcher Ulrich",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 149
+  },
+  {
+   "text": "If you obey all the rules, you miss all the fun.",
+   "author": "Katharine Hepburn",
+   "source": null,
+   "tags": [
+    "humor",
+    "adventure"
+   ],
+   "id": 150
+  },
+  {
+   "text": "You can start late, look different, be uncertain, and still succeed.",
+   "author": "Misty Copeland",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 151
+  },
+  {
+   "text": "You have to believe in yourself when no one else does.",
+   "author": "Serena Williams",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 152
+  },
+  {
+   "text": "There is no limit to what we, as women, can accomplish.",
+   "author": "Michelle Obama",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 153
+  },
+  {
+   "text": "Fight for the things that you care about, but do it in a way that will lead others to join you.",
+   "author": "Ruth Bader Ginsburg",
+   "source": null,
+   "tags": [
+    "courage",
+    "kindness"
+   ],
+   "id": 154
+  },
+  {
+   "text": "I have learned over the years that when one's mind is made up, this diminishes fear.",
+   "author": "Rosa Parks",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 155
+  },
+  {
+   "text": "One child, one teacher, one book, one pen can change the world.",
+   "author": "Malala Yousafzai",
+   "source": null,
+   "tags": [
+    "learning",
+    "purpose"
+   ],
+   "id": 156
+  },
+  {
+   "text": "When the whole world is silent, even one voice becomes powerful.",
+   "author": "Malala Yousafzai",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 157
+  },
+  {
+   "text": "Feet, what do I need you for when I have wings to fly?",
+   "author": "Frida Kahlo",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 158
+  },
+  {
+   "text": "Thank goodness I was never sent to school; it would have rubbed off some of the originality.",
+   "author": "Beatrix Potter",
+   "source": null,
+   "tags": [
+    "creativity",
+    "humor"
+   ],
+   "id": 159
+  },
+  {
+   "text": "I am not afraid of storms, for I am learning how to sail my ship.",
+   "author": "Louisa May Alcott",
+   "source": "Little Women",
+   "tags": [
+    "courage"
+   ],
+   "id": 160
+  },
+  {
+   "text": "Nothing is impossible. The word itself says 'I'm possible!'",
+   "author": "Audrey Hepburn",
+   "source": null,
+   "tags": [
+    "self-belief",
+    "humor"
+   ],
+   "id": 161
+  },
+  {
+   "text": "She believed she could, so she did.",
+   "author": "R.S. Grey",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 162
+  },
+  {
+   "text": "Little girls with dreams become women with vision.",
+   "author": "Unknown",
+   "source": null,
+   "tags": [
+    "dreams"
+   ],
+   "id": 163
+  },
+  {
+   "text": "Here's to strong women. May we know them. May we be them. May we raise them.",
+   "author": "Unknown",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 164
+  },
+  {
+   "text": "Take criticism seriously, but not personally.",
+   "author": "Hillary Clinton",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 165
+  },
+  {
+   "text": "Comparison is the thief of joy.",
+   "author": "Unknown",
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 166
+  },
+  {
+   "text": "Compare yourself to who you were yesterday, not to anyone else.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 167
+  },
+  {
+   "text": "Being different is not a problem to solve. It's a feature.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 168
+  },
+  {
+   "text": "Your opinion is worth sharing, especially when it's different.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 169
+  },
+  {
+   "text": "Your body is for doing things, not for looking a certain way.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 170
+  },
+  {
+   "text": "You are allowed to change your mind when you learn something new.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "learning",
+    "self-worth"
+   ],
+   "id": 171
+  },
+  {
+   "text": "Friends who make you feel small aren't your size. Find your size.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "friendship",
+    "self-worth"
+   ],
+   "id": 172
+  },
+  {
+   "text": "It's not your job to be perfect. It's your job to be you, on purpose.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "self-worth"
+   ],
+   "id": 173
+  },
+  {
+   "text": "You get to decide what kind of person you are, every single day. Today counts.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 174
+  },
+  {
+   "text": "If something feels wrong, trust that feeling and tell a grown-up you trust.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "safety",
+    "self-worth"
+   ],
+   "id": 175
+  },
+  {
+   "text": "Nobody has it all figured out, not even grown-ups. We're all learning as we go.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "self-worth",
+    "humor"
+   ],
+   "id": 176
+  },
+  {
+   "text": "You don't owe anyone a smile, but a real one is a gift.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "self-worth",
+    "kindness"
+   ],
+   "id": 177
+  },
+  {
+   "text": "The future belongs to those who believe in the beauty of their dreams.",
+   "author": "Eleanor Roosevelt",
+   "source": null,
+   "tags": [
+    "dreams"
+   ],
+   "id": 178
+  },
+  {
+   "text": "All our dreams can come true, if we have the courage to pursue them.",
+   "author": "Walt Disney",
+   "source": null,
+   "tags": [
+    "dreams"
+   ],
+   "id": 179
+  },
+  {
+   "text": "The way to get started is to quit talking and begin doing.",
+   "author": "Walt Disney",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 180
+  },
+  {
+   "text": "It's kind of fun to do the impossible.",
+   "author": "Walt Disney",
+   "source": null,
+   "tags": [
+    "dreams",
+    "humor"
+   ],
+   "id": 181
+  },
+  {
+   "text": "Tell me, what is it you plan to do with your one wild and precious life?",
+   "author": "Mary Oliver",
+   "source": "The Summer Day",
+   "tags": [
+    "purpose"
+   ],
+   "id": 182
+  },
+  {
+   "text": "Instructions for living a life: Pay attention. Be astonished. Tell about it.",
+   "author": "Mary Oliver",
+   "source": "Sometimes",
+   "tags": [
+    "mindfulness",
+    "wonder"
+   ],
+   "id": 183
+  },
+  {
+   "text": "Hope is the thing with feathers that perches in the soul.",
+   "author": "Emily Dickinson",
+   "source": null,
+   "tags": [
+    "hope"
+   ],
+   "id": 184
+  },
+  {
+   "text": "I dwell in Possibility.",
+   "author": "Emily Dickinson",
+   "source": null,
+   "tags": [
+    "dreams"
+   ],
+   "id": 185
+  },
+  {
+   "text": "Listen to the mustn'ts, child. Listen to the don'ts. Listen to the shouldn'ts, the impossibles, the won'ts. Listen to the never haves, then listen close to me: anything can happen, child. Anything can be.",
+   "author": "Shel Silverstein",
+   "source": "Where the Sidewalk Ends",
+   "tags": [
+    "dreams",
+    "imagination"
+   ],
+   "id": 186
+  },
+  {
+   "text": "If one advances confidently in the direction of her dreams, and endeavors to live the life which she has imagined, she will meet with a success unexpected in common hours.",
+   "author": "Henry David Thoreau",
+   "source": "Walden (adapted)",
+   "tags": [
+    "dreams"
+   ],
+   "id": 187
+  },
+  {
+   "text": "Two roads diverged in a wood, and I took the one less traveled by, and that has made all the difference.",
+   "author": "Robert Frost",
+   "source": "The Road Not Taken",
+   "tags": [
+    "courage",
+    "adventure"
+   ],
+   "id": 188
+  },
+  {
+   "text": "Not all those who wander are lost.",
+   "author": "J.R.R. Tolkien",
+   "source": "The Fellowship of the Ring",
+   "tags": [
+    "adventure"
+   ],
+   "id": 189
+  },
+  {
+   "text": "Even the smallest person can change the course of the future.",
+   "author": "Galadriel",
+   "source": "The Lord of the Rings",
+   "tags": [
+    "purpose"
+   ],
+   "id": 190
+  },
+  {
+   "text": "It is our choices that show what we truly are, far more than our abilities.",
+   "author": "Albus Dumbledore",
+   "source": "Harry Potter and the Chamber of Secrets",
+   "tags": [
+    "purpose"
+   ],
+   "id": 191
+  },
+  {
+   "text": "It is only with the heart that one can see rightly; what is essential is invisible to the eye.",
+   "author": "Antoine de Saint-Exupéry",
+   "source": "The Little Prince",
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 192
+  },
+  {
+   "text": "All grown-ups were once children, but only few of them remember it.",
+   "author": "Antoine de Saint-Exupéry",
+   "source": "The Little Prince",
+   "tags": [
+    "imagination",
+    "humor"
+   ],
+   "id": 193
+  },
+  {
+   "text": "Second star to the right, and straight on till morning.",
+   "author": "J.M. Barrie",
+   "source": "Peter Pan",
+   "tags": [
+    "adventure"
+   ],
+   "id": 194
+  },
+  {
+   "text": "Adventure is out there!",
+   "author": "Ellie",
+   "source": "Up",
+   "tags": [
+    "adventure"
+   ],
+   "id": 195
+  },
+  {
+   "text": "The flower that blooms in adversity is the most rare and beautiful of all.",
+   "author": "The Emperor",
+   "source": "Mulan",
+   "tags": [
+    "perseverance"
+   ],
+   "id": 196
+  },
+  {
+   "text": "The past can hurt. But the way I see it, you can either run from it or learn from it.",
+   "author": "Rafiki",
+   "source": "The Lion King",
+   "tags": [
+    "learning"
+   ],
+   "id": 197
+  },
+  {
+   "text": "Sometimes the right path is not the easiest one.",
+   "author": "Grandmother Willow",
+   "source": "Pocahontas",
+   "tags": [
+    "courage"
+   ],
+   "id": 198
+  },
+  {
+   "text": "Not everyone can become a great artist, but a great artist can come from anywhere.",
+   "author": "Anton Ego",
+   "source": "Ratatouille",
+   "tags": [
+    "creativity",
+    "dreams"
+   ],
+   "id": 199
+  },
+  {
+   "text": "Every child is an artist. The problem is how to remain an artist once we grow up.",
+   "author": "Pablo Picasso",
+   "source": null,
+   "tags": [
+    "creativity"
+   ],
+   "id": 200
+  },
+  {
+   "text": "Creativity takes courage.",
+   "author": "Henri Matisse",
+   "source": null,
+   "tags": [
+    "creativity",
+    "courage"
+   ],
+   "id": 201
+  },
+  {
+   "text": "You can't use up creativity. The more you use, the more you have.",
+   "author": "Maya Angelou",
+   "source": null,
+   "tags": [
+    "creativity"
+   ],
+   "id": 202
+  },
+  {
+   "text": "Nothing will work unless you do.",
+   "author": "Maya Angelou",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 203
+  },
+  {
+   "text": "If you don't like something, change it. If you can't change it, change your attitude.",
+   "author": "Maya Angelou",
+   "source": null,
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 204
+  },
+  {
+   "text": "Courage is the most important of all the virtues, because without courage you can't practice any other virtue consistently.",
+   "author": "Maya Angelou",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 205
+  },
+  {
+   "text": "We delight in the beauty of the butterfly, but rarely admit the changes it has gone through to achieve that beauty.",
+   "author": "Maya Angelou",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 206
+  },
+  {
+   "text": "I can be changed by what happens to me. But I refuse to be reduced by it.",
+   "author": "Maya Angelou",
+   "source": "Letter to My Daughter",
+   "tags": [
+    "courage",
+    "self-worth"
+   ],
+   "id": 207
+  },
+  {
+   "text": "My mission in life is not merely to survive, but to thrive; and to do so with some passion, some compassion, some humor, and some style.",
+   "author": "Maya Angelou",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 208
+  },
+  {
+   "text": "Make each day your masterpiece.",
+   "author": "John Wooden",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 209
+  },
+  {
+   "text": "Things turn out best for the people who make the best of the way things turn out.",
+   "author": "John Wooden",
+   "source": null,
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 210
+  },
+  {
+   "text": "Don't let what you cannot do interfere with what you can do.",
+   "author": "John Wooden",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 211
+  },
+  {
+   "text": "Do what you can, with what you have, where you are.",
+   "author": "Theodore Roosevelt",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 212
+  },
+  {
+   "text": "Start where you are. Use what you have. Do what you can.",
+   "author": "Arthur Ashe",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 213
+  },
+  {
+   "text": "If opportunity doesn't knock, build a door.",
+   "author": "Milton Berle",
+   "source": null,
+   "tags": [
+    "creativity",
+    "humor"
+   ],
+   "id": 214
+  },
+  {
+   "text": "Luck is what happens when preparation meets opportunity.",
+   "author": "Seneca",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 215
+  },
+  {
+   "text": "Be so good they can't ignore you.",
+   "author": "Steve Martin",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 216
+  },
+  {
+   "text": "I never dreamed about success. I worked for it.",
+   "author": "Estée Lauder",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 217
+  },
+  {
+   "text": "The only limit to our realization of tomorrow will be our doubts of today.",
+   "author": "Franklin D. Roosevelt",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 218
+  },
+  {
+   "text": "Doubt kills more dreams than failure ever will.",
+   "author": "Suzy Kassem",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 219
+  },
+  {
+   "text": "Believe in yourself! Have faith in your abilities!",
+   "author": "Norman Vincent Peale",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 220
+  },
+  {
+   "text": "You get in life what you have the courage to ask for.",
+   "author": "Oprah Winfrey",
+   "source": null,
+   "tags": [
+    "courage"
+   ],
+   "id": 221
+  },
+  {
+   "text": "Turn your wounds into wisdom.",
+   "author": "Oprah Winfrey",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 222
+  },
+  {
+   "text": "Doing the best at this moment puts you in the best place for the next moment.",
+   "author": "Oprah Winfrey",
+   "source": null,
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 223
+  },
+  {
+   "text": "Well done is better than well said.",
+   "author": "Benjamin Franklin",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 224
+  },
+  {
+   "text": "Either write something worth reading or do something worth writing.",
+   "author": "Benjamin Franklin",
+   "source": null,
+   "tags": [
+    "purpose",
+    "creativity"
+   ],
+   "id": 225
+  },
+  {
+   "text": "It is not the mountain we conquer, but ourselves.",
+   "author": "Edmund Hillary",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 226
+  },
+  {
+   "text": "Climb mountains not so the world can see you, but so you can see the world.",
+   "author": "David McCullough Jr.",
+   "source": null,
+   "tags": [
+    "adventure",
+    "mindfulness"
+   ],
+   "id": 227
+  },
+  {
+   "text": "The world is full of magic things, patiently waiting for our senses to grow sharper.",
+   "author": "Eden Phillpotts",
+   "source": null,
+   "tags": [
+    "wonder"
+   ],
+   "id": 228
+  },
+  {
+   "text": "Keep looking up. That's the secret of life.",
+   "author": "Snoopy",
+   "source": "Peanuts, by Charles Schulz",
+   "tags": [
+    "hope",
+    "humor"
+   ],
+   "id": 229
+  },
+  {
+   "text": "Rivers know this: there is no hurry. We shall get there some day.",
+   "author": "Winnie-the-Pooh",
+   "source": "by A.A. Milne",
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 230
+  },
+  {
+   "text": "Weeds are flowers too, once you get to know them.",
+   "author": "Eeyore",
+   "source": "Winnie-the-Pooh, by A.A. Milne",
+   "tags": [
+    "kindness",
+    "mindfulness"
+   ],
+   "id": 231
+  },
+  {
+   "text": "You can't stay in your corner of the Forest waiting for others to come to you. You have to go to them sometimes.",
+   "author": "Winnie-the-Pooh",
+   "source": "by A.A. Milne",
+   "tags": [
+    "friendship",
+    "courage"
+   ],
+   "id": 232
+  },
+  {
+   "text": "You're braver than you believe, and stronger than you seem, and smarter than you think.",
+   "author": "Christopher Robin",
+   "source": "Winnie the Pooh",
+   "tags": [
+    "self-belief"
+   ],
+   "id": 233
+  },
+  {
+   "text": "Isn't it nice to think that tomorrow is a new day with no mistakes in it yet?",
+   "author": "L.M. Montgomery",
+   "source": "Anne of Green Gables",
+   "tags": [
+    "hope",
+    "mistakes"
+   ],
+   "id": 234
+  },
+  {
+   "text": "Dear old world, you are very lovely, and I am glad to be alive in you.",
+   "author": "L.M. Montgomery",
+   "source": "Anne of Green Gables",
+   "tags": [
+    "gratitude"
+   ],
+   "id": 235
+  },
+  {
+   "text": "Think of all the beauty still left around you and be happy.",
+   "author": "Anne Frank",
+   "source": null,
+   "tags": [
+    "gratitude",
+    "hope"
+   ],
+   "id": 236
+  },
+  {
+   "text": "Everyone has inside of them a piece of good news. The good news is you don't know how great you can be!",
+   "author": "Anne Frank",
+   "source": null,
+   "tags": [
+    "self-belief"
+   ],
+   "id": 237
+  },
+  {
+   "text": "The happiness of your life depends upon the quality of your thoughts.",
+   "author": "Marcus Aurelius",
+   "source": null,
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 238
+  },
+  {
+   "text": "Waste no more time arguing about what a good person should be. Be one.",
+   "author": "Marcus Aurelius",
+   "source": "Meditations (adapted)",
+   "tags": [
+    "purpose"
+   ],
+   "id": 239
+  },
+  {
+   "text": "We suffer more often in imagination than in reality.",
+   "author": "Seneca",
+   "source": null,
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 240
+  },
+  {
+   "text": "A journey of a thousand miles begins with a single step.",
+   "author": "Lao Tzu",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 241
+  },
+  {
+   "text": "Wherever you go, go with all your heart.",
+   "author": "Confucius",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 242
+  },
+  {
+   "text": "The best time to plant a tree was twenty years ago. The second best time is now.",
+   "author": "Proverb",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 243
+  },
+  {
+   "text": "Nobody can go back and start a new beginning, but anyone can start today and make a new ending.",
+   "author": "Maria Robinson",
+   "source": null,
+   "tags": [
+    "hope"
+   ],
+   "id": 244
+  },
+  {
+   "text": "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+   "author": "Zig Ziglar",
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 245
+  },
+  {
+   "text": "I'm not telling you it's going to be easy. I'm telling you it's going to be worth it.",
+   "author": "Art Williams",
+   "source": null,
+   "tags": [
+    "perseverance"
+   ],
+   "id": 246
+  },
+  {
+   "text": "Done is better than perfect.",
+   "author": "Sheryl Sandberg",
+   "source": null,
+   "tags": [
+    "mistakes",
+    "purpose"
+   ],
+   "id": 247
+  },
+  {
+   "text": "Flatter me, and I may not believe you. Criticize me, and I may not like you. Ignore me, and I may not forgive you. Encourage me, and I will not forget you.",
+   "author": "William Arthur Ward",
+   "source": null,
+   "tags": [
+    "kindness"
+   ],
+   "id": 248
+  },
+  {
+   "text": "The more I want to get something done, the less I call it work.",
+   "author": "Richard Bach",
+   "source": null,
+   "tags": [
+    "purpose",
+    "humor"
+   ],
+   "id": 249
+  },
+  {
+   "text": "It's the possibility of having a dream come true that makes life interesting.",
+   "author": "Paulo Coelho",
+   "source": "The Alchemist",
+   "tags": [
+    "dreams"
+   ],
+   "id": 250
+  },
+  {
+   "text": "I can't go back to yesterday because I was a different person then.",
+   "author": "Lewis Carroll",
+   "source": "Alice's Adventures in Wonderland",
+   "tags": [
+    "learning"
+   ],
+   "id": 251
+  },
+  {
+   "text": "Big dreams are built in small mornings. This is one of them.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "dreams",
+    "morning"
+   ],
+   "id": 252
+  },
+  {
+   "text": "Make something today: a drawing, a plan, a joke, a friend.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "creativity",
+    "morning"
+   ],
+   "id": 253
+  },
+  {
+   "text": "Treat your future self like a friend. Do one thing today she'll thank you for.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 254
+  },
+  {
+   "text": "Finish what you start, or decide on purpose to stop. Both are fine. Drifting isn't.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "purpose"
+   ],
+   "id": 255
+  },
+  {
+   "text": "Notice one thing you're grateful for before your feet touch the floor.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "gratitude",
+    "morning"
+   ],
+   "id": 256
+  },
+  {
+   "text": "Drink some water, stretch, and go outside today. Your brain lives in your body.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "health",
+    "morning"
+   ],
+   "id": 257
+  },
+  {
+   "text": "Rest is part of the work. So is play.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "health",
+    "mindfulness"
+   ],
+   "id": 258
+  },
+  {
+   "text": "Your feelings are real, and they are also visitors. They pass.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "mindfulness"
+   ],
+   "id": 259
+  },
+  {
+   "text": "Stand up straight, take a deep breath, and remember: you have handled hard mornings before.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "courage",
+    "morning"
+   ],
+   "id": 260
+  },
+  {
+   "text": "You don't have to be the best at something to love doing it.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "self-worth",
+    "creativity"
+   ],
+   "id": 261
+  },
+  {
+   "text": "If you can't think of something nice to say about yourself, borrow these words: you're great.",
+   "author": null,
+   "source": null,
+   "tags": [
+    "self-worth",
+    "humor"
+   ],
+   "id": 262
+  }
+ ]
+}

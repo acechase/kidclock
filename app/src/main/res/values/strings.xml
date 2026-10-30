@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">KidClock</string>
+    <string name="settings_title">Settings</string>
+    <string name="snooze">Snooze</string>
+    <string name="dismiss">Off</string>
+    <string name="listening">Listening… say “snooze” or “stop”</string>
+    <string name="mic_unavailable">Voice off (microphone muted)</string>
+    <string name="add_alarm">+ Add alarm</string>
+    <string name="done">Done</string>
+    <string name="delete">Delete</string>
+    <string name="use_24h">24-hour clock</string>
+    <string name="night_start">Night starts</string>
+    <string name="night_end">Night ends / okay to wake</string>
+    <string name="snooze_minutes">Snooze minutes</string>
+    <string name="voice_commands">Voice snooze while ringing</string>
+    <string name="next_alarm">Next alarm</string>
+    <string name="no_alarm">No alarm</string>
+    <string name="test_alarm">Ring a test alarm in 10 s</string>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="ring_bg">#FFB347</color>
+    <color name="ring_snooze">#4A6FA5</color>
+    <color name="ring_dismiss">#D64545</color>
+    <color name="settings_bg">#1C1E26</color>
+    <color name="settings_card">#2A2D3A</color>
+    <color name="settings_text">#F2F2F2</color>
+    <color name="accent">#7AD3FF</color>
+</resources>
