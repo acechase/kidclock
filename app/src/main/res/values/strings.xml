@@ -11,7 +11,7 @@
     <string name="use_24h">24-hour clock</string>
     <string name="night_start">Night starts</string>
     <string name="night_end">Night ends / okay to wake</string>
-    <string name="always_night">Always night (dark and amber all day)</string>
+    <string name="always_night">Always night (amber on black all day; brightness still follows the night window)</string>
     <string name="snooze_minutes">Snooze minutes</string>
     <string name="voice_commands">Voice snooze while ringing</string>
     <string name="next_alarm">Next alarm</string>

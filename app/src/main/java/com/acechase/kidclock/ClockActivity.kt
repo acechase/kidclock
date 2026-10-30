@@ -278,7 +278,8 @@ class ClockActivity : AppCompatActivity() {
             nextMain.isSnooze -> "Snoozed until ${fmt(nextMain.atMs)}"
             else -> fmt(nextMain.atMs)
         }
-        dimmer.apply(phase == NightSchedule.Phase.NIGHT, forceBright = wakeWindow)
+        // Brightness follows the scheduled window only: "Always night" changes colours, not brightness.
+        dimmer.apply(schedule.isScheduledNight(Calendar.getInstance()), forceBright = wakeWindow)
         pickerOverlay.night = phase == NightSchedule.Phase.NIGHT
         f.weather = if (prefs.weatherEnabled) WeatherService.cached(this) else null
         WeatherService.maybeRefresh(this) { w -> face?.weather = w }
