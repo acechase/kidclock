@@ -103,6 +103,7 @@ enum class GentleSound(override val id: String, override val title: String, over
             val length = 12.0
             val mix = buffer(length)
             fun chirp(startSec: Double, f0: Double, f1: Double, dur: Double, amp: Double) {
+                if (startSec + dur > length - 0.5) return   // keep the last half second quiet so loops are seamless
                 val start = (startSec * SAMPLE_RATE).toInt()
                 val n = (dur * SAMPLE_RATE).toInt()
                 var phase = 0.0

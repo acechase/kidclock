@@ -143,6 +143,7 @@ class SettingsActivity : AppCompatActivity() {
         general.addView(switchRow(getString(R.string.use_24h), prefs.use24h) { prefs.use24h = it; rebuild() })
         general.addView(timeRow(getString(R.string.night_start), prefs.nightStartMin) { prefs.nightStartMin = it; buildGeneral() })
         general.addView(timeRow(getString(R.string.night_end), prefs.nightEndMin) { prefs.nightEndMin = it; buildGeneral() })
+        general.addView(switchRow(getString(R.string.always_night), prefs.alwaysNight) { prefs.alwaysNight = it })
         general.addView(stepperRow(getString(R.string.snooze_minutes), prefs.snoozeMinutes) { prefs.snoozeMinutes = it; buildGeneral() })
         general.addView(soundRow(ALARM_SOUND, AlarmSound.values().toList(), AlarmSound.byId(prefs.alarmSoundId),
             { prefs.alarmSoundId = it.id }, ::alarmPreview))

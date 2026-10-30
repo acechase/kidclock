@@ -20,14 +20,10 @@ class Prefs(context: Context) {
         get() = sp.getInt("nightEnd", 6 * 60 + 30)
         set(v) = sp.edit().putInt("nightEnd", v).apply()
 
-    /** The night window saved by the TEST_NIGHT developer hook before it forced night on; -1 when not forced. */
-    var testNightBackupStart: Int
-        get() = sp.getInt("testNightStart", -1)
-        set(v) = sp.edit().putInt("testNightStart", v).apply()
-
-    var testNightBackupEnd: Int
-        get() = sp.getInt("testNightEnd", -1)
-        set(v) = sp.edit().putInt("testNightEnd", v).apply()
+    /** Night mode all day long (dark screen, amber digits) regardless of the night window. */
+    var alwaysNight: Boolean
+        get() = sp.getBoolean("alwaysNight", false)
+        set(v) = sp.edit().putBoolean("alwaysNight", v).apply()
 
     var snoozeMinutes: Int
         get() = sp.getInt("snoozeMin", 9)

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Force night mode on the Portal to check the amber-on-black looks, then put the real window back.
+# Flip the "Always night" setting on the Portal from adb, to check the amber-on-black looks.
 #   tools/test-night.sh on     night all day (the clock picks it up within a second)
-#   tools/test-night.sh off    restore the night window that was saved when it was forced on
+#   tools/test-night.sh off    back to the normal night window
+# The same switch is in Settings, so this only saves a trip through the corner-hold menu.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 . tools/env.sh
