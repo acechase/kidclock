@@ -20,8 +20,8 @@ import kotlin.math.sin
  */
 class HalloweenFace(context: Context) : ClockFace(context) {
     private class Bat(val x: Float, val y: Float, val size: Float, val speed: Float, val phase: Float)
-    private val bats = listOf(Bat(272f, 118f, 72f, 0.5f, 0f), Bat(382f, 203f, 44f, 0.7f, 1.3f), Bat(487f, 90f, 34f, 0.9f, 2.1f),
-        Bat(905f, 135f, 50f, 0.6f, 3.0f), Bat(1128f, 301f, 36f, 0.8f, 4.2f), Bat(755f, 659f, 30f, 0.4f, 5.1f))
+    private val bats = listOf(Bat(272f, 118f, 84f, 0.5f, 0f), Bat(382f, 203f, 54f, 0.7f, 1.3f), Bat(487f, 90f, 42f, 0.9f, 2.1f),
+        Bat(905f, 135f, 60f, 0.6f, 3.0f), Bat(1128f, 301f, 44f, 0.8f, 4.2f), Bat(755f, 659f, 36f, 0.4f, 5.1f))
     private val embers = floatArrayOf(429f, 569f, 18f, 667f, 597f, 14f, 870f, 550f, 20f, 68f, 608f, 16f, 1187f, 527f, 14f, 986f, 256f, 12f)
     private val p = Paint(Paint.ANTI_ALIAS_FLAG)
     private val bg = Paint()
@@ -38,9 +38,9 @@ class HalloweenFace(context: Context) : ClockFace(context) {
         for (b in bats) {
             val x = b.x * sx + (sin(t * b.speed + b.phase) * 26.0).toFloat() * sx
             val y = b.y * sy + (sin(t * b.speed * 1.7 + b.phase) * 10.0).toFloat() * sy
-            val flap = 0.7f + 0.3f * abs(sin(t * 7 + b.phase)).toFloat()
-            c.save(); c.translate(x, y); c.scale(1f, flap)
-            Doodles.fill(c, p, Doodles.bat, 0f, 0f, b.size * sy, (sin(t * b.speed + b.phase) * 8.0).toFloat(), 0xFF140A20.toInt(), box = 100f)
+            val flap = 0.75f + 0.25f * abs(sin(t * 6 + b.phase)).toFloat()
+            c.save(); c.translate(x, y); c.rotate((sin(t * b.speed + b.phase) * 8.0).toFloat()); c.scale(1f, flap)
+            Doodles.fill(c, p, Doodles.bat, 0f, 0f, b.size * sy, 0f, 0xFF140A20.toInt(), box = 100f)
             c.restore()
         }
         var i = 0

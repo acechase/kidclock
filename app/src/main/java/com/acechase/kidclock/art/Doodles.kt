@@ -42,7 +42,8 @@ object Doodles {
     private val tiaraBase = path("M12 60h96")
 
     /** Seasonal shapes. */
-    val bat: Path = path("M50 30C44 18 36 14 28 16c2 6-2 12-8 12-6 0-12-2-18 2 8 4 14 6 22 12 6 4 14 2 18-4l8 8 8-8c4 6 12 8 18 4 8-6 14-8 22-12-6-4-12-2-18-2-6 0-10-6-8-12-8-2-16 2-22 14Z")
+    /** A bat in flight, 100x60: pointed wingtips, two ears, a round body, scalloped trailing edges. */
+    val bat: Path = path("M2 10C14 6 26 12 36 22 40 20 42 16 43 12L45 2 48 11Q50 10 52 11L55 2 57 12C58 16 60 20 64 22 74 12 86 6 98 10Q92 32 82 30 74 44 66 36 60 46 56 42C54 52 46 52 44 42Q40 46 34 36 26 44 18 30 8 32 2 10Z")
     val mapleLeaf: Path = path("M50 96V64L30 72l4-14-20-6 12-8-8-16 18 6 4-16 10 14 10-14 4 16 18-6-8 16 12 8-20 6 4 14-20-8v32Z")
     val egg: Path = path("M50 8C30 8 14 36 14 58c0 22 16 36 36 36s36-14 36-36C86 36 70 8 50 8Z")
     /** A holly leaf centred on the origin, tip pointing right. */
