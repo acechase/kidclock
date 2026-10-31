@@ -48,6 +48,10 @@ class ClockActivity : AppCompatActivity() {
     private lateinit var dimmer: Dimmer
     private lateinit var schedule: NightSchedule
     private lateinit var holidays: HolidayManager
+    /** What [applyDesign] last built, so a pref changed behind our back (the adb test hook) is noticed. */
+    private var shownFace = -1
+    private var shownLook = -1
+    private var shownHoliday: String? = null
     private var face: ClockFace? = null
     @Suppress("DEPRECATION")
     private var keyguardLock: android.app.KeyguardManager.KeyguardLock? = null
@@ -178,6 +182,7 @@ class ClockActivity : AppCompatActivity() {
     /** Builds the screen: the active holiday's background and look if there is one, else the chosen ones. */
     private fun applyDesign() {
         val holiday = holidays.active
+        shownFace = prefs.faceIndex; shownLook = prefs.lookIndex; shownHoliday = holiday?.id
         face?.let { root.removeView(it) }
         face = (holiday?.let { HolidayDesigns.face(this, it) } ?: ClockFace.create(this, prefs.faceIndex)).also {
             it.look = holiday?.let { h -> HolidayDesigns.look(h) } ?: Look.create(prefs.lookIndex)
@@ -273,6 +278,7 @@ class ClockActivity : AppCompatActivity() {
     private fun tick() {
         // Holiday windows open and close on their own schedule; rebuild the screen when one does.
         if (holidays.sync() != HolidayPlanner.Action.NONE) { applyDesign(); return }
+        if (shownFace != prefs.faceIndex || shownLook != prefs.lookIndex || shownHoliday != holidays.active?.id) { applyDesign(); return }
         val f = face ?: return
         val phase = schedule.phase(Calendar.getInstance())
         f.phase = phase

@@ -18,6 +18,8 @@ import com.acechase.kidclock.Prefs
  *   -a com.acechase.kidclock.TEST_NIGHT  --ez on true         flip the "Always night" setting
  *   -a com.acechase.kidclock.TEST_HOLIDAY --es id halloween    pretend today is in that holiday's
  *                                                              window ("off" to stop pretending)
+ *   -a com.acechase.kidclock.TEST_DESIGN --ei face 8 --ei look 9   show that background and look
+ *                                                              (-1 keeps one as it is; dismisses a holiday)
  */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -28,6 +30,14 @@ class BootReceiver : BroadcastReceiver() {
         }
         if (intent.action == ACTION_TEST_NIGHT) {
             Prefs(context).alwaysNight = intent.getBooleanExtra("on", true)
+            return
+        }
+        if (intent.action == ACTION_TEST_DESIGN) {
+            Prefs(context).apply {
+                intent.getIntExtra("face", -1).takeIf { it >= 0 }?.let { faceIndex = it }
+                intent.getIntExtra("look", -1).takeIf { it >= 0 }?.let { lookIndex = it }
+                holidayActive?.let { holidayDismissed = it; holidayActive = null }
+            }
             return
         }
         if (intent.action == ACTION_TEST_HOLIDAY) {
@@ -54,5 +64,6 @@ class BootReceiver : BroadcastReceiver() {
         const val ACTION_TEST_MISSED = "com.acechase.kidclock.TEST_MISSED"
         const val ACTION_TEST_NIGHT = "com.acechase.kidclock.TEST_NIGHT"
         const val ACTION_TEST_HOLIDAY = "com.acechase.kidclock.TEST_HOLIDAY"
+        const val ACTION_TEST_DESIGN = "com.acechase.kidclock.TEST_DESIGN"
     }
 }

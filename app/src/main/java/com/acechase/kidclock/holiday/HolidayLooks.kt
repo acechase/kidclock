@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.RectF
 import android.graphics.Shader
 import android.graphics.Typeface
 import com.acechase.kidclock.art.Doodles
@@ -20,6 +21,8 @@ import java.util.Locale
  */
 abstract class HolidayLook(override val name: String) : Look() {
     protected val orn = Paint(Paint.ANTI_ALIAS_FLAG)
+    /** The date sits lower than in Classic, so the quiet quote moves down under it. */
+    override fun quoteBox(w: Float, h: Float) = RectF(w * 0.14f, h * 0.775f, w * 0.86f, h * 0.885f)
 
     /** Where the digits ended up, so the ornament and AM/PM can sit against them. */
     protected class Digits(val left: Float, val right: Float, val baseY: Float, val size: Float)
@@ -36,6 +39,7 @@ abstract class HolidayLook(override val name: String) : Look() {
         paint.typeface = tf
         paint.textAlign = Paint.Align.CENTER
         paint.textSize = h * sizeFrac
+        paint.fontFeatureSettings = LINING   // Cormorant, Playfair and friends default to short old-style figures
         fit(paint, x.timeText, w * fitFrac)
         val ts = paint.textSize
         val baseY = h * baseFrac
@@ -55,6 +59,7 @@ abstract class HolidayLook(override val name: String) : Look() {
         paint.shader = null
         paint.clearShadowLayer()
         paint.letterSpacing = 0f
+        paint.fontFeatureSettings = null
         x.timeRect.set(w / 2f - tw / 2f - h * 0.05f, baseY - ts * 0.8f, w / 2f + tw / 2f + h * 0.14f, baseY + ts * 0.15f)
         return Digits(w / 2f - tw / 2f, w / 2f + tw / 2f, baseY, ts)
     }
@@ -97,9 +102,11 @@ abstract class HolidayLook(override val name: String) : Look() {
         paint.textAlign = Paint.Align.LEFT
         paint.textSize = x.h * sizeFrac
         paint.letterSpacing = spacing
+        paint.fontFeatureSettings = LINING
         paint.color = if (x.night) x.ink else color
         paint.alpha = if (x.night) 150 else 255
         c.drawText(am, d.right + x.h * 0.03f, d.baseY, paint)
+        paint.fontFeatureSettings = null
         paint.letterSpacing = 0f; paint.textSkewX = 0f; paint.alpha = 255
     }
 
@@ -109,12 +116,13 @@ abstract class HolidayLook(override val name: String) : Look() {
         paint.textAlign = Paint.Align.CENTER
         paint.textSize = x.h * sizeFrac
         paint.letterSpacing = spacing
+        paint.fontFeatureSettings = LINING
         paint.color = if (x.night) x.ink else color
         paint.alpha = if (x.night) 150 else 255
         if (!x.night) paint.setShadowLayer(12f, 0f, 2f, 0x66000000)
         fit(paint, text, x.w * 0.9f)
         c.drawText(text, x.w / 2f, x.h * yFrac, paint)
-        paint.clearShadowLayer(); paint.letterSpacing = 0f; paint.alpha = 255
+        paint.clearShadowLayer(); paint.letterSpacing = 0f; paint.alpha = 255; paint.fontFeatureSettings = null
     }
 
     /** A thin rule that fades out at both ends. */
@@ -135,6 +143,8 @@ abstract class HolidayLook(override val name: String) : Look() {
         drawAlarmLine(c, x, x.w / 2f, x.h * 0.935f, x.h * sizeFrac, tf, color = if (x.night) x.ink else color, alpha = if (x.night) 110 else 220, shadowed = false)
 
     /** Ornament colour by day, dim amber at night. */
+    protected companion object { const val LINING = "lnum" }
+
     protected fun orn(x: LookContext, day: Int, nightAlpha: Int = 150) = if (x.night) withAlpha(x.ink, nightAlpha) else day
 }
 
@@ -291,11 +301,11 @@ class WitchingHourLook : HolidayLook("Witching Hour") {
         val d = digits(c, x, x.fonts.cormorant, 0.4125f, metal = COPPER, stops = floatArrayOf(0f, 0.4f, 0.58f, 0.82f, 1f))
         if (x.night) {
             orn.reset(); orn.isAntiAlias = true; orn.style = Paint.Style.STROKE; orn.strokeWidth = 3f; orn.color = withAlpha(x.ink, 150)
-            Doodles.draw(c, d.left + x.h * 0.07f, d.baseY - d.size * 0.9f, x.h * 0.2f, -14f, 120f) {
+            Doodles.draw(c, d.left + x.h * 0.07f, d.baseY - d.size * 0.86f, x.h * 0.2f, -14f, 120f) {
                 c.drawLine(10f, 86f, 110f, 86f, orn); c.drawLine(26f, 86f, 80f, 6f, orn); c.drawLine(80f, 6f, 96f, 86f, orn)
             }
         } else {
-            Doodles.witchHat(c, orn, d.left + x.h * 0.07f, d.baseY - d.size * 0.9f, x.h * 0.2f, -14f)
+            Doodles.witchHat(c, orn, d.left + x.h * 0.07f, d.baseY - d.size * 0.86f, x.h * 0.2f, -14f)
         }
         ampm(c, x, d, x.fonts.cormorant, 0.09f, 0xFFD8B4FE.toInt(), spacing = 0.08f)
         date(c, x, longDate(x), x.fonts.greatVibes, 0.0975f, 0xFFD8B4FE.toInt(), 0.715f)

@@ -14,6 +14,8 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
 | ![Sky face with weather and the quote of the day](docs/screenshots/sky.webp) | ![Night mode: amber digits on black with the red okay-to-wake moon](docs/screenshots/night.webp) |
 | ![Gentle wake-up: bright screen, quote card and I'm awake button](docs/screenshots/gentle-wake.webp) | ![Analog look: a dial over the Sky background with the digital time, date and quote on the right](docs/screenshots/analog.webp) |
 | ![Choosing a look: the Sketch look with the Choose a look banner, chevrons and pager dots](docs/screenshots/looks.webp) | ![Magnets look: each digit on its own tilted coloured tile](docs/screenshots/magnets.webp) |
+| ![Notebook background with the Marker Stacked look: pink marker digits, doodled hearts and tiaras on a ruled page](docs/screenshots/notebook.webp) | ![Doodle Strings background with the Tiara look: beaded pink strings hung with doodled hearts](docs/screenshots/doodle-strings.webp) |
+| ![Halloween design, Witching Hour: copper digits with a witch hat under a moon, bats and a cobweb](docs/screenshots/halloween.webp) | ![Christmas design, Fairy Lights: white serif digits under a string of glowing bulbs, snow and holly](docs/screenshots/christmas.webp) |
 
 ## Features
 - Nine swipeable backgrounds: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,

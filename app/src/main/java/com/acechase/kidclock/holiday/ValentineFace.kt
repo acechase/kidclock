@@ -67,6 +67,6 @@ class ValentineFace(context: Context) : ClockFace(context) {
         Doodles.heart(c, p, 164f * sx, 94f * sy, 28f * s, 8f, gold, Style.SOLID)
         Doodles.heart(c, p, 1052f * sx, 312f * sy, 24f * s, -8f, gold, Style.SOLID)
         Doodles.heart(c, p, 710f * sx, 570f * sy, 20f * s, 16f, 0xFFFFB3C6.toInt(), Style.SOLID)
-        Doodles.heart(c, p, 355f * sx, 100f * sy, 80f * s, -8f, 0xFFF3DDA0.toInt(), Style.ARROW)
+        Doodles.heart(c, p, 990f * sx, 120f * sy, 80f * s, -8f, 0xFFF3DDA0.toInt(), Style.ARROW)
     }
 }

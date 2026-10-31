@@ -3,6 +3,7 @@ package com.acechase.kidclock.looks
 import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Paint
+import android.graphics.RectF
 import android.graphics.Shader
 import com.acechase.kidclock.art.Doodles
 
@@ -14,6 +15,7 @@ import com.acechase.kidclock.art.Doodles
 class TiaraLook : Look() {
     override val name = "Tiara"
     override fun labelTypeface(fonts: Fonts) = fonts.cormorant
+    override fun quoteBox(w: Float, h: Float) = RectF(w * 0.14f, h * 0.775f, w * 0.86f, h * 0.885f)
     private val orn = Paint(Paint.ANTI_ALIAS_FLAG)
 
     override fun draw(c: Canvas, x: LookContext) {
@@ -29,6 +31,7 @@ class TiaraLook : Look() {
         paint.typeface = x.fonts.cormorant
         paint.textAlign = Paint.Align.CENTER
         paint.textSize = h * 0.43f
+        paint.fontFeatureSettings = "lnum"   // lining figures: Cormorant's default old-style digits sit at x-height
         fit(paint, x.timeText, w * 0.70f)
         val ts = paint.textSize
         val baseY = h * 0.575f
@@ -86,7 +89,8 @@ class TiaraLook : Look() {
         c.drawLine(w / 2f - ruleW / 2f, h * 0.745f, w / 2f + ruleW / 2f, h * 0.745f, paint)
         paint.shader = null
 
-        drawAlarmLine(c, x, w / 2f, h * 0.935f, h * 0.0425f, x.fonts.cormorant, color = if (x.night) x.ink else soft, alpha = if (x.night) 110 else 230, shadowed = false)
+        drawAlarmLine(c, x, w / 2f, h * 0.935f, h * 0.0425f, x.fonts.cormorant, alpha = if (x.night) 110 else 220, shadowed = !lightInk)
+        paint.fontFeatureSettings = null
     }
 
     private fun luminance(color: Int): Float =

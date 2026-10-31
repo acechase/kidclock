@@ -16,7 +16,7 @@ class MarkerStackedLook : Look() {
     override val name = "Marker Stacked"
     override fun labelTypeface(fonts: Fonts) = fonts.patrickHand
     override val quoteInk: Int get() = DEEP
-    override fun quoteBox(w: Float, h: Float) = RectF(w * 0.50f, h * 0.78f, w * 0.97f, h * 0.90f)
+    override fun quoteBox(w: Float, h: Float) = RectF(w * 0.50f, h * 0.795f, w * 0.97f, h * 0.915f)
     private val rule = Path()
     private val doodle = Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -79,11 +79,11 @@ class MarkerStackedLook : Look() {
             val a = if (x.night) 110 else 255
             fun col(day: Int) = if (x.night) withAlpha(x.ink, a) else day
             Doodles.tiara(c, doodle, w * 0.547f, h * 0.603f, h * 0.1575f, 6f, col(MAGENTA), Doodles.Tiara.POINTED)
-            Doodles.tiara(c, doodle, w * 0.8125f, h * 0.75f, h * 0.135f, -8f, col(MarkerLook.PINK), Doodles.Tiara.ROUNDED, heartGem = false)
+            Doodles.tiara(c, doodle, w * 0.8125f, h * 0.70f, h * 0.135f, -8f, col(MarkerLook.PINK), Doodles.Tiara.ROUNDED, heartGem = false)
             Doodles.tiara(c, doodle, w * 0.164f, h * 0.16f, h * 0.12f, -10f, col(RED), Doodles.Tiara.FIVE)
             Doodles.tiara(c, doodle, w * 0.227f, h * 0.86f, h * 0.12f, 8f, col(MAGENTA), Doodles.Tiara.POINTED, heartGem = false)
             Doodles.tiara(c, doodle, w * 0.609f, h * 0.155f, h * 0.108f, -6f, col(MarkerLook.PINK), Doodles.Tiara.ROUNDED)
-            Doodles.tiara(c, doodle, w * 0.93f, h * 0.775f, h * 0.09f, 12f, col(PLUM), Doodles.Tiara.FIVE, heartGem = false)
+            Doodles.tiara(c, doodle, w * 0.94f, h * 0.73f, h * 0.09f, 12f, col(PLUM), Doodles.Tiara.FIVE, heartGem = false)
             Doodles.sparkle(c, doodle, w * 0.6f, h * 0.5625f, h * 0.0275f, col(MAGENTA))
             Doodles.sparkle(c, doodle, w * 0.86f, h * 0.7175f, h * 0.0225f, col(MarkerLook.PINK))
         }

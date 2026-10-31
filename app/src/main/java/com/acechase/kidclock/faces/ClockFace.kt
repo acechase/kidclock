@@ -140,6 +140,7 @@ abstract class ClockFace(context: Context) : View(context) {
         if (wx != null && !night && !picking) {
             smallPaint.color = textColor
             smallPaint.typeface = if (wakeMode) fonts.regular else look.labelTypeface(fonts)
+            smallPaint.fontFeatureSettings = "lnum"
             smallPaint.setShadowLayer(8f, 0f, 3f, dayShadowColor)
             smallPaint.textAlign = Paint.Align.RIGHT
             smallPaint.textSize = h * 0.085f
@@ -153,6 +154,7 @@ abstract class ClockFace(context: Context) : View(context) {
             smallPaint.alpha = 255
             smallPaint.textAlign = Paint.Align.CENTER
             smallPaint.clearShadowLayer()
+            smallPaint.fontFeatureSettings = null
             smallPaint.typeface = fonts.regular
         }
 

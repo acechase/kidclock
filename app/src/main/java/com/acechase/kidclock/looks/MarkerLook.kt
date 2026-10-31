@@ -67,7 +67,7 @@ class MarkerLook : Look() {
 
         // AM/PM with a wobbly circle round it, up to the right.
         x.ampm?.let { am ->
-            val ax = w * 0.746f; val ay = h * 0.256f
+            val ax = w * 0.80f; val ay = h * 0.235f
             c.save()
             c.rotate(6f, ax, ay)
             paint.typeface = x.fonts.patrickHand

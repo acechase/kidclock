@@ -91,6 +91,7 @@ abstract class Look {
         paint.color = color
         paint.alpha = alpha
         paint.textAlign = align
+        paint.fontFeatureSettings = "lnum"
         if (shadowed) shadow(paint, x, 8f, 3f) else paint.clearShadowLayer()
         val s = "⏰ ${x.nextAlarmText}"
         c.drawText(s, cx, baseline, paint)
@@ -104,6 +105,7 @@ abstract class Look {
         paint.alpha = 255
         paint.textAlign = Paint.Align.CENTER
         paint.clearShadowLayer()
+        paint.fontFeatureSettings = null
     }
 
     companion object {
