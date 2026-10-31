@@ -338,8 +338,10 @@ abstract class ClockFace(context: Context) : View(context) {
             3 -> GalaxyFace(context)
             4 -> FirefliesFace(context)
             5 -> AuroraFace(context)
-            else -> MeadowFace(context)
+            6 -> MeadowFace(context)
+            7 -> DoodleStringsFace(context)
+            else -> NotebookFace(context)
         }
-        const val COUNT = 7
+        const val COUNT = 9
     }
 }

@@ -16,6 +16,8 @@ import com.acechase.kidclock.Prefs
  *                                                              ago was lost (as if the device had
  *                                                              been off), then reschedule
  *   -a com.acechase.kidclock.TEST_NIGHT  --ez on true         flip the "Always night" setting
+ *   -a com.acechase.kidclock.TEST_HOLIDAY --es id halloween    pretend today is in that holiday's
+ *                                                              window ("off" to stop pretending)
  */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -26,6 +28,15 @@ class BootReceiver : BroadcastReceiver() {
         }
         if (intent.action == ACTION_TEST_NIGHT) {
             Prefs(context).alwaysNight = intent.getBooleanExtra("on", true)
+            return
+        }
+        if (intent.action == ACTION_TEST_HOLIDAY) {
+            val id = intent.getStringExtra("id")
+            Prefs(context).apply {
+                holidayForce = id?.takeUnless { it == "off" || it == "none" }
+                holidayActive = null
+                holidayDismissed = null
+            }
             return
         }
         if (intent.action == ACTION_TEST_MISSED) {
@@ -42,5 +53,6 @@ class BootReceiver : BroadcastReceiver() {
         const val ACTION_TEST_ALARM = "com.acechase.kidclock.TEST_ALARM"
         const val ACTION_TEST_MISSED = "com.acechase.kidclock.TEST_MISSED"
         const val ACTION_TEST_NIGHT = "com.acechase.kidclock.TEST_NIGHT"
+        const val ACTION_TEST_HOLIDAY = "com.acechase.kidclock.TEST_HOLIDAY"
     }
 }

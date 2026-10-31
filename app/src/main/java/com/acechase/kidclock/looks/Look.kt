@@ -115,7 +115,10 @@ abstract class Look {
             4 -> SketchLook()
             5 -> WhackyLook()
             6 -> PixelLook()
-            else -> MagnetsLook()
+            7 -> MagnetsLook()
+            8 -> TiaraLook()
+            9 -> MarkerLook()
+            else -> MarkerStackedLook()
         }
     }
 }
