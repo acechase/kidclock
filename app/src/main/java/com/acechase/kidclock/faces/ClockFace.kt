@@ -140,6 +140,7 @@ abstract class ClockFace(context: Context) : View(context) {
         if (wx != null && !night && !picking) {
             smallPaint.color = textColor
             smallPaint.typeface = if (wakeMode) fonts.regular else look.labelTypeface(fonts)
+            smallPaint.fontFeatureSettings = "lnum"
             smallPaint.setShadowLayer(8f, 0f, 3f, dayShadowColor)
             smallPaint.textAlign = Paint.Align.RIGHT
             smallPaint.textSize = h * 0.085f
@@ -153,6 +154,7 @@ abstract class ClockFace(context: Context) : View(context) {
             smallPaint.alpha = 255
             smallPaint.textAlign = Paint.Align.CENTER
             smallPaint.clearShadowLayer()
+            smallPaint.fontFeatureSettings = null
             smallPaint.typeface = fonts.regular
         }
 
@@ -338,8 +340,10 @@ abstract class ClockFace(context: Context) : View(context) {
             3 -> GalaxyFace(context)
             4 -> FirefliesFace(context)
             5 -> AuroraFace(context)
-            else -> MeadowFace(context)
+            6 -> MeadowFace(context)
+            7 -> DoodleStringsFace(context)
+            else -> NotebookFace(context)
         }
-        const val COUNT = 7
+        const val COUNT = 9
     }
 }

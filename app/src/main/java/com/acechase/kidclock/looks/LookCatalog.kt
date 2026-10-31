@@ -5,11 +5,13 @@ package com.acechase.kidclock.looks
  * line; it is independent of the painted background (see faces/). Pure Kotlin so it is testable.
  */
 object LookCatalog {
-    val names = listOf("Classic", "Bold", "Stacked", "Analog", "Sketch", "Whacky", "Pixel", "Magnets")
+    val names = listOf("Classic", "Bold", "Stacked", "Analog", "Sketch", "Whacky", "Pixel", "Magnets", "Tiara", "Marker", "Marker Stacked")
     val count: Int get() = names.size
 
     const val CLASSIC = 0
     const val ANALOG = 3
+    /** How many painted backgrounds there were before looks existed; the old Analog face was stored as the next index. */
+    const val BACKGROUNDS_BEFORE_LOOKS = 7
 
     fun wrap(index: Int): Int = Math.floorMod(index, names.size)
 

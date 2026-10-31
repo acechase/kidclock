@@ -14,15 +14,27 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
 | ![Sky face with weather and the quote of the day](docs/screenshots/sky.webp) | ![Night mode: amber digits on black with the red okay-to-wake moon](docs/screenshots/night.webp) |
 | ![Gentle wake-up: bright screen, quote card and I'm awake button](docs/screenshots/gentle-wake.webp) | ![Analog look: a dial over the Sky background with the digital time, date and quote on the right](docs/screenshots/analog.webp) |
 | ![Choosing a look: the Sketch look with the Choose a look banner, chevrons and pager dots](docs/screenshots/looks.webp) | ![Magnets look: each digit on its own tilted coloured tile](docs/screenshots/magnets.webp) |
+| ![Notebook background with the Marker Stacked look: pink marker digits, doodled hearts and tiaras on a ruled page](docs/screenshots/notebook.webp) | ![Doodle Strings background with the Tiara look: beaded pink strings hung with doodled hearts](docs/screenshots/doodle-strings.webp) |
+| ![Halloween design, Witching Hour: copper digits with a witch hat under a moon, bats and a cobweb](docs/screenshots/halloween.webp) | ![Christmas design, Fairy Lights: white serif digits under a string of glowing bulbs, snow and holly](docs/screenshots/christmas.webp) |
 
 ## Features
-- Seven swipeable backgrounds: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,
-  **Rainbow**, **Galaxy** (nebula and shooting stars), **Fireflies** (dusk forest; a few stay lit at night), **Aurora**
-  and **Meadow** (flowers and butterflies).
-- Eight **looks** for the time itself, chosen separately from the background: hold the time for two seconds, then swipe
+- Nine swipeable backgrounds: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,
+  **Rainbow**, **Galaxy** (nebula and shooting stars), **Fireflies** (dusk forest; a few stay lit at night), **Aurora**,
+  **Meadow** (flowers and butterflies), **Doodle Strings** (beaded pink strings hung with hearts doodled in a dozen
+  marker styles, swaying) and **Notebook** (a ruled page covered in doodled hearts).
+- Eleven **looks** for the time itself, chosen separately from the background: hold the time for two seconds, then swipe
   sideways and tap to keep. **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
   sweeping second hand, for learning to read clocks), **Sketch** (hand-drawn on a paper scrap), **Whacky** (every digit
-  a different font and tilt), **Pixel** (retro game) and **Magnets** (fridge tiles). Every look has an amber night version.
+  a different font and tilt), **Pixel** (retro game), **Magnets** (fridge tiles), **Tiara** (slim serif digits in
+  champagne rose with a fine tiara on the hour and a script date), **Marker** (Caveat digits with a scribbled pink
+  underline) and **Marker Stacked** (the stacked layout in pink marker, with doodled tiaras). Every look has an amber
+  night version.
+- **Holiday designs**: a special background *and* look for New Year's Eve, Valentine's Day, St. Patrick's Day, Easter,
+  the Fourth of July, Halloween, Thanksgiving and Christmas. Each appears on its own three days before the holiday
+  and goes away the day after, giving the chosen background and look back. Swiping to another background or picking
+  another look while a holiday design is showing counts as a decision: that choice stays and there is no switch-back
+  until next year. A switch in Settings turns the feature off. Easter and Thanksgiving are computed
+  (`holiday/Holiday.kt`); the on/off logic is pure and unit-tested (`holiday/HolidayPlanner.kt`).
 - Alarms via `AlarmManager.setAlarmClock`, re-registered on boot. Per-alarm days of week; one-shot alarms disable themselves.
 - Ring screen with giant Snooze / Off buttons and **offline voice commands** ("snooze", "stop", "alarm off", "I'm awake")
   using Vosk. The microphone is opened only while ringing and released on snooze, dismiss, or the 10 minute timeout.
@@ -98,11 +110,14 @@ Needs JDK 17 and an Android SDK with build-tools 36 and platform 34. `tools/env.
 `PORTAL_SERIAL` defaults to the first adb device. Release lint is disabled because the Unity SDK ships an oddly
 named `android-37.0` platform folder that trips lint.
 
-Unit tests (alarm planning, sounds, the weather failure paths): `./gradlew testDebugUnitTest`.
+Unit tests (alarm planning, sounds, the weather failure paths, holiday dates and switching): `./gradlew testDebugUnitTest`.
+Fonts are not committed as a build step; `tools/fetch-fonts.sh` re-downloads the bundled ones (see `FONTS.md`).
 
 ## Testing from adb
 - Settings has "Test alarm (10 s)" and "Test gentle wake-up" (gentle sound in ~1 min, alarm 1 min later, self-deleting).
 - `adb shell am broadcast -n com.acechase.kidclock/.alarm.BootReceiver -a com.acechase.kidclock.TEST_ALARM --ei seconds 20`
+- `tools/test-night.sh on|off` shows the amber night colours all day; `tools/test-holiday.sh halloween` (or `newyear`,
+  `valentine`, `stpatrick`, `easter`, `july4`, `thanksgiving`, `christmas`, `off`) shows a holiday design now.
 - A scripted double-tap: `adb shell "input tap 1130 100 & sleep 0.15; input tap 1130 100; wait"` (two plain `input tap`
   calls are too slow for the 300 ms double-tap window).
 

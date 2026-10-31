@@ -16,6 +16,9 @@ import com.acechase.kidclock.alarm.AlarmScheduler
 import com.acechase.kidclock.alarm.AlarmSoundPlayer
 import com.acechase.kidclock.alarm.GentleSound
 import com.acechase.kidclock.faces.ClockFace
+import com.acechase.kidclock.holiday.HolidayDesigns
+import com.acechase.kidclock.holiday.HolidayManager
+import com.acechase.kidclock.holiday.HolidayPlanner
 import com.acechase.kidclock.looks.Look
 import com.acechase.kidclock.looks.LookCatalog
 import com.acechase.kidclock.looks.LookPickerOverlay
@@ -44,6 +47,11 @@ class ClockActivity : AppCompatActivity() {
     private lateinit var overlay: View
     private lateinit var dimmer: Dimmer
     private lateinit var schedule: NightSchedule
+    private lateinit var holidays: HolidayManager
+    /** What [applyDesign] last built, so a pref changed behind our back (the adb test hook) is noticed. */
+    private var shownFace = -1
+    private var shownLook = -1
+    private var shownHoliday: String? = null
     private var face: ClockFace? = null
     @Suppress("DEPRECATION")
     private var keyguardLock: android.app.KeyguardManager.KeyguardLock? = null
@@ -59,6 +67,7 @@ class ClockActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         prefs = Prefs(this)
         schedule = NightSchedule(prefs)
+        holidays = HolidayManager(prefs)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setShowWhenLocked(true)
         setTurnScreenOn(true)
@@ -87,11 +96,12 @@ class ClockActivity : AppCompatActivity() {
             bottomMargin = 28; rightMargin = 36
         })
         // Installs from before looks existed stored Analog as the last background.
-        LookCatalog.migrateAnalogBackground(prefs.faceIndex, ClockFace.COUNT)?.let { look ->
+        LookCatalog.migrateAnalogBackground(prefs.faceIndex, LookCatalog.BACKGROUNDS_BEFORE_LOOKS)?.let { look ->
             prefs.lookIndex = look
             prefs.faceIndex = 0
         }
-        showFace(prefs.faceIndex)
+        holidays.sync()
+        applyDesign()
 
         val gestures = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onDown(e: MotionEvent) = true
@@ -125,10 +135,10 @@ class ClockActivity : AppCompatActivity() {
                 if (abs(dx) > 150 && abs(vx) > 400 && abs(dx) > abs(e2.y - e1.y)) {
                     val step = picker.swipe(dx, System.currentTimeMillis())
                     if (step != null) {
-                        showLook(prefs.lookIndex + step)
+                        userShowLook(step)
                         armIdleExit()
                     } else {
-                        showFace(prefs.faceIndex + if (dx < 0) 1 else -1)
+                        userShowFace(if (dx < 0) 1 else -1)
                     }
                     return true
                 }
@@ -169,24 +179,40 @@ class ClockActivity : AppCompatActivity() {
         return AlarmScheduler.nextMainEvent(this)?.alarm?.id
     }
 
-    private fun showFace(index: Int) {
-        val i = Math.floorMod(index, ClockFace.COUNT)
-        prefs.faceIndex = i
+    /** Builds the screen: the active holiday's background and look if there is one, else the chosen ones. */
+    private fun applyDesign() {
+        val holiday = holidays.active
+        shownFace = prefs.faceIndex; shownLook = prefs.lookIndex; shownHoliday = holiday?.id
         face?.let { root.removeView(it) }
-        face = ClockFace.create(this, i).also {
-            it.look = Look.create(prefs.lookIndex)
+        face = (holiday?.let { HolidayDesigns.face(this, it) } ?: ClockFace.create(this, prefs.faceIndex)).also {
+            it.look = holiday?.let { h -> HolidayDesigns.look(h) } ?: Look.create(prefs.lookIndex)
             it.picking = picker.picking
             root.addView(it, 0, FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT))
         }
         tick()
     }
 
-    private fun showLook(index: Int) {
-        val i = LookCatalog.wrap(index)
+    /** A swipe to the next or previous background. Swiping away from a holiday design dismisses it for this year. */
+    private fun userShowFace(step: Int) {
+        holidays.userChanged()
+        prefs.faceIndex = Math.floorMod(prefs.faceIndex + step, ClockFace.COUNT)
+        applyDesign()
+    }
+
+    /** A swipe in the look picker; leaving a holiday look dismisses the holiday the same way. */
+    private fun userShowLook(step: Int) {
+        val wasHoliday = holidays.active != null
+        holidays.userChanged()
+        val i = LookCatalog.wrap(prefs.lookIndex + step)
         prefs.lookIndex = i
-        face?.look = Look.create(i)
-        pickerOverlay.lookName = LookCatalog.names[i]
-        pickerOverlay.index = i
+        if (wasHoliday) applyDesign() else face?.look = Look.create(i)
+        showPickerName()
+    }
+
+    private fun showPickerName() {
+        val holiday = holidays.active
+        pickerOverlay.lookName = holiday?.lookName ?: LookCatalog.names[prefs.lookIndex]
+        pickerOverlay.index = if (holiday != null) -1 else prefs.lookIndex
         pickerOverlay.count = LookCatalog.count
     }
 
@@ -219,7 +245,7 @@ class ClockActivity : AppCompatActivity() {
     private fun enterPicker() {
         face?.endHold()
         face?.picking = true
-        showLook(prefs.lookIndex)
+        showPickerName()
         pickerOverlay.night = schedule.phase(Calendar.getInstance()) == NightSchedule.Phase.NIGHT
         pickerOverlay.visibility = View.VISIBLE
         armIdleExit()
@@ -250,6 +276,9 @@ class ClockActivity : AppCompatActivity() {
     }
 
     private fun tick() {
+        // Holiday windows open and close on their own schedule; rebuild the screen when one does.
+        if (holidays.sync() != HolidayPlanner.Action.NONE) { applyDesign(); return }
+        if (shownFace != prefs.faceIndex || shownLook != prefs.lookIndex || shownHoliday != holidays.active?.id) { applyDesign(); return }
         val f = face ?: return
         val phase = schedule.phase(Calendar.getInstance())
         f.phase = phase

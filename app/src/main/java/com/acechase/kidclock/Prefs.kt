@@ -42,6 +42,26 @@ class Prefs(context: Context) {
         get() = sp.getInt("look", 0)
         set(v) = sp.edit().putInt("look", v).apply()
 
+    /** Holiday designs: a special background and look from three days before each holiday until the day after. */
+    var holidaysEnabled: Boolean
+        get() = sp.getBoolean("holidaysOn", true)
+        set(v) = sp.edit().putBoolean("holidaysOn", v).apply()
+
+    /** The holiday whose design is overriding the chosen background and look, or null; see holiday/HolidayPlanner. */
+    var holidayActive: String?
+        get() = sp.getString("holidayActive", null)
+        set(v) = sp.edit().putString("holidayActive", v).apply()
+
+    /** A holiday the child opted out of by changing the design during its window. */
+    var holidayDismissed: String?
+        get() = sp.getString("holidayDismissed", null)
+        set(v) = sp.edit().putString("holidayDismissed", v).apply()
+
+    /** Developer hook: pretend today is inside this holiday's window (tools/test-holiday.sh). */
+    var holidayForce: String?
+        get() = sp.getString("holidayForce", null)
+        set(v) = sp.edit().putString("holidayForce", v).apply()
+
     /** Pending snooze, 0 when none. */
     var snoozeAtMs: Long
         get() = sp.getLong("snoozeAt", 0L)
