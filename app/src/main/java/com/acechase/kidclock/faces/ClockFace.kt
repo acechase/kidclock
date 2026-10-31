@@ -280,21 +280,30 @@ abstract class ClockFace(context: Context) : View(context) {
         }
         val total = layout.height + attrSize * 1.4f
         val top = box.top + (box.height() - total) / 2f
+        // A translucent panel, sized to the text, so the quote stays readable over busy backgrounds:
+        // smoked glass under light ink, frosted glass under dark ink.
+        var widest = 0f
+        for (i in 0 until layout.lineCount) widest = maxOf(widest, layout.getLineWidth(i))
+        val padX = h * 0.03f; val padY = h * 0.018f
+        cardRect.set(box.centerX() - widest / 2f - padX, top - padY, box.centerX() + widest / 2f + padX, top + total + padY * 0.6f)
+        val lightInk = (0.299f * ((ink shr 16) and 0xFF) + 0.587f * ((ink shr 8) and 0xFF) + 0.114f * (ink and 0xFF)) > 128f
+        cardPaint.color = if (lightInk) 0x5C000000 else 0x9EFFFFFF.toInt()
+        c.drawRoundRect(cardRect, h * 0.02f, h * 0.02f, cardPaint)
         c.save()
         c.translate(box.centerX() - inner / 2f, top)
-        smallQuotePaint.alpha = 185
+        smallQuotePaint.alpha = 220
         layout.draw(c)
         c.restore()
         smallPaint.color = ink
         smallPaint.typeface = look.labelTypeface(fonts)
         smallPaint.textSize = attrSize
-        smallPaint.alpha = 150
+        smallPaint.alpha = 180
         smallPaint.setShadowLayer(6f, 0f, 2f, dayShadowColor)
         c.drawText("— ${q.attribution}", box.centerX(), top + layout.height + attrSize * 1.1f, smallPaint)
         smallPaint.clearShadowLayer()
         smallPaint.alpha = 255
         smallPaint.typeface = fonts.regular
-        quoteRect.set(box.left - h * 0.02f, top - h * 0.02f, box.right + h * 0.02f, top + total + h * 0.03f)
+        quoteRect.set(cardRect.left - h * 0.01f, cardRect.top - h * 0.01f, cardRect.right + h * 0.01f, cardRect.bottom + h * 0.01f)
     }
 
     private fun drawQuote(c: Canvas, w: Float, h: Float, q: Quote) {
