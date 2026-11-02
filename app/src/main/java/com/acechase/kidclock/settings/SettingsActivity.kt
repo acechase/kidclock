@@ -201,7 +201,7 @@ class SettingsActivity : AppCompatActivity() {
             })
         }
         general.addView(TextView(this).apply {
-            text = "Tip: swipe the clock left or right to change its look. Hold the top-right corner for two seconds to get back here."
+            text = "Tip: swipe the clock left or right to change its look. Hold the top-left corner for two seconds to get back here."
             textSize = 15f; alpha = 0.7f; setPadding(0, 24, 0, 0)
         })
     }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.acechase.kidclock.Prefs
+import com.acechase.kidclock.weather.WeatherDetailActivity
 
 /**
  * Re-registers the next alarm after boot, time changes, or an app update. Any lost alarm still
@@ -20,6 +21,8 @@ import com.acechase.kidclock.Prefs
  *                                                              window ("off" to stop pretending)
  *   -a com.acechase.kidclock.TEST_DESIGN --ei face 8 --ei look 9   show that background and look
  *                                                              (-1 keeps one as it is; dismisses a holiday)
+ *   -a com.acechase.kidclock.TEST_WEATHER --es sky RAINY        open the weather page dressed for that sky
+ *                                                              (SUNNY CLOUDY RAINY SNOWY STORMY NIGHT; none = real)
  */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -38,6 +41,12 @@ class BootReceiver : BroadcastReceiver() {
                 intent.getIntExtra("look", -1).takeIf { it >= 0 }?.let { lookIndex = it }
                 holidayActive?.let { holidayDismissed = it; holidayActive = null }
             }
+            return
+        }
+        if (intent.action == ACTION_TEST_WEATHER) {
+            context.startActivity(Intent(context, WeatherDetailActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .putExtra(WeatherDetailActivity.EXTRA_SKY, intent.getStringExtra("sky")))
             return
         }
         if (intent.action == ACTION_TEST_HOLIDAY) {
@@ -65,5 +74,6 @@ class BootReceiver : BroadcastReceiver() {
         const val ACTION_TEST_NIGHT = "com.acechase.kidclock.TEST_NIGHT"
         const val ACTION_TEST_HOLIDAY = "com.acechase.kidclock.TEST_HOLIDAY"
         const val ACTION_TEST_DESIGN = "com.acechase.kidclock.TEST_DESIGN"
+        const val ACTION_TEST_WEATHER = "com.acechase.kidclock.TEST_WEATHER"
     }
 }

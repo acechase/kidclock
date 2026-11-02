@@ -50,7 +50,7 @@ abstract class ClockFace(context: Context) : View(context) {
     var picking = false
         set(v) { if (field != v) { field = v; invalidate() } }
 
-    /** Screen area the weather occupies; double-tapping it opens the detail screen. */
+    /** Screen area the weather occupies; tapping it opens the weather page. */
     val weatherRect = RectF()
     /** Screen area of the next-alarm line; tapping it opens the alarm's detail card. Empty when no line. */
     val alarmRect = RectF()

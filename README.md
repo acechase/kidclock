@@ -66,14 +66,20 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   about a month. The current one appears large on the gentle wake-up card and, if enabled, small and quiet on the
   everyday clock face (hidden at night). Tap the quote to move to the next of the day's six. Settings
   toggle both surfaces, preview "n of 6", and can step or draw a new set.
-- **Detailed weather**: double-tap the weather on the clock for the next 12 hours (temperature curve, rain chance)
-  and the next six days (high/low bars). Closes on tap or after 90 s.
+- **Weather page**: tap the weather on the clock for a page written for a kid: the temperature now and where the
+  day is going ("It warms up to 67° this afternoon, which is nice."), whether to pack a raincoat, what to wear
+  ("Wear a hoodie or a light jacket. You can take it off later."), the temperature when leaving for school, at
+  lunch, after school and at bedtime, and the week in a sentence ("Rain tomorrow, then it gets warmer every day.
+  Wednesday is the warmest."). The wording is rule-based (`weather/WeatherWords.kt`, unit-tested) and follows the
+  forecast's unit. The page is dressed for the sky right now, painted in code like the clock backgrounds: sunny,
+  cloudy, rainy, snowy, thunderstorm, or a clear night (`weather/WeatherSky.kt`, `weather/SkyView.kt`). Closes on
+  tap or after 90 s.
 - **Alarm details**: tap the next-alarm line at the bottom of the clock for a read-only card about that alarm:
   time, on/off, repeat days, when it rings next (with countdown), gentle wake-up lead, snooze/“I'm awake” state.
   Closes on tap or after 60 s. Editing is in Settings (corner-hold).
 - **Missed-alarm recovery**: what was registered with AlarmManager is remembered; if the device was off at that
   moment and it is less than 30 minutes late, it rings on boot instead of being dropped (`alarm/AlarmPlanner.kt`).
-- **Settings** behind a deliberate gesture so stray taps never open them: hold the top-right corner for two seconds.
+- **Settings** behind a deliberate gesture so stray taps never open them: hold the top-left corner for two seconds.
 
 ## Install on a Portal
 
@@ -91,7 +97,7 @@ plain Android apps and you have adb access) and a computer with `adb`. Nothing h
    ~/unmetaportal/tools/portal-kiosk-enable.sh --component com.acechase.kidclock/.ClockActivity --set-home --yes
    adb shell dumpsys deviceidle whitelist +com.acechase.kidclock   # keep the ticker and weather thread out of doze
    ```
-4. Hold the top-right corner of the clock for two seconds to open Settings: add alarms, pick sounds and
+4. Hold the top-left corner of the clock for two seconds to open Settings: add alarms, pick sounds and
    volumes, set the weather location. Swipe left or right to change the background; hold the time for two seconds,
    then swipe, to change the look.
 
@@ -118,8 +124,9 @@ Fonts are not committed as a build step; `tools/fetch-fonts.sh` re-downloads the
 - `adb shell am broadcast -n com.acechase.kidclock/.alarm.BootReceiver -a com.acechase.kidclock.TEST_ALARM --ei seconds 20`
 - `tools/test-night.sh on|off` shows the amber night colours all day; `tools/test-holiday.sh halloween` (or `newyear`,
   `valentine`, `stpatrick`, `easter`, `july4`, `thanksgiving`, `christmas`, `off`) shows a holiday design now.
-- A scripted double-tap: `adb shell "input tap 1130 100 & sleep 0.15; input tap 1130 100; wait"` (two plain `input tap`
-  calls are too slow for the 300 ms double-tap window).
+- `adb shell input tap 1130 100` opens the weather page; `adb shell input swipe 60 60 60 60 2200` holds the
+  top-left corner and opens Settings. `tools/test-weather.sh RAINY` opens the weather page dressed for a sky
+  (`SUNNY CLOUDY RAINY SNOWY STORMY NIGHT`).
 
 ## Device notes
 - Reinstalling a HOME app clears the default HOME; `tools/deploy.sh --set-home` re-applies it.
