@@ -38,8 +38,8 @@ import kotlin.math.abs
 
 /**
  * The HOME activity. Fullscreen clock face: swipe left/right to change the background, hold the
- * time for two seconds then swipe to change the look (font and layout), hold the top-right corner
- * for two seconds to reach settings. Never sleeps the screen.
+ * time for two seconds then swipe to change the look (font and layout), tap the weather for the weather
+ * page, hold the top-left corner for two seconds to reach settings. Never sleeps the screen.
  */
 class ClockActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
@@ -108,6 +108,10 @@ class ClockActivity : AppCompatActivity() {
             override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
                 if (picker.tap()) { exitPicker(); return true }
                 val f = face ?: return false
+                if (prefs.weatherEnabled && f.weatherRect.contains(e.x, e.y)) {
+                    startActivity(Intent(this@ClockActivity, WeatherDetailActivity::class.java))
+                    return true
+                }
                 if (f.alarmRect.contains(e.x, e.y)) {
                     val id = shownAlarmId() ?: return false
                     startActivity(Intent(this@ClockActivity, AlarmDetailActivity::class.java).putExtra(AlarmDetailActivity.EXTRA_ALARM_ID, id))
@@ -116,15 +120,6 @@ class ClockActivity : AppCompatActivity() {
                 if (f.quoteRect.contains(e.x, e.y)) {
                     QuoteRepository.get(this@ClockActivity).next(this@ClockActivity)
                     tick()
-                    return true
-                }
-                return false
-            }
-            override fun onDoubleTap(e: MotionEvent): Boolean {
-                if (picker.picking) return true
-                val f = face ?: return false
-                if (prefs.weatherEnabled && f.weatherRect.contains(e.x, e.y)) {
-                    startActivity(Intent(this@ClockActivity, WeatherDetailActivity::class.java))
                     return true
                 }
                 return false
@@ -260,10 +255,11 @@ class ClockActivity : AppCompatActivity() {
         handler.postDelayed(idleCheck, LookPickerState.IDLE_MS + 10)
     }
 
-    // Hold the top-right corner to open settings; a deliberate gesture so a stray tap never opens it.
+    // Hold the top-left corner to open settings; a deliberate gesture so a stray tap never opens it.
+    // (Top-left, not top-right: the weather lives top-right and opens on a single tap.)
     private val openSettings = Runnable { startActivity(Intent(this, SettingsActivity::class.java)) }
     private fun handleCornerHold(v: View, ev: MotionEvent) {
-        val inCorner = ev.x > v.width - CORNER_PX && ev.y < CORNER_PX
+        val inCorner = ev.x < CORNER_PX && ev.y < CORNER_PX
         when (ev.actionMasked) {
             MotionEvent.ACTION_DOWN -> if (inCorner) handler.postDelayed(openSettings, HOLD_MS)
             MotionEvent.ACTION_MOVE -> if (!inCorner) handler.removeCallbacks(openSettings)
