@@ -9,16 +9,20 @@ import com.acechase.kidclock.art.Doodles
 import com.acechase.kidclock.looks.Fonts
 
 /**
- * The ruled notebook page again, this time covered in marker doodles of soccer things: balls in
- * the real black-and-white panel pattern, boots with studs, goals with nets, whistles, cones,
- * trophies, number-9 jerseys, pennants, and "GOAL!" and "go team" scrawled in the margins. The
- * middle of the page is left clear for the time. Nothing moves; it is painted once.
+ * A coach's tactics whiteboard: white board in a slim grey frame with a pale green pitch drawn
+ * across it (touchlines, halfway line, centre circle, boxes, penalty spots), a few X-and-O plays
+ * with dashed arrows, and marker doodles of soccer things all round the edge: balls in the real
+ * black-and-white panel pattern, boots with studs, goals with nets, whistles, cones, trophies,
+ * number-9 jerseys, pennants, and "GOAL!" and "go team" scrawled in the corners. The middle of
+ * the board is left clear for the time. Nothing moves; it is painted once.
  */
-class SoccerNotebookFace(context: Context) : ClockFace(context) {
+class SoccerBoardFace(context: Context) : ClockFace(context) {
     private val p = Paint(Paint.ANTI_ALIAS_FLAG)
     private val text = Paint(Paint.ANTI_ALIAS_FLAG)
     private val fonts = Fonts.get(context)
     private val layer = StaticLayer(::paintPage)
+    private val arc = android.graphics.RectF()
+    private val dash = android.graphics.DashPathEffect(floatArrayOf(10f, 8f), 0f)
 
     override val dayTextColor = NAVY
     override val dayShadowColor = 0x14000000
@@ -37,11 +41,7 @@ class SoccerNotebookFace(context: Context) : ClockFace(context) {
         sx = w / 1440f; sy = h / 960f
         c.drawColor(PAPER)
         p.reset(); p.isAntiAlias = true
-        p.style = Paint.Style.STROKE; p.strokeWidth = 1.8f * sy; p.color = RULE
-        var y = 79f * sy
-        while (y < h) { c.drawLine(0f, y, w, y, p); y += 55f * sy }
-        p.strokeWidth = 2.4f * sy; p.color = MARGIN
-        c.drawLine(133f * sx, 0f, 133f * sx, h, p)
+        board(c, w, h)
 
         // Top band
         ball(c, 40f, 50f, 80f, -8f)
@@ -88,6 +88,68 @@ class SoccerNotebookFace(context: Context) : ClockFace(context) {
     }
 
     /** Caveat text whose CSS box sits at ([left],[top]) in artboard px with [size] px font, turned about its centre. */
+    /** The whiteboard itself: a slim grey frame, the pitch in pale green marker, and three X-and-O plays. */
+    private fun board(c: Canvas, w: Float, h: Float) {
+        // Frame: a grey aluminium edge just inside the screen.
+        p.style = Paint.Style.STROKE; p.strokeWidth = 10f * sy; p.color = FRAME
+        c.drawRoundRect(5f * sy, 5f * sy, w - 5f * sy, h - 5f * sy, 14f * sy, 14f * sy, p)
+        p.strokeWidth = 2f * sy; p.color = FRAME_EDGE
+        c.drawRoundRect(10f * sy, 10f * sy, w - 10f * sy, h - 10f * sy, 10f * sy, 10f * sy, p)
+
+        // The pitch, landscape, in marker green at low alpha so the digits sit over it untroubled.
+        p.strokeWidth = 4f * sy; p.color = PITCH; p.strokeCap = Paint.Cap.ROUND
+        val l = 70f * sx; val t = 60f * sy; val r = w - 70f * sx; val b = h - 60f * sy
+        val cx = (l + r) / 2f; val cy = (t + b) / 2f
+        c.drawRect(l, t, r, b, p)
+        c.drawLine(cx, t, cx, b, p)
+        c.drawCircle(cx, cy, 120f * sy, p)
+        val boxH = 440f * sy; val boxW = 190f * sx
+        c.drawRect(l, cy - boxH / 2f, l + boxW, cy + boxH / 2f, p)
+        c.drawRect(r - boxW, cy - boxH / 2f, r, cy + boxH / 2f, p)
+        val goalH = 200f * sy; val goalW = 70f * sx
+        c.drawRect(l, cy - goalH / 2f, l + goalW, cy + goalH / 2f, p)
+        c.drawRect(r - goalW, cy - goalH / 2f, r, cy + goalH / 2f, p)
+        arc.set(l + boxW - 70f * sx, cy - 90f * sy, l + boxW + 70f * sx, cy + 90f * sy)
+        c.drawArc(arc, -55f, 110f, false, p)
+        arc.set(r - boxW - 70f * sx, cy - 90f * sy, r - boxW + 70f * sx, cy + 90f * sy)
+        c.drawArc(arc, 125f, 110f, false, p)
+        for (corner in listOf(l to t, r to t, l to b, r to b)) {
+            arc.set(corner.first - 24f * sx, corner.second - 24f * sy, corner.first + 24f * sx, corner.second + 24f * sy)
+            c.drawArc(arc, 0f, 360f, false, p)
+        }
+        p.style = Paint.Style.FILL
+        c.drawCircle(l + 130f * sx, cy, 5f * sy, p)
+        c.drawCircle(r - 130f * sx, cy, 5f * sy, p)
+        c.drawCircle(cx, cy, 5f * sy, p)
+
+        // Three plays in the clear corners: X's in red, O's in blue, dashed arrows.
+        play(c, 300f, 230f, RED, BLUE, 40f)
+        play(c, 1010f, 640f, BLUE, RED, -150f)
+        play(c, 250f, 700f, RED, BLUE, 10f)
+    }
+
+    /** One X-and-O play: two X's, an O, and a dashed arrow from the X's through the O, all faint. */
+    private fun play(c: Canvas, x: Float, y: Float, xInk: Int, oInk: Int, angle: Float) {
+        c.save()
+        c.translate(x * sx, y * sy)
+        c.scale(sy, sy)
+        p.style = Paint.Style.STROKE; p.strokeWidth = 4f; p.strokeCap = Paint.Cap.ROUND
+        p.color = xInk; p.alpha = 70
+        c.drawLine(0f, 0f, 22f, 22f, p); c.drawLine(22f, 0f, 0f, 22f, p)
+        c.drawLine(46f, 30f, 68f, 52f, p); c.drawLine(68f, 30f, 46f, 52f, p)
+        p.color = oInk; p.alpha = 70
+        c.drawCircle(120f, 10f, 12f, p)
+        p.color = xInk; p.alpha = 60
+        p.pathEffect = dash
+        c.save(); c.rotate(angle, 34f, 26f)
+        c.drawLine(34f, 26f, 150f, 26f, p)
+        p.pathEffect = null
+        c.drawLine(150f, 26f, 138f, 18f, p); c.drawLine(150f, 26f, 138f, 34f, p)
+        c.restore()
+        p.alpha = 255
+        c.restore()
+    }
+
     private fun word(c: Canvas, s: String, left: Float, top: Float, size: Float, rot: Float, color: Int) {
         text.color = color
         text.textSize = size * sy
@@ -253,9 +315,10 @@ class SoccerNotebookFace(context: Context) : ClockFace(context) {
     }
 
     companion object {
-        const val PAPER = 0xFFFBF6E9.toInt()
-        const val RULE = 0xFFC5D8EA.toInt()
-        const val MARGIN = 0xFFF2A4AE.toInt()
+        const val PAPER = 0xFFF7F9F7.toInt()
+        const val FRAME = 0xFFC9CED3.toInt()
+        const val FRAME_EDGE = 0xFF9AA2AB.toInt()
+        const val PITCH = 0x4A2E8B57
         const val NAVY = 0xFF2A2F45.toInt()
         const val GREEN = 0xFF2E8B57.toInt()
         const val BLUE = 0xFF2F6FB5.toInt()
