@@ -105,7 +105,7 @@ class NightReefFace(context: Context) : ClockFace(context) {
 
         // Moon, top centre-right (left of the weather).
         p.color = MOON
-        c.drawCircle(w * 0.75f, h * 0.125f, h * 0.0625f, p)
+        c.drawCircle(w * 0.62f, h * 0.125f, h * 0.0625f, p)
 
         drawCrab(c, w, h)
     }

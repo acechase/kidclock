@@ -18,7 +18,7 @@ class ScoreboardLook : Look() {
     private val panel = RectF()
 
     override fun quoteBox(w: Float, h: Float): RectF {
-        quoteRect.set(w * 0.14f, h * 0.76f, w * 0.86f, h * 0.88f)
+        quoteRect.set(w * 0.14f, h * 0.725f, w * 0.86f, h * 0.84f)
         return quoteRect
     }
 

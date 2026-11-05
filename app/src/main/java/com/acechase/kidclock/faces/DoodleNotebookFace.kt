@@ -64,8 +64,7 @@ class DoodleNotebookFace(context: Context) : ClockFace(context) {
         at(700f, 16f, 4f, 1.2f) { BoyDoodles.dragon(c, p, BoyDoodles.GREEN, BoyDoodles.ORANGE, BoyDoodles.RED, true) }
         at(860f, 30f, -4f, 1.1f) { BoyDoodles.raceCar(c, p) }
         at(1040f, 0f, 0f, 1.1f) { BoyDoodles.ufo(c, p) }
-        at(1170f, 26f, -5f, 1.1f) { BoyDoodles.stegosaurus(c, p) }
-        at(1320f, 8f, 6f, 1.1f) { BoyDoodles.jollyRoger(c, p) }
+        // (The top-right corner stays clear for the weather.)
         // Left column.
         at(14f, 176f, -6f, 1.2f) { BoyDoodles.volcano(c, p) }
         at(20f, 320f, 8f, 1.3f) { BoyDoodles.trex(c, p) }
@@ -76,6 +75,8 @@ class DoodleNotebookFace(context: Context) : ClockFace(context) {
         at(160f, 850f, -4f, 1f) { BoyDoodles.submarine(c, p, BoyDoodles.YELLOW, BoyDoodles.NAVY, BoyDoodles.SKY, true) }
         // Right column.
         at(1270f, 186f, 0f, 1.2f) { BoyDoodles.powBurst(c, p) }
+        at(1115f, 290f, 6f, 0.9f) { BoyDoodles.jollyRoger(c, p) }
+        at(1085f, 540f, -5f, 0.9f) { BoyDoodles.stegosaurus(c, p) }
         at(1256f, 330f, -5f, 1.2f) { BoyDoodles.monsterTruck(c, p) }
         at(1250f, 470f, 8f, 1.2f) { BoyDoodles.shark(c, p) }
         at(1310f, 606f, 15f, 0.9f) { BoyDoodles.throwingStar(c, p, BoyDoodles.NAVY, true) }
@@ -91,7 +92,6 @@ class DoodleNotebookFace(context: Context) : ClockFace(context) {
         at(1020f, 736f, -10f, 0.7f) { BoyDoodles.throwingStar(c, p, BoyDoodles.BLUE, false) }
         // Stray sparkle crosses.
         BoyDoodles.cross(c, p, 600f * sx, 170f * sy, 6f * sy, 2.5f * sy)
-        BoyDoodles.cross(c, p, 1110f * sx, 560f * sy, 7f * sy, 2.5f * sy)
         BoyDoodles.cross(c, p, 340f * sx, 600f * sy, 6f * sy, 2.5f * sy)
 
         // Shouted words in Caveat, each turned a little about its middle.

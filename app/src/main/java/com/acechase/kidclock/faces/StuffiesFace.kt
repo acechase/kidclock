@@ -57,8 +57,8 @@ class StuffiesFace(context: Context) : ClockFace(context) {
             }
         }
 
-        // Spread the animals along the blanket, feet at 90% of the height, a wider gap in the middle.
-        val unit = h / 960f * 0.86f
+        // Spread the animals along the blanket, feet at 91% of the height, heads clear of the quote card, a wider gap in the middle.
+        val unit = h / 960f * 0.66f
         var total = 0f
         for (a in 0 until 5) {
             val box = StuffiesArt.BOXES[a]
@@ -66,7 +66,7 @@ class StuffiesFace(context: Context) : ClockFace(context) {
         }
         val gap = ((w * 0.95f - total) / 4.5f).coerceAtLeast(-h * 0.02f)
         var x = w * 0.025f
-        val baseY = h * 0.90f
+        val baseY = h * 0.91f
         for (slot in 0 until 5) {
             val a = order[slot]
             val s = unit * StuffiesArt.SCALES[a]

@@ -2,6 +2,7 @@ package com.acechase.kidclock.looks
 
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.RectF
 
 /**
  * Soft toy lettering: cream rounded digits in Fredoka with a brown outline and a hard pink shadow
@@ -12,6 +13,8 @@ import android.graphics.Paint
 class PlushLook : Look() {
     override val name = "Plush"
     override fun labelTypeface(fonts: Fonts) = fonts.fredoka
+    /** The quote sits between the date and the stuffies' heads. */
+    override fun quoteBox(w: Float, h: Float) = RectF(w * 0.14f, h * 0.615f, w * 0.86f, h * 0.725f)
 
     override fun draw(c: Canvas, x: LookContext) {
         val w = x.w; val h = x.h
@@ -33,7 +36,7 @@ class PlushLook : Look() {
         val aw = x.ampm?.let { paint.measureText(it) } ?: 0f
         val groupW = tw + (if (x.ampm != null) gap + aw else 0f)
         val left = w / 2f - groupW / 2f
-        val base = h * 0.52f
+        val base = h * 0.49f
         val off = h * 0.015f
         val stroke = h * 0.012f
 
@@ -46,7 +49,7 @@ class PlushLook : Look() {
         paint.textSize = h * 0.055f
         paint.color = brown
         paint.alpha = if (x.night) 140 else 255
-        c.drawText(longDate(x), w / 2f, h * 0.605f, paint)
+        c.drawText(longDate(x), w / 2f, h * 0.575f, paint)
         paint.alpha = 255
 
         drawAlarmLine(c, x, w / 2f, h * 0.955f, h * 0.042f, tf, color = brown, shadowed = false)

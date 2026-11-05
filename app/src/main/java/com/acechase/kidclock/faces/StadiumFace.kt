@@ -79,7 +79,7 @@ class StadiumFace(context: Context) : ClockFace(context) {
 
         // Soccer ball on the grass: a white disc, a black centre pentagon, five more pentagons at the
         // rim clipped to the disc, and seams joining them.
-        drawBall(c, w * 0.667f, h * 0.896f, h * 0.0575f)
+        drawBall(c, w * 0.91f, h * 0.905f, h * 0.0575f)
     }
 
     private fun drawBall(c: Canvas, cx: Float, cy: Float, r: Float) {
