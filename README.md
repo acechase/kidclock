@@ -120,7 +120,7 @@ Unit tests (alarm planning, sounds, the weather failure paths, holiday dates and
 Fonts are not committed as a build step; `tools/fetch-fonts.sh` re-downloads the bundled ones (see `FONTS.md`).
 
 ## Testing from adb
-- Settings has "Test alarm (10 s)" and "Test gentle wake-up" (gentle sound in ~1 min, alarm 1 min later, self-deleting).
+- Settings → Advanced has "Test alarm (10 s)" and "Test gentle wake-up" (gentle sound in ~1 min, alarm 1 min later, self-deleting).
 - `adb shell am broadcast -n com.acechase.kidclock/.alarm.BootReceiver -a com.acechase.kidclock.TEST_ALARM --ei seconds 20`
 - `tools/test-night.sh on|off` shows the amber night colours all day; `tools/test-holiday.sh halloween` (or `newyear`,
   `valentine`, `stpatrick`, `easter`, `july4`, `thanksgiving`, `christmas`, `off`) shows a holiday design now.

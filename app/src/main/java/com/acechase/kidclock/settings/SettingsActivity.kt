@@ -50,12 +50,6 @@ class SettingsActivity : AppCompatActivity() {
         general = findViewById(R.id.general)
 
         findViewById<Button>(R.id.btnDone).setOnClickListener { finish() }
-        findViewById<Button>(R.id.btnTest).setOnClickListener { AlarmScheduler.scheduleTest(this, 10); finish() }
-        findViewById<Button>(R.id.btnTestGentle).setOnClickListener {
-            AlarmScheduler.scheduleGentleTest(this)
-            Toast.makeText(this, "Gentle wake-up in ~1 min, alarm ~1 min later", Toast.LENGTH_LONG).show()
-            finish()
-        }
         findViewById<Button>(R.id.btnAdd).setOnClickListener {
             val a = store.newAlarm()
             store.upsert(a)
@@ -138,72 +132,147 @@ class SettingsActivity : AppCompatActivity() {
         })
     }
 
+    /** The Advanced card starts closed each time Settings opens; this keeps it open across rebuilds. */
+    private var advancedOpen = false
+
     private fun buildGeneral() {
         general.removeAllViews()
-        general.addView(switchRow(getString(R.string.use_24h), prefs.use24h) { prefs.use24h = it; rebuild() })
-        general.addView(timeRow(getString(R.string.night_start), prefs.nightStartMin) { prefs.nightStartMin = it; buildGeneral() })
-        general.addView(timeRow(getString(R.string.night_end), prefs.nightEndMin) { prefs.nightEndMin = it; buildGeneral() })
-        general.addView(switchRow(getString(R.string.always_night), prefs.alwaysNight) { prefs.alwaysNight = it })
-        general.addView(switchRow(getString(R.string.holiday_designs), prefs.holidaysEnabled) { prefs.holidaysEnabled = it })
-        general.addView(stepperRow(getString(R.string.snooze_minutes), prefs.snoozeMinutes) { prefs.snoozeMinutes = it; buildGeneral() })
-        general.addView(soundRow(ALARM_SOUND, AlarmSound.values().toList(), AlarmSound.byId(prefs.alarmSoundId),
-            { prefs.alarmSoundId = it.id }, ::alarmPreview))
-        general.addView(stepperRow("Alarm volume %", prefs.alarmVolumePct, step = 5) {
-            prefs.alarmVolumePct = it; startPreview(ALARM_SOUND, alarmPreview(AlarmSound.byId(prefs.alarmSoundId)))
+
+        section(getString(R.string.section_night)) {
+            addView(timeRow(getString(R.string.night_start), prefs.nightStartMin) { prefs.nightStartMin = it; buildGeneral() })
+            addView(timeRow(getString(R.string.night_end), prefs.nightEndMin) { prefs.nightEndMin = it; buildGeneral() })
+        }
+
+        section(getString(R.string.section_sounds)) {
+            addView(soundRow(ALARM_SOUND, AlarmSound.values().toList(), AlarmSound.byId(prefs.alarmSoundId),
+                { prefs.alarmSoundId = it.id }, ::alarmPreview))
+            addView(stepperRow("Alarm volume %", prefs.alarmVolumePct, step = 5) {
+                prefs.alarmVolumePct = it; startPreview(ALARM_SOUND, alarmPreview(AlarmSound.byId(prefs.alarmSoundId)))
+            })
+            addView(soundRow(GENTLE_SOUND, GentleSound.values().toList(), GentleSound.byId(prefs.gentleSoundId),
+                { prefs.gentleSoundId = it.id }, ::gentlePreview))
+            addView(stepperRow("Gentle wake-up volume %", prefs.gentleVolumePct, step = 5) {
+                prefs.gentleVolumePct = it; startPreview(GENTLE_SOUND, gentlePreview(GentleSound.byId(prefs.gentleSoundId)))
+            })
+        }
+
+        section(getString(R.string.section_clock)) {
+            addView(switchRow("Show weather", prefs.weatherEnabled) { prefs.weatherEnabled = it; buildGeneral() })
+            if (prefs.weatherEnabled) {
+                addView(switchRow("Fahrenheit", prefs.weatherFahrenheit) { prefs.weatherFahrenheit = it })
+                addView(row("Weather location").apply {
+                    addView(Button(context).apply {
+                        text = prefs.weatherPlace.ifEmpty { "Auto (by IP)" }; isAllCaps = false; textSize = 18f
+                        setOnClickListener { pickLocation() }
+                    })
+                })
+            }
+            addView(switchRow("Daily quotes", prefs.quotesEnabled,
+                "Shown during gentle wake-up. Six are picked each day; tapping the quote on the clock shows the next one.") {
+                prefs.quotesEnabled = it; buildGeneral()
+            })
+            if (prefs.quotesEnabled) {
+                addView(switchRow("Also show the quote on the clock face", prefs.quotesOnClock) { prefs.quotesOnClock = it })
+            }
+            addView(switchRow(getString(R.string.holiday_designs), prefs.holidaysEnabled, getString(R.string.holiday_designs_blurb)) {
+                prefs.holidaysEnabled = it
+            })
+        }
+
+        section(getString(R.string.section_advanced), collapsible = true) {
+            addView(switchRow(getString(R.string.use_24h), prefs.use24h) { prefs.use24h = it; rebuild() })
+            addView(switchRow(getString(R.string.always_night), prefs.alwaysNight, getString(R.string.always_night_blurb)) {
+                prefs.alwaysNight = it
+            })
+            addView(stepperRow(getString(R.string.snooze_minutes), prefs.snoozeMinutes) { prefs.snoozeMinutes = it; buildGeneral() })
+            addView(switchRow(getString(R.string.voice_commands), prefs.voiceEnabled) { prefs.voiceEnabled = it })
+            if (!VoiceCommandListener.hasPermission(this@SettingsActivity)) {
+                addView(TextView(context).apply {
+                    text = "Microphone permission not granted. Run:\nadb shell pm grant com.acechase.kidclock android.permission.RECORD_AUDIO"
+                    textSize = 14f; setTextColor(Color.parseColor("#FFB347")); setPadding(0, 0, 0, 12)
+                })
+            }
+            if (prefs.quotesEnabled) {
+                val repo = QuoteRepository.get(context)
+                val q = repo.current(context)
+                addView(LinearLayout(context).apply {
+                    orientation = LinearLayout.HORIZONTAL
+                    gravity = Gravity.CENTER_VERTICAL
+                    setPadding(0, 8, 0, 8)
+                    addView(TextView(context).apply {
+                        text = if (q == null) "No quotes loaded" else "Today's quote (${repo.position(context)}): \u201c${q.text}\u201d \u2014 ${q.attribution}"
+                        textSize = 14f; alpha = 0.8f
+                    }, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+                    addView(Button(context).apply {
+                        text = "Next"; isAllCaps = false; textSize = 14f
+                        setOnClickListener { repo.next(context); buildGeneral() }
+                    })
+                    addView(Button(context).apply {
+                        text = "New set"; isAllCaps = false; textSize = 14f
+                        setOnClickListener { repo.reroll(context); buildGeneral() }
+                    })
+                })
+                addView(TextView(context).apply {
+                    text = "${repo.all().size} quotes in the library (app/src/main/assets/quotes.json)."
+                    textSize = 12f; alpha = 0.5f; setPadding(0, 0, 0, 12)
+                })
+            }
+            addView(LinearLayout(context).apply {
+                orientation = LinearLayout.HORIZONTAL
+                setPadding(0, 8, 0, 0)
+                addView(Button(context).apply {
+                    text = "Test gentle wake-up"; isAllCaps = false
+                    setOnClickListener {
+                        AlarmScheduler.scheduleGentleTest(this@SettingsActivity)
+                        Toast.makeText(this@SettingsActivity, "Gentle wake-up in ~1 min, alarm ~1 min later", Toast.LENGTH_LONG).show()
+                        finish()
+                    }
+                }, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginEnd = 12 })
+                addView(Button(context).apply {
+                    text = "Test alarm (10 s)"; isAllCaps = false
+                    setOnClickListener { AlarmScheduler.scheduleTest(this@SettingsActivity, 10); finish() }
+                }, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
+            })
+            addView(TextView(context).apply {
+                text = "Both ring for real on the clock, so you can check the ring screen and voice snooze."
+                textSize = 13f; alpha = 0.6f; setPadding(0, 6, 0, 4)
+            })
+        }
+
+        general.addView(TextView(this).apply {
+            text = "Tip: swipe the clock left or right to change the background; hold the time for two seconds, then swipe, to change the look. Hold the top-left corner for two seconds to get back here."
+            textSize = 15f; alpha = 0.7f; setPadding(4, 6, 4, 0)
         })
-        general.addView(soundRow(GENTLE_SOUND, GentleSound.values().toList(), GentleSound.byId(prefs.gentleSoundId),
-            { prefs.gentleSoundId = it.id }, ::gentlePreview))
-        general.addView(stepperRow("Gentle wake-up volume %", prefs.gentleVolumePct, step = 5) {
-            prefs.gentleVolumePct = it; startPreview(GENTLE_SOUND, gentlePreview(GentleSound.byId(prefs.gentleSoundId)))
-        })
-        general.addView(switchRow(getString(R.string.voice_commands), prefs.voiceEnabled) { prefs.voiceEnabled = it })
-        general.addView(switchRow("Daily quotes (shown during gentle wake-up)", prefs.quotesEnabled) { prefs.quotesEnabled = it; buildGeneral() })
-        if (prefs.quotesEnabled) {
-            general.addView(switchRow("Also show the quote on the clock face", prefs.quotesOnClock) { prefs.quotesOnClock = it })
-            val repo = QuoteRepository.get(this)
-            val q = repo.current(this)
-            general.addView(LinearLayout(this).apply {
+    }
+
+    /**
+     * A card with a small heading and the rows [body] adds to it. A collapsible card shows only its heading
+     * and a Show/Hide button until opened (the whole heading row is tappable too).
+     */
+    private fun section(title: String, collapsible: Boolean = false, body: LinearLayout.() -> Unit) {
+        val open = !collapsible || advancedOpen
+        general.addView(LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setBackgroundColor(getColor(R.color.settings_card))
+            setPadding(24, 12, 24, 14)
+            addView(LinearLayout(context).apply {
                 orientation = LinearLayout.HORIZONTAL
                 gravity = Gravity.CENTER_VERTICAL
-                setPadding(0, 0, 0, 8)
+                minimumHeight = if (collapsible) 56 else 0
                 addView(TextView(context).apply {
-                    text = if (q == null) "No quotes loaded" else "Today (${repo.position(context)}): \u201c${q.text}\u201d \u2014 ${q.attribution}"
-                    textSize = 14f; alpha = 0.8f
+                    text = title.uppercase(); textSize = 14f; alpha = 0.6f; letterSpacing = 0.08f
+                    setPadding(0, 0, 0, if (open && !collapsible) 4 else 0)
                 }, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
-                addView(Button(context).apply {
-                    text = "Next"; isAllCaps = false; textSize = 14f
-                    setOnClickListener { repo.next(context); buildGeneral() }
-                })
-                addView(Button(context).apply {
-                    text = "New set"; isAllCaps = false; textSize = 14f
-                    setOnClickListener { repo.reroll(context); buildGeneral() }
-                })
+                if (collapsible) {
+                    addView(Button(context).apply {
+                        text = getString(if (open) R.string.hide else R.string.show); isAllCaps = false; textSize = 16f
+                        setOnClickListener { advancedOpen = !advancedOpen; buildGeneral() }
+                    })
+                    setOnClickListener { advancedOpen = !advancedOpen; buildGeneral() }
+                }
             })
-            general.addView(TextView(this).apply {
-                text = "Six quotes are picked each day; tapping the quote on the clock shows the next one. ${repo.all().size} quotes in the library (app/src/main/assets/quotes.json)."
-                textSize = 12f; alpha = 0.5f; setPadding(0, 0, 0, 12)
-            })
-        }
-        general.addView(switchRow("Show weather", prefs.weatherEnabled) { prefs.weatherEnabled = it; buildGeneral() })
-        if (prefs.weatherEnabled) {
-            general.addView(switchRow("Fahrenheit", prefs.weatherFahrenheit) { prefs.weatherFahrenheit = it })
-            general.addView(row("Weather location").apply {
-                addView(Button(context).apply {
-                    text = prefs.weatherPlace.ifEmpty { "Auto (by IP)" }; isAllCaps = false; textSize = 18f
-                    setOnClickListener { pickLocation() }
-                })
-            })
-        }
-        if (!VoiceCommandListener.hasPermission(this)) {
-            general.addView(TextView(this).apply {
-                text = "Microphone permission not granted. Run:\nadb shell pm grant com.acechase.kidclock android.permission.RECORD_AUDIO"
-                textSize = 14f; setTextColor(Color.parseColor("#FFB347")); setPadding(0, 12, 0, 0)
-            })
-        }
-        general.addView(TextView(this).apply {
-            text = "Tip: swipe the clock left or right to change its look. Hold the top-left corner for two seconds to get back here."
-            textSize = 15f; alpha = 0.7f; setPadding(0, 24, 0, 0)
-        })
+            if (open) body()
+        }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 14 })
     }
 
     // ---- sound choosers -------------------------------------------------------------------------
@@ -292,8 +361,18 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun label(text: String) = TextView(this).apply { this.text = text; textSize = 20f }
 
-    private fun switchRow(title: String, value: Boolean, onChange: (Boolean) -> Unit) = row(title).apply {
-        addView(Switch(context).apply { isChecked = value; scaleX = 1.3f; scaleY = 1.3f; setOnCheckedChangeListener { _, on -> onChange(on) } })
+    private fun switchRow(title: String, value: Boolean, blurb: String? = null, onChange: (Boolean) -> Unit): LinearLayout {
+        val r = row(title).apply {
+            // Scaled about its centre, so the switch draws past its own bounds; the end margin keeps it inside the card.
+            addView(Switch(context).apply { isChecked = value; scaleX = 1.3f; scaleY = 1.3f; setOnCheckedChangeListener { _, on -> onChange(on) } },
+                LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { marginEnd = 16 })
+        }
+        if (blurb == null) return r
+        return LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            addView(r)
+            addView(TextView(context).apply { text = blurb; textSize = 13f; alpha = 0.6f; setPadding(0, 0, 0, 10) })
+        }
     }
 
     private fun timeRow(title: String, minutes: Int, onChange: (Int) -> Unit) = row(title).apply {
