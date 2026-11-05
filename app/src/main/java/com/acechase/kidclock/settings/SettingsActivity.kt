@@ -259,7 +259,13 @@ class SettingsActivity : AppCompatActivity() {
     /** The ages of the youngest and oldest kid, two small steppers on one row; the youngest never passes the oldest. */
     private fun agesRow(): LinearLayout = LinearLayout(this).apply {
         orientation = LinearLayout.VERTICAL
-        addView(row(getString(R.string.ages)).apply {
+        // The two steppers get a line of their own under the label: side by side with it they squeeze the
+        // word "Ages" into a column on the 1280-wide Portal.
+        addView(row(getString(R.string.ages)))
+        addView(LinearLayout(context).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL or Gravity.END
+            setPadding(0, 0, 0, 8)
             fun stepper(label: String, value: Int, onChange: (Int) -> Unit) {
                 addView(TextView(context).apply { text = label; textSize = 14f; alpha = 0.7f; setPadding(12, 0, 8, 0) })
                 addView(Button(context).apply { text = "–"; minWidth = 0; minimumWidth = 0; setOnClickListener { onChange(value - 1) } })
