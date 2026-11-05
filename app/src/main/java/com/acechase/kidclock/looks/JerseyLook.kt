@@ -10,7 +10,7 @@ import java.util.Locale
 /**
  * Big navy digits in Fredoka with a hard green drop like a printed kit number, AM/PM beside them
  * in the same style, and under them a two-cell scoreboard strip: the day in yellow on navy, the
- * date in navy on white. Made for the Soccer Notebook background but it sits on any of them. At
+ * date in navy on white. Made for the Soccer Board background but it sits on any of them. At
  * night the drop goes, the strip is just an amber outline and everything is amber.
  */
 class JerseyLook : Look() {

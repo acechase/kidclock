@@ -391,7 +391,7 @@ abstract class ClockFace(context: Context) : View(context) {
             6 -> MeadowFace(context)
             7 -> DoodleStringsFace(context)
             8 -> NotebookFace(context)
-            9 -> SoccerNotebookFace(context)
+            9 -> SoccerBoardFace(context)
             10 -> StadiumFace(context)
             11 -> CrabTankFace(context)
             12 -> NightReefFace(context)
