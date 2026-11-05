@@ -21,7 +21,7 @@ class VoiceCommandListener(
     private val context: Context,
     private val onCommand: (Command) -> Unit,
     private val onStatus: (Status) -> Unit,
-    /** Wake-window mode: snooze is meaningless and the mic stays open longer, so require a two-word phrase. */
+    /** Wake-window mode: snooze is meaningless and the mic stays open longer, so a one-word phrase must be very clear. */
     private val wakeWindowMode: Boolean = false,
 ) {
     enum class Command { SNOOZE, DISMISS }
@@ -92,21 +92,24 @@ class VoiceCommandListener(
         Log.d(TAG, "heard '$text' minConf=%.2f words=$n t=+${sinceStart}ms".format(minConf))
         if (sinceStart < WARMUP_MS || n == 0 || minConf < MIN_CONF) return
         val cmd = COMMANDS[text] ?: return
-        if (wakeWindowMode && (cmd == Command.SNOOZE || n < 2)) return
+        if (wakeWindowMode && (cmd == Command.SNOOZE || (n < 2 && minConf < SINGLE_WORD_CONF))) return
         if (fired.compareAndSet(false, true)) main.post { onCommand(cmd) }
     }
 
     companion object {
         private const val TAG = "VoiceCommand"
         private const val SAMPLE_RATE = 16000f
-        private const val GRAMMAR = """["snooze", "snooze please", "stop", "stop alarm", "alarm off", "turn off", "turn off alarm", "i'm awake", "i am awake", "[unk]"]"""
+        private const val GRAMMAR = """["snooze", "snooze please", "stop", "stop alarm", "alarm off", "off", "turn off", "turn off alarm", "i'm awake", "i am awake", "i'm up", "i am up", "[unk]"]"""
+        /** Every phrase that ends an alarm also ends a gentle wake-up, so a kid never has to remember which screen wants which words. */
         private val COMMANDS = mapOf(
             "snooze" to Command.SNOOZE, "snooze please" to Command.SNOOZE,
-            "stop" to Command.DISMISS, "stop alarm" to Command.DISMISS, "alarm off" to Command.DISMISS,
+            "stop" to Command.DISMISS, "stop alarm" to Command.DISMISS, "alarm off" to Command.DISMISS, "off" to Command.DISMISS,
             "turn off" to Command.DISMISS, "turn off alarm" to Command.DISMISS,
-            "i'm awake" to Command.DISMISS, "i am awake" to Command.DISMISS,
+            "i'm awake" to Command.DISMISS, "i am awake" to Command.DISMISS, "i'm up" to Command.DISMISS, "i am up" to Command.DISMISS,
         )
         private const val MIN_CONF = 0.70
+        /** In the wake window the mic is open for many minutes, so a one-word "stop" or "off" needs to be heard very clearly. */
+        private const val SINGLE_WORD_CONF = 0.92
         private const val WARMUP_MS = 1500L
 
         @Volatile private var cachedModel: Model? = null

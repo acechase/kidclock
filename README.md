@@ -18,17 +18,25 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
 | ![Halloween design, Witching Hour: copper digits with a witch hat under a moon, bats and a cobweb](docs/screenshots/halloween.webp) | ![Christmas design, Fairy Lights: white serif digits under a string of glowing bulbs, snow and holly](docs/screenshots/christmas.webp) |
 
 ## Features
-- Nine swipeable backgrounds: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,
+- Sixteen swipeable backgrounds: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,
   **Rainbow**, **Galaxy** (nebula and shooting stars), **Fireflies** (dusk forest; a few stay lit at night), **Aurora**,
   **Meadow** (flowers and butterflies), **Doodle Strings** (beaded pink strings hung with hearts doodled in a dozen
-  marker styles, swaying) and **Notebook** (a ruled page covered in doodled hearts).
-- Eleven **looks** for the time itself, chosen separately from the background: hold the time for two seconds, then swipe
+  marker styles, swaying) and **Notebook** (a ruled page covered in doodled hearts), and seven more picked with a 6- and a 9-year-old:
+  **Soccer Notebook** (the ruled page doodled with balls, boots, goals, whistles, cones, trophies and jerseys),
+  **Stadium** (floodlights over a night pitch), **Crab Tank** (a hermit crab tank: sand, dishes, shells, driftwood,
+  a coconut hut and the crab), **Night Reef** (seaweed, rising bubbles and a crab under a moon), **Stuffies** (five
+  plush animals on a star-print sheet, who swap places each day and wave now and then), **Doodle Notebook** (rockets,
+  tanks, monsters, dinosaurs and robots in marker) and **Blueprint** (white line drawings on drafting blue).
+- Eighteen **looks** for the time itself, chosen separately from the background: hold the time for two seconds, then swipe
   sideways and tap to keep. **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
   sweeping second hand, for learning to read clocks), **Sketch** (hand-drawn on a paper scrap), **Whacky** (every digit
   a different font and tilt), **Pixel** (retro game), **Magnets** (fridge tiles), **Tiara** (slim serif digits in
   champagne rose with a fine tiara on the hour and a script date), **Marker** (Caveat digits with a scribbled pink
-  underline) and **Marker Stacked** (the stacked layout in pink marker, with doodled tiaras). Every look has an amber
-  night version.
+  underline) and **Marker Stacked** (the stacked layout in pink marker, with doodled tiaras), **Jersey** (navy numerals with a green
+  shadow over a scoreboard date strip), **Scoreboard** (LED digits in a black panel), **Beach** (rounded navy digits
+  with a water-blue shadow), **Bubble** (each digit in its own bubble), **Plush** (cream digits with a brown outline
+  and a pink shadow), **Marker Blue** (blue marker digits with a green scribble) and **Stencil** (Black Ops One).
+  Every look has an amber night version.
 - **Holiday designs**: a special background *and* look for New Year's Eve, Valentine's Day, St. Patrick's Day, Easter,
   the Fourth of July, Halloween, Thanksgiving and Christmas. Each appears on its own three days before the holiday
   and goes away the day after, giving the chosen background and look back. Swiping to another background or picking
@@ -36,7 +44,9 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   until next year. A switch in Settings turns the feature off. Easter and Thanksgiving are computed
   (`holiday/Holiday.kt`); the on/off logic is pure and unit-tested (`holiday/HolidayPlanner.kt`).
 - Alarms via `AlarmManager.setAlarmClock`, re-registered on boot. Per-alarm days of week; one-shot alarms disable themselves.
-- Ring screen with giant Snooze / Off buttons and **offline voice commands** ("snooze", "stop", "alarm off", "I'm awake")
+- Ring screen dressed for the day's weather (the same painted skies as the weather page), with a big moon for Snooze
+  and a big sun for "I'm up!" and the words underneath, plus **offline voice commands** ("snooze", "stop", "off",
+  "alarm off", "I'm up", "I'm awake")
   using Vosk. The microphone is opened only while ringing and released on snooze, dismiss, or the 10 minute timeout.
 - **Night window** (default 8:30 pm to 6:30 am): black background, amber digits, screen dimmed via the window brightness
   attribute plus a dark overlay; the ambient light sensor nudges brightness. No WRITE_SETTINGS needed.
@@ -61,6 +71,12 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   The Portal's volume keys only move the media stream, so the app owns the separate alarm stream: while an alarm
   rings it is pinned to "Alarm volume %", during a gentle wake-up to "Gentle wake-up volume %" (default 25), and
   restored afterwards. The previews use the same levels, and adjusting either volume replays its preview.
+- **Who is this clock for**: Settings starts with the ages of the youngest and oldest kid using the clock. Every
+  quote carries a minimum age, so the daily pool is the quotes written for the oldest kid's age or younger. An
+  **Early reader** switch (on by itself while the youngest is under 7) turns on three picture-first screens, each with
+  its own override: a few easy sight words on top of the morning quote with the full quote beneath, what-to-wear and
+  raincoat picture tiles on the weather page, and picture buttons when the alarm rings. The rules are pure and
+  unit-tested (`quotes/QuoteRules.kt`).
 - **Quote library**: 260 curated quotes and advice lines for a bright 11-year-old in `app/src/main/assets/quotes.json`
   (attributed quotes plus house "Morning advice"). Six are picked each day, one per theme, with no repeats for
   about a month. The current one appears large on the gentle wake-up card and, if enabled, small and quiet on the

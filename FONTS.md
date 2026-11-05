@@ -30,5 +30,6 @@ The looks in `app/src/main/java/com/acechase/kidclock/looks/` and the holiday lo
 | `lora_italic_medium.ttf` | Lora Medium Italic | Harvest (Thanksgiving) |
 | `libre_baskerville_bold.ttf` | Libre Baskerville Bold | Fairy Lights (Christmas) |
 | `pinyon_script.ttf` | Pinyon Script | Fairy Lights (Christmas) |
+| `black_ops_one.ttf` | Black Ops One | Stencil |
 
 Classic and Analog use the device's Roboto.

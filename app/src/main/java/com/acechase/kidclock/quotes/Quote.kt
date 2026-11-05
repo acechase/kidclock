@@ -7,6 +7,8 @@ data class Quote(
     val author: String?,
     val source: String?,
     val tags: List<String>,
+    /** The youngest age the quote is written for; see [QuoteRules.eligible]. */
+    val minAge: Int = 11,
 ) {
     /** "— Maya Angelou" / "— Merida, Brave" / "— Morning advice". */
     val attribution: String

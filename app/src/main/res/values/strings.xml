@@ -2,8 +2,11 @@
     <string name="app_name">KidClock</string>
     <string name="settings_title">Settings</string>
     <string name="snooze">Snooze</string>
-    <string name="dismiss">Off</string>
-    <string name="listening">Listening… say “snooze” or “stop”</string>
+    <string name="dismiss">I\'m up!</string>
+    <string name="dismiss_sub">turns the alarm off</string>
+    <string name="snooze_sub">%d more minutes</string>
+    <string name="ring_get_up">Time to get up!</string>
+    <string name="listening">Listening… say “snooze”, or “stop”, “off” or “I\'m up” to turn it off</string>
     <string name="mic_unavailable">Voice off (microphone muted)</string>
     <string name="add_alarm">+ Add alarm</string>
     <string name="done">Done</string>
@@ -23,6 +26,20 @@
     <string name="hide">Hide ▴</string>
     <string name="snooze_minutes">Snooze minutes</string>
     <string name="voice_commands">Voice snooze while ringing</string>
+    <string name="section_who">Who is this clock for</string>
+    <string name="who_blurb">Picks which quotes are drawn. Every look and background stays in the swipe list.</string>
+    <string name="ages">Ages</string>
+    <string name="ages_blurb">Quotes for everyone from the youngest to the oldest</string>
+    <string name="youngest">youngest</string>
+    <string name="oldest">oldest</string>
+    <string name="early_reader">Early reader</string>
+    <string name="early_reader_blurb">On by itself when the youngest is under 7. Turns on the three picture-first screens below.</string>
+    <string name="quote_short_line">Short line on the morning quote</string>
+    <string name="quote_short_line_blurb">A few easy words on top; the full quote stays beneath</string>
+    <string name="weather_pictures">Weather pictures</string>
+    <string name="weather_pictures_blurb">What-to-wear and raincoat tiles above the sentences</string>
+    <string name="picture_buttons">Picture buttons when the alarm rings</string>
+    <string name="picture_buttons_blurb">Big moon and sun, with the words small underneath</string>
     <string name="next_alarm">Next alarm</string>
     <string name="no_alarm">No alarm</string>
 </resources>

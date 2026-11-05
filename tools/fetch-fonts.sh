@@ -33,6 +33,7 @@ fraunces_semibold|Fraunces:wght@600
 lora_italic_medium|Lora:ital,wght@1,500
 libre_baskerville_bold|Libre+Baskerville:wght@700
 pinyon_script|Pinyon+Script
+black_ops_one|Black+Ops+One
 "
 
 ALL=0; [[ "${1:-}" == "--all" ]] && ALL=1

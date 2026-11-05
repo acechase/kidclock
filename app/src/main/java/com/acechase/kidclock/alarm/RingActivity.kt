@@ -11,13 +11,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.acechase.kidclock.Prefs
 import com.acechase.kidclock.R
 import com.acechase.kidclock.voice.VoiceCommandListener
+import com.acechase.kidclock.weather.SkyView
+import com.acechase.kidclock.weather.WeatherService
+import com.acechase.kidclock.weather.WeatherSky
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 /**
- * Ringing screen. Two giant buttons plus voice ("snooze" / "stop"). The microphone is opened
- * here and only here, and released the moment the alarm ends or after the 10 minute timeout.
+ * Ringing screen, dressed for the day's weather like the weather page: a big moon for Snooze and a big sun for
+ * "I'm up!", with the words under them (an early reader goes by the pictures; with picture buttons off the words
+ * are big on their own), plus voice ("snooze", "stop", "off", "I'm up"). The microphone is opened here and only
+ * here, and released the moment the alarm ends or after the 10 minute timeout.
  */
 class RingActivity : AppCompatActivity() {
     /** Pins the alarm stream to the chosen alarm volume for the ring and restores it afterwards. */
@@ -41,9 +47,22 @@ class RingActivity : AppCompatActivity() {
         window.attributes = window.attributes.apply { screenBrightness = 1f }
         setContentView(R.layout.activity_ring)
 
-        val fmt = if (prefs.use24h) "HH:mm" else "h:mm"
+        // The sky the weather page would show right now; a plain cloudy one when there is no forecast.
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val nightSky = hour < 6 || hour >= 19
+        findViewById<SkyView>(R.id.ringSky).sky = WeatherService.cached(this)?.let { WeatherSky.of(it.code, nightSky) } ?: WeatherSky.CLOUDY
+
+        val fmt = if (prefs.use24h) "HH:mm" else "h:mm a"
         findViewById<TextView>(R.id.ringTime).text = SimpleDateFormat(fmt, Locale.getDefault()).format(Date())
         showLabel(intent)
+        findViewById<TextView>(R.id.subSnooze).text = getString(R.string.snooze_sub, prefs.snoozeMinutes)
+        if (!prefs.pictureButtons) {
+            // Words first: no pictures, bigger labels.
+            findViewById<View>(R.id.iconSnooze).visibility = View.GONE
+            findViewById<View>(R.id.iconDismiss).visibility = View.GONE
+            findViewById<TextView>(R.id.txtSnooze).textSize = 56f
+            findViewById<TextView>(R.id.txtDismiss).textSize = 56f
+        }
         findViewById<View>(R.id.btnSnooze).setOnClickListener { snooze() }
         findViewById<View>(R.id.btnDismiss).setOnClickListener { dismiss() }
 
@@ -65,7 +84,7 @@ class RingActivity : AppCompatActivity() {
 
     private fun showLabel(intent: Intent) {
         val label = intent.getStringExtra(AlarmScheduler.EXTRA_LABEL).orEmpty()
-        findViewById<TextView>(R.id.ringLabel).text = label.ifEmpty { "Good morning!" }
+        findViewById<TextView>(R.id.ringLabel).text = label.ifEmpty { getString(R.string.ring_get_up) }
     }
 
 

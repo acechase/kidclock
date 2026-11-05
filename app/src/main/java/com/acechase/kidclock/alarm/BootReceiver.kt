@@ -23,6 +23,8 @@ import com.acechase.kidclock.weather.WeatherDetailActivity
  *                                                              (-1 keeps one as it is; dismisses a holiday)
  *   -a com.acechase.kidclock.TEST_WEATHER --es sky RAINY        open the weather page dressed for that sky
  *                                                              (SUNNY CLOUDY RAINY SNOWY STORMY NIGHT; none = real)
+ *   -a com.acechase.kidclock.TEST_AGES --ei youngest 6 --ei oldest 9   set the kids' ages (the early-reader
+ *                                                              screens follow the youngest; overrides are cleared)
  */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -58,6 +60,15 @@ class BootReceiver : BroadcastReceiver() {
             }
             return
         }
+        if (intent.action == ACTION_TEST_AGES) {
+            Prefs(context).apply {
+                intent.getIntExtra("youngest", -1).takeIf { it > 0 }?.let { youngestAge = it }
+                intent.getIntExtra("oldest", -1).takeIf { it > 0 }?.let { oldestAge = it }
+                if (oldestAge < youngestAge) oldestAge = youngestAge
+                clearEarlyReaderOverrides()
+            }
+            return
+        }
         if (intent.action == ACTION_TEST_MISSED) {
             val at = System.currentTimeMillis() - intent.getIntExtra("minutes_ago", 5).coerceIn(0, 600) * 60_000L
             Prefs(context).apply {
@@ -75,5 +86,6 @@ class BootReceiver : BroadcastReceiver() {
         const val ACTION_TEST_HOLIDAY = "com.acechase.kidclock.TEST_HOLIDAY"
         const val ACTION_TEST_DESIGN = "com.acechase.kidclock.TEST_DESIGN"
         const val ACTION_TEST_WEATHER = "com.acechase.kidclock.TEST_WEATHER"
+        const val ACTION_TEST_AGES = "com.acechase.kidclock.TEST_AGES"
     }
 }

@@ -138,6 +138,17 @@ class SettingsActivity : AppCompatActivity() {
     private fun buildGeneral() {
         general.removeAllViews()
 
+        section(getString(R.string.section_who)) {
+            addView(TextView(context).apply { text = getString(R.string.who_blurb); textSize = 13f; alpha = 0.6f; setPadding(0, 0, 0, 6) })
+            addView(agesRow())
+            addView(switchRow(getString(R.string.early_reader), prefs.earlyReader, getString(R.string.early_reader_blurb)) {
+                prefs.earlyReader = it; buildGeneral()
+            })
+            addView(indented(switchRow(getString(R.string.quote_short_line), prefs.quoteShortLine, getString(R.string.quote_short_line_blurb)) { prefs.quoteShortLine = it }))
+            addView(indented(switchRow(getString(R.string.weather_pictures), prefs.weatherPictures, getString(R.string.weather_pictures_blurb)) { prefs.weatherPictures = it }))
+            addView(indented(switchRow(getString(R.string.picture_buttons), prefs.pictureButtons, getString(R.string.picture_buttons_blurb)) { prefs.pictureButtons = it }))
+        }
+
         section(getString(R.string.section_night)) {
             addView(timeRow(getString(R.string.night_start), prefs.nightStartMin) { prefs.nightStartMin = it; buildGeneral() })
             addView(timeRow(getString(R.string.night_end), prefs.nightEndMin) { prefs.nightEndMin = it; buildGeneral() })
@@ -244,6 +255,33 @@ class SettingsActivity : AppCompatActivity() {
             textSize = 15f; alpha = 0.7f; setPadding(4, 6, 4, 0)
         })
     }
+
+    /** The ages of the youngest and oldest kid, two small steppers on one row; the youngest never passes the oldest. */
+    private fun agesRow(): LinearLayout = LinearLayout(this).apply {
+        orientation = LinearLayout.VERTICAL
+        addView(row(getString(R.string.ages)).apply {
+            fun stepper(label: String, value: Int, onChange: (Int) -> Unit) {
+                addView(TextView(context).apply { text = label; textSize = 14f; alpha = 0.7f; setPadding(12, 0, 8, 0) })
+                addView(Button(context).apply { text = "–"; minWidth = 0; minimumWidth = 0; setOnClickListener { onChange(value - 1) } })
+                addView(TextView(context).apply { text = value.toString(); textSize = 24f; minWidth = 70; gravity = Gravity.CENTER })
+                addView(Button(context).apply { text = "+"; minWidth = 0; minimumWidth = 0; setOnClickListener { onChange(value + 1) } })
+            }
+            stepper(getString(R.string.youngest), prefs.youngestAge) { v ->
+                prefs.youngestAge = v
+                if (prefs.oldestAge < prefs.youngestAge) prefs.oldestAge = prefs.youngestAge
+                buildGeneral()
+            }
+            stepper(getString(R.string.oldest), prefs.oldestAge) { v ->
+                prefs.oldestAge = v
+                if (prefs.youngestAge > prefs.oldestAge) prefs.youngestAge = prefs.oldestAge
+                buildGeneral()
+            }
+        })
+        addView(TextView(context).apply { text = getString(R.string.ages_blurb); textSize = 13f; alpha = 0.6f; setPadding(0, 0, 0, 10) })
+    }
+
+    /** The three picture-first switches sit a step in under the Early reader switch they follow. */
+    private fun indented(v: LinearLayout): LinearLayout = v.apply { setPadding(36, 0, 0, 0) }
 
     /**
      * A card with a small heading and the rows [body] adds to it. A collapsible card shows only its heading

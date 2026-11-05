@@ -284,6 +284,7 @@ class ClockActivity : AppCompatActivity() {
         f.wakeMode = wakeWindow
         val quote = if (prefs.quotesEnabled) QuoteRepository.get(this).current(this) else null
         f.quote = if (wakeWindow) quote else null
+        f.littleLine = if (wakeWindow && quote != null && prefs.quoteShortLine) QuoteRepository.get(this).littleFor(quote) else null
         f.clockQuote = if (prefs.quotesOnClock) quote else null
         awakeButton.visibility = if (gentle) View.VISIBLE else View.GONE
         syncWakeVoice(gentle)
@@ -297,7 +298,7 @@ class ClockActivity : AppCompatActivity() {
         }
         f.nextAlarmText = when {
             gentle -> "Good morning ☀️ Alarm at ${fmt(prefs.wakeUntilMs)}" +
-                if (wakeVoiceListening) "  ·  say “I'm awake”" else "  ·  tap when you're up"
+                if (wakeVoiceListening) "  ·  say “I'm awake” or “I'm up”" else "  ·  tap when you're up"
             wakeWindow -> "You're up! Alarm is off for today. Have a great day ☀️"
             nextMain == null -> ""
             nextMain.isSnooze -> "Snoozed until ${fmt(nextMain.atMs)}"
@@ -327,7 +328,7 @@ class ClockActivity : AppCompatActivity() {
         tick()
     }
 
-    /** Microphone is open only while a gentle wake-up is pending, listening for "I'm awake". */
+    /** Microphone is open only while a gentle wake-up is pending, listening for the same phrases that end an alarm. */
     private fun syncWakeVoice(shouldListen: Boolean) {
         val wantVoice = shouldListen && prefs.voiceEnabled && VoiceCommandListener.hasPermission(this)
         if (wantVoice && wakeVoice == null) {
