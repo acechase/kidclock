@@ -23,7 +23,7 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   **Meadow** (flowers and butterflies), **Doodle Strings** (beaded pink strings hung with hearts doodled in a dozen
   marker styles, swaying) and **Notebook** (a ruled page covered in doodled hearts), and seven more picked with a 6- and a 9-year-old:
   **Soccer Board** (a coach's tactics whiteboard, a pale green pitch under X-and-O plays, doodled round the edge with balls, boots, goals, whistles, cones, trophies and jerseys),
-  **Stadium** (floodlights over a night pitch), **Crab Tank** (a hermit crab tank: sand, dishes, shells, driftwood,
+  **Stadium** (floodlight masts beaming down on a night pitch, a goal with its net in the middle), **Crab Tank** (a hermit crab tank: sand, dishes, shells, driftwood,
   a coconut hut and the crab), **Night Reef** (seaweed, rising bubbles and a crab under a moon), **Stuffies** (five
   plush animals on a star-print sheet, who swap places each day and wave now and then), **Doodle Notebook** (rockets,
   tanks, monsters, dinosaurs and robots in marker) and **Blueprint** (white line drawings on drafting blue).
