@@ -5,7 +5,10 @@ package com.acechase.kidclock.looks
  * line; it is independent of the painted background (see faces/). Pure Kotlin so it is testable.
  */
 object LookCatalog {
-    val names = listOf("Classic", "Bold", "Stacked", "Analog", "Sketch", "Whacky", "Pixel", "Magnets", "Tiara", "Marker", "Marker Stacked")
+    val names = listOf(
+        "Classic", "Bold", "Stacked", "Analog", "Sketch", "Whacky", "Pixel", "Magnets", "Tiara", "Marker", "Marker Stacked",
+        "Jersey", "Scoreboard", "Beach", "Bubble", "Plush", "Marker Blue", "Stencil",
+    )
     val count: Int get() = names.size
 
     const val CLASSIC = 0

@@ -3,6 +3,8 @@
 #   tools/test-alarm.sh [seconds]        ring a test alarm in N seconds (default 10)
 #   tools/test-alarm.sh --missed [min]   pretend an alarm N minutes ago (default 5) was lost while
 #                                        the device was off; it should ring immediately
+#   tools/test-alarm.sh --gentle         gentle wake-up in about a minute, the main alarm a minute later
+#                                        (the wake-up card with the quote shows once the gentle sound starts)
 #   tools/test-alarm.sh --stop           stop a ringing test alarm and return to the clock
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -11,6 +13,7 @@ PKG=com.acechase.kidclock
 RECV="am broadcast --include-stopped-packages -n $PKG/.alarm.BootReceiver"
 case "${1:-}" in
   --missed) adb -s "$PORTAL_SERIAL" shell $RECV -a $PKG.TEST_MISSED --ei minutes_ago "${2:-5}" ;;
+  --gentle) adb -s "$PORTAL_SERIAL" shell $RECV -a $PKG.TEST_GENTLE ;;
   --stop)   adb -s "$PORTAL_SERIAL" shell am force-stop $PKG
             adb -s "$PORTAL_SERIAL" shell am start -n $PKG/.ClockActivity ;;
   *)        adb -s "$PORTAL_SERIAL" shell $RECV -a $PKG.TEST_ALARM --ei seconds "${1:-10}" ;;

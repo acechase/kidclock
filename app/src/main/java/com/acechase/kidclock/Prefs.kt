@@ -41,6 +41,8 @@ class Prefs(context: Context) {
     var lookIndex: Int
         get() = sp.getInt("look", 0)
         set(v) = sp.edit().putInt("look", v).apply()
+    /** True once a look has ever been stored; false only on a fresh install or one from before looks existed. */
+    val hasLookChoice: Boolean get() = sp.contains("look")
 
     /** Holiday designs: a special background and look from three days before each holiday until the day after. */
     var holidaysEnabled: Boolean
@@ -194,7 +196,50 @@ class Prefs(context: Context) {
         get() = sp.getInt("nextAlarmId", 1)
         set(v) = sp.edit().putInt("nextAlarmId", v).apply()
 
+    // ---- Who is this clock for (the first card in Settings) ---------------------------------------
+
+    /** Ages of the youngest and oldest kid using the clock. With the oldest they pick the quote pool. */
+    var youngestAge: Int
+        get() = sp.getInt("youngestAge", 11)
+        set(v) = sp.edit().putInt("youngestAge", v.coerceIn(3, 18)).apply()
+
+    var oldestAge: Int
+        get() = sp.getInt("oldestAge", 11)
+        set(v) = sp.edit().putInt("oldestAge", v.coerceIn(3, 18)).apply()
+
+    /**
+     * Early reader: the picture-first screens (a short line over the morning quote, weather tiles, picture
+     * buttons when the alarm rings). On by itself while the youngest is under 7, until set by hand; setting it
+     * also resets the three per-screen overrides so they follow it again.
+     */
+    var earlyReader: Boolean
+        get() = if (sp.contains("earlyReader")) sp.getBoolean("earlyReader", false) else youngestAge < EARLY_READER_UNDER
+        set(v) = sp.edit().putBoolean("earlyReader", v).remove("quoteShortLine").remove("weatherPictures").remove("pictureButtons").apply()
+
+    /** A few easy words on top of the morning quote, the full quote beneath. Follows [earlyReader] until set. */
+    var quoteShortLine: Boolean
+        get() = follows("quoteShortLine")
+        set(v) = sp.edit().putBoolean("quoteShortLine", v).apply()
+
+    /** Wear / raincoat / week tiles above the weather page's sentences. Follows [earlyReader] until set. */
+    var weatherPictures: Boolean
+        get() = follows("weatherPictures")
+        set(v) = sp.edit().putBoolean("weatherPictures", v).apply()
+
+    /** Big moon and sun on the ring screen's buttons, words small underneath. Follows [earlyReader] until set. */
+    var pictureButtons: Boolean
+        get() = follows("pictureButtons")
+        set(v) = sp.edit().putBoolean("pictureButtons", v).apply()
+
+    private fun follows(key: String) = if (sp.contains(key)) sp.getBoolean(key, false) else earlyReader
+
+    /** Back to following the youngest age (the adb TEST_AGES hook uses this). */
+    fun clearEarlyReaderOverrides() =
+        sp.edit().remove("earlyReader").remove("quoteShortLine").remove("weatherPictures").remove("pictureButtons").apply()
+
     companion object {
+        /** The youngest age that is assumed to read well enough to go without the picture-first screens. */
+        const val EARLY_READER_UNDER = 7
         fun fmtMinutes(min: Int, use24h: Boolean): String {
             val h = min / 60
             val m = min % 60

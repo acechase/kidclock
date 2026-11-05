@@ -7,8 +7,8 @@ import org.junit.Test
 
 class LookCatalogTest {
     @Test
-    fun elevenDistinctLooksAndStorybookStaysOut() {
-        assertEquals(11, LookCatalog.count)
+    fun eighteenDistinctLooksAndStorybookStaysOut() {
+        assertEquals(18, LookCatalog.count)
         assertEquals(LookCatalog.names.size, LookCatalog.names.toSet().size)
         assertEquals("Classic", LookCatalog.names[LookCatalog.CLASSIC])
         assertEquals("Analog", LookCatalog.names[LookCatalog.ANALOG])
@@ -17,9 +17,9 @@ class LookCatalogTest {
 
     @Test
     fun indexWrapsBothWays() {
-        assertEquals(0, LookCatalog.wrap(11))
-        assertEquals(10, LookCatalog.wrap(-1))
-        assertEquals(3, LookCatalog.wrap(14))
+        assertEquals(0, LookCatalog.wrap(18))
+        assertEquals(17, LookCatalog.wrap(-1))
+        assertEquals(3, LookCatalog.wrap(21))
     }
 
     @Test

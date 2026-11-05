@@ -40,6 +40,9 @@ abstract class ClockFace(context: Context) : View(context) {
         set(v) { if (field != v) { field = v; invalidate() } }
     var quote: Quote? = null
         set(v) { if (field != v) { field = v; invalidate() } }
+    /** A few easy words drawn big over the wake-up quote for an early reader (null = just the quote). */
+    var littleLine: String? = null
+        set(v) { if (field != v) { field = v; invalidate() } }
     /** Small, quiet quote on the ordinary clock layout (null = off). Hidden at night. */
     var clockQuote: Quote? = null
         set(v) { if (field != v) { field = v; invalidate() } }
@@ -61,6 +64,7 @@ abstract class ClockFace(context: Context) : View(context) {
 
     private val smallQuotePaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply { typeface = Typeface.create("serif", Typeface.ITALIC) }
     private val quotePaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply { typeface = Typeface.create("serif", Typeface.ITALIC) }
+    private val littlePaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply { typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL) }
     private val cardPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val cardRect = RectF()
     private val fonts = Fonts.get(context)
@@ -217,7 +221,9 @@ abstract class ClockFace(context: Context) : View(context) {
             smallPaint.textSize = h * 0.036f
             smallPaint.alpha = if (night) 110 else 220
             smallPaint.textAlign = Paint.Align.LEFT
+            // Shrink a long line a little before cutting it short ("say “I'm awake” or “I'm up”" is long).
             var t = nextAlarmText
+            while (smallPaint.measureText(t) > w * 0.66f && smallPaint.textSize > h * 0.028f) smallPaint.textSize *= 0.95f
             while (smallPaint.measureText(t) > w * 0.66f && t.length > 8) t = t.dropLast(4) + "…"
             c.drawText(t, w * 0.04f, h * 0.945f, smallPaint)
             smallPaint.textAlign = Paint.Align.CENTER
@@ -284,6 +290,12 @@ abstract class ClockFace(context: Context) : View(context) {
         // smoked glass under light ink, frosted glass under dark ink.
         var widest = 0f
         for (i in 0 until layout.lineCount) widest = maxOf(widest, layout.getLineWidth(i))
+        // The attribution in the look's label face; wide faces (Rubik Mono) shrink to fit, and widen the card.
+        val attr = "— ${q.attribution}"
+        smallPaint.typeface = look.labelTypeface(fonts)
+        smallPaint.textSize = attrSize
+        while (smallPaint.measureText(attr) > inner && smallPaint.textSize > h * 0.016f) smallPaint.textSize *= 0.94f
+        widest = maxOf(widest, smallPaint.measureText(attr))
         val padX = h * 0.03f; val padY = h * 0.018f
         cardRect.set(box.centerX() - widest / 2f - padX, top - padY, box.centerX() + widest / 2f + padX, top + total + padY * 0.6f)
         val lightInk = (0.299f * ((ink shr 16) and 0xFF) + 0.587f * ((ink shr 8) and 0xFF) + 0.114f * (ink and 0xFF)) > 128f
@@ -295,44 +307,71 @@ abstract class ClockFace(context: Context) : View(context) {
         layout.draw(c)
         c.restore()
         smallPaint.color = ink
-        smallPaint.typeface = look.labelTypeface(fonts)
-        smallPaint.textSize = attrSize
         smallPaint.alpha = 180
         smallPaint.setShadowLayer(6f, 0f, 2f, dayShadowColor)
-        c.drawText("— ${q.attribution}", box.centerX(), top + layout.height + attrSize * 1.1f, smallPaint)
+        c.drawText(attr, box.centerX(), top + layout.height + attrSize * 1.1f, smallPaint)
         smallPaint.clearShadowLayer()
         smallPaint.alpha = 255
         smallPaint.typeface = fonts.regular
         quoteRect.set(cardRect.left - h * 0.01f, cardRect.top - h * 0.01f, cardRect.right + h * 0.01f, cardRect.bottom + h * 0.01f)
     }
 
+    /**
+     * The wake-up card: the quote in italics with its attribution, and for an early reader a few easy words
+     * big on top with a short rule between, so the younger kid reads the line and the older one reads on.
+     */
     private fun drawQuote(c: Canvas, w: Float, h: Float, q: Quote) {
-        cardRect.set(w * 0.07f, h * 0.555f, w * 0.93f, h * 0.885f)
+        val little = littleLine
+        cardRect.set(w * 0.07f, if (little != null) h * 0.545f else h * 0.555f, w * 0.93f, h * 0.885f)
         val inner = (cardRect.width() - h * 0.08f).toInt()
-        quotePaint.color = if (night) NIGHT_TEXT else dayTextColor
-        var size = h * 0.052f
+        val ink = if (night) NIGHT_TEXT else dayTextColor
+        var littleLayout: StaticLayout? = null
+        if (little != null) {
+            littlePaint.color = ink
+            var ls = h * 0.075f
+            while (true) {
+                littlePaint.textSize = ls
+                littleLayout = StaticLayout.Builder.obtain(little, 0, little.length, littlePaint, inner)
+                    .setAlignment(Layout.Alignment.ALIGN_CENTER).setLineSpacing(0f, 1.05f).build()
+                if (littleLayout.lineCount <= 1 || ls < h * 0.05f) break
+                ls *= 0.92f
+            }
+        }
+        val littleH = littleLayout?.let { it.height + h * 0.045f } ?: 0f
+        quotePaint.color = ink
+        var size = if (little != null) h * 0.040f else h * 0.052f
         var layout: StaticLayout
-        val quoted = "“${q.text}”"
+        val quoted = "\u201c${q.text}\u201d"
+        val room = cardRect.height() * 0.70f - littleH
         while (true) {
             quotePaint.textSize = size
             layout = StaticLayout.Builder.obtain(quoted, 0, quoted.length, quotePaint, inner)
                 .setAlignment(Layout.Alignment.ALIGN_CENTER).setLineSpacing(0f, 1.12f).build()
-            if (layout.height <= cardRect.height() * 0.70f || size < h * 0.03f) break
+            if (layout.height <= room || size < h * 0.026f) break
             size *= 0.93f
         }
         // Shrink the card to the text so short quotes do not float in an empty box.
-        cardRect.bottom = minOf(cardRect.bottom, cardRect.top + layout.height + h * 0.12f)
-        cardPaint.color = if (night) 0x33FF8A3D else 0x2E000000
+        cardRect.bottom = minOf(cardRect.bottom, cardRect.top + littleH + layout.height + h * 0.12f)
+        // Frosted glass under dark ink, smoked under light ink: busy scenes (stuffies, the tank) stay behind the words.
+        val lightInk = (0.299f * ((ink shr 16) and 0xFF) + 0.587f * ((ink shr 8) and 0xFF) + 0.114f * (ink and 0xFF)) > 128f
+        cardPaint.color = if (night) 0x33FF8A3D else if (lightInk) 0x7A000000 else 0xA6FFFFFF.toInt()
         c.drawRoundRect(cardRect, h * 0.03f, h * 0.03f, cardPaint)
-        c.save()
-        c.translate(cardRect.left + h * 0.04f, cardRect.top + h * 0.035f)
-        layout.draw(c)
-        c.restore()
-        smallPaint.color = if (night) NIGHT_TEXT else dayTextColor
+        var y = cardRect.top + h * 0.035f
+        if (littleLayout != null) {
+            c.save(); c.translate(cardRect.left + h * 0.04f, y); littleLayout.draw(c); c.restore()
+            y += littleLayout.height
+            cardPaint.color = ink
+            cardPaint.alpha = if (night) 120 else 150
+            c.drawRoundRect(w / 2f - h * 0.06f, y + h * 0.018f, w / 2f + h * 0.06f, y + h * 0.024f, h * 0.003f, h * 0.003f, cardPaint)
+            cardPaint.alpha = 255
+            y += h * 0.045f
+        }
+        c.save(); c.translate(cardRect.left + h * 0.04f, y); layout.draw(c); c.restore()
+        smallPaint.color = ink
         smallPaint.textSize = h * 0.034f
         smallPaint.alpha = if (night) 150 else 215
         smallPaint.textAlign = Paint.Align.RIGHT
-        c.drawText("— ${q.attribution}", cardRect.right - h * 0.05f, cardRect.bottom - h * 0.04f, smallPaint)
+        c.drawText("\u2014 ${q.attribution}", cardRect.right - h * 0.05f, cardRect.bottom - h * 0.04f, smallPaint)
         smallPaint.textAlign = Paint.Align.CENTER
         smallPaint.alpha = 255
         quoteRect.set(cardRect)
@@ -351,8 +390,15 @@ abstract class ClockFace(context: Context) : View(context) {
             5 -> AuroraFace(context)
             6 -> MeadowFace(context)
             7 -> DoodleStringsFace(context)
-            else -> NotebookFace(context)
+            8 -> NotebookFace(context)
+            9 -> SoccerBoardFace(context)
+            10 -> StadiumFace(context)
+            11 -> CrabTankFace(context)
+            12 -> NightReefFace(context)
+            13 -> StuffiesFace(context)
+            14 -> DoodleNotebookFace(context)
+            else -> BlueprintFace(context)
         }
-        const val COUNT = 9
+        const val COUNT = 16
     }
 }

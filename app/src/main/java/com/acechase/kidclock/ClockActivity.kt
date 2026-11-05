@@ -95,8 +95,10 @@ class ClockActivity : AppCompatActivity() {
             gravity = Gravity.BOTTOM or Gravity.END
             bottomMargin = 28; rightMargin = 36
         })
-        // Installs from before looks existed stored Analog as the last background.
-        LookCatalog.migrateAnalogBackground(prefs.faceIndex, LookCatalog.BACKGROUNDS_BEFORE_LOOKS)?.let { look ->
+        // Installs from before looks existed stored Analog as the last background. Only an install that has
+        // never chosen a look can be one of those; checking that keeps the newer backgrounds (index 7 and up)
+        // from being thrown back to Sky + Analog on every launch.
+        if (!prefs.hasLookChoice) LookCatalog.migrateAnalogBackground(prefs.faceIndex, LookCatalog.BACKGROUNDS_BEFORE_LOOKS)?.let { look ->
             prefs.lookIndex = look
             prefs.faceIndex = 0
         }
@@ -284,6 +286,7 @@ class ClockActivity : AppCompatActivity() {
         f.wakeMode = wakeWindow
         val quote = if (prefs.quotesEnabled) QuoteRepository.get(this).current(this) else null
         f.quote = if (wakeWindow) quote else null
+        f.littleLine = if (wakeWindow && quote != null && prefs.quoteShortLine) QuoteRepository.get(this).littleFor(quote) else null
         f.clockQuote = if (prefs.quotesOnClock) quote else null
         awakeButton.visibility = if (gentle) View.VISIBLE else View.GONE
         syncWakeVoice(gentle)
@@ -297,7 +300,7 @@ class ClockActivity : AppCompatActivity() {
         }
         f.nextAlarmText = when {
             gentle -> "Good morning ☀️ Alarm at ${fmt(prefs.wakeUntilMs)}" +
-                if (wakeVoiceListening) "  ·  say “I'm awake”" else "  ·  tap when you're up"
+                if (wakeVoiceListening) "  ·  say “I'm awake” or “I'm up”" else "  ·  tap when you're up"
             wakeWindow -> "You're up! Alarm is off for today. Have a great day ☀️"
             nextMain == null -> ""
             nextMain.isSnooze -> "Snoozed until ${fmt(nextMain.atMs)}"
@@ -327,7 +330,7 @@ class ClockActivity : AppCompatActivity() {
         tick()
     }
 
-    /** Microphone is open only while a gentle wake-up is pending, listening for "I'm awake". */
+    /** Microphone is open only while a gentle wake-up is pending, listening for the same phrases that end an alarm. */
     private fun syncWakeVoice(shouldListen: Boolean) {
         val wantVoice = shouldListen && prefs.voiceEnabled && VoiceCommandListener.hasPermission(this)
         if (wantVoice && wakeVoice == null) {
