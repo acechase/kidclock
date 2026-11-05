@@ -12,13 +12,17 @@ import java.util.Calendar
  * Selection works in daily batches: the first time quotes are asked for on a given day,
  * [BATCH] of them are chosen from the pool, excluding the most recently shown [HISTORY] quotes so
  * a child does not see repeats for weeks, each from a different theme so the set feels varied
- * (the first one follows the day's rotating theme). The batch and the position within it are
- * persisted, so the quote on screen survives restarts; tapping it advances to the next one.
+ * (the first one follows the day's rotating theme). Only quotes written for the oldest kid's age or
+ * younger are drawn from (see [QuoteRules]). The batch and the position within it are persisted, so the
+ * quote on screen survives restarts; tapping it advances to the next one.
  */
-class QuoteRepository private constructor(private val quotes: List<Quote>) {
+class QuoteRepository private constructor(private val quotes: List<Quote>, private val little: List<LittleLine>) {
 
     fun all(): List<Quote> = quotes
     fun byId(id: Int): Quote? = quotes.firstOrNull { it.id == id }
+
+    /** The few easy words shown over [q] for an early reader; see [QuoteRules.littleFor]. */
+    fun littleFor(q: Quote): String? = QuoteRules.littleFor(little, q)
 
     /** Today's batch of quotes, choosing and persisting a fresh one on the first call of the day. */
     fun todaysBatch(context: Context, now: Calendar = Calendar.getInstance()): List<Quote> {
@@ -31,7 +35,8 @@ class QuoteRepository private constructor(private val quotes: List<Quote>) {
         }
 
         val history = prefs.quoteHistory
-        val pool = quotes.filter { it.id !in history }.ifEmpty { quotes }.toMutableList()
+        val suited = QuoteRules.eligible(quotes, prefs.oldestAge)
+        val pool = suited.filter { it.id !in history }.ifEmpty { suited }.toMutableList()
         val rnd = java.util.Random(dayKey.toLong() * 31L + quotes.size + prefs.quoteHistory.size)
         val picks = mutableListOf<Quote>()
         // One quote per theme, starting from the day's theme so consecutive days lead with different flavours.
@@ -97,18 +102,26 @@ class QuoteRepository private constructor(private val quotes: List<Quote>) {
 
         private fun load(context: Context): QuoteRepository {
             val list = mutableListOf<Quote>()
+            val little = mutableListOf<LittleLine>()
             runCatching {
                 val json = context.assets.open("quotes.json").bufferedReader().use { it.readText() }
-                val arr = JSONObject(json).getJSONArray("quotes")
+                val root = JSONObject(json)
+                val arr = root.getJSONArray("quotes")
                 for (i in 0 until arr.length()) {
                     val o = arr.getJSONObject(i)
                     val tags = o.optJSONArray("tags")?.let { t -> List(t.length()) { t.getString(it) } } ?: emptyList()
                     list += Quote(o.getInt("id"), o.getString("text"), o.optString("author").takeIf { it.isNotEmpty() && it != "null" },
-                        o.optString("source").takeIf { it.isNotEmpty() && it != "null" }, tags)
+                        o.optString("source").takeIf { it.isNotEmpty() && it != "null" }, tags, o.optInt("age", 11))
+                }
+                val lines = root.optJSONArray("little")
+                if (lines != null) for (i in 0 until lines.length()) {
+                    val o = lines.getJSONObject(i)
+                    val tags = o.optJSONArray("tags")?.let { t -> List(t.length()) { t.getString(it) } } ?: emptyList()
+                    little += LittleLine(o.getString("text"), tags)
                 }
             }.onFailure { Log.e(TAG, "failed to load quotes.json", it) }
-            Log.i(TAG, "loaded ${list.size} quotes")
-            return QuoteRepository(list)
+            Log.i(TAG, "loaded ${list.size} quotes and ${little.size} little lines")
+            return QuoteRepository(list, little)
         }
     }
 }

@@ -120,7 +120,14 @@ abstract class Look {
             7 -> MagnetsLook()
             8 -> TiaraLook()
             9 -> MarkerLook()
-            else -> MarkerStackedLook()
+            10 -> MarkerStackedLook()
+            11 -> JerseyLook()
+            12 -> ScoreboardLook()
+            13 -> BeachLook()
+            14 -> BubbleLook()
+            15 -> PlushLook()
+            16 -> MarkerBlueLook()
+            else -> StencilLook()
         }
     }
 }

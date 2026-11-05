@@ -39,6 +39,9 @@ class Fonts private constructor(private val context: Context) {
     val baskerville: Typeface by lazy { load(R.font.libre_baskerville_bold) }
     val pinyon: Typeface by lazy { load(R.font.pinyon_script) }
 
+    // The Stencil look (Blueprint background).
+    val blackOps: Typeface by lazy { load(R.font.black_ops_one) }
+
     private fun load(id: Int): Typeface =
         runCatching { ResourcesCompat.getFont(context, id) }.getOrNull() ?: Typeface.DEFAULT
 
