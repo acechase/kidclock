@@ -41,6 +41,8 @@ class Prefs(context: Context) {
     var lookIndex: Int
         get() = sp.getInt("look", 0)
         set(v) = sp.edit().putInt("look", v).apply()
+    /** True once a look has ever been stored; false only on a fresh install or one from before looks existed. */
+    val hasLookChoice: Boolean get() = sp.contains("look")
 
     /** Holiday designs: a special background and look from three days before each holiday until the day after. */
     var holidaysEnabled: Boolean

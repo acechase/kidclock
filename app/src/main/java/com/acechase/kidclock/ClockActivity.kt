@@ -95,8 +95,10 @@ class ClockActivity : AppCompatActivity() {
             gravity = Gravity.BOTTOM or Gravity.END
             bottomMargin = 28; rightMargin = 36
         })
-        // Installs from before looks existed stored Analog as the last background.
-        LookCatalog.migrateAnalogBackground(prefs.faceIndex, LookCatalog.BACKGROUNDS_BEFORE_LOOKS)?.let { look ->
+        // Installs from before looks existed stored Analog as the last background. Only an install that has
+        // never chosen a look can be one of those; checking that keeps the newer backgrounds (index 7 and up)
+        // from being thrown back to Sky + Analog on every launch.
+        if (!prefs.hasLookChoice) LookCatalog.migrateAnalogBackground(prefs.faceIndex, LookCatalog.BACKGROUNDS_BEFORE_LOOKS)?.let { look ->
             prefs.lookIndex = look
             prefs.faceIndex = 0
         }
