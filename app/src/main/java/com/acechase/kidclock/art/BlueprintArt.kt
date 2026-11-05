@@ -62,11 +62,14 @@ object BlueprintArt {
         Stroke(circle(50f, 69f, 6f), 2.5f),
     )
 
-    /** FIG. 5: a T-rex in profile, tail to the left, with a dot for an eye. */
+    /** FIG. 5: a T-rex in profile leaning forward, tail to the left, heavy thighs, a little arm, teeth and an eye. */
     val trex: List<Stroke> = listOf(
-        Stroke(path("M22 72 C10 52 28 32 54 36 C68 38 78 28 84 16 L92 28 C88 44 78 52 66 54 C72 66 62 82 44 84 Z"), 3f),
-        Stroke(path("M22 72 L4 90 M44 84 L40 98 M58 80 L62 96 M62 54 L70 62"), 3f),
-        Stroke(circle(82f, 24f, 3f), 0f, fill = true),
+        Stroke(path("M4 68 C14 62 24 60 32 56 C38 44 46 36 56 28 C64 18 80 18 92 28 L90 40 L72 42 L68 50 " +
+            "C64 60 60 70 52 76 C44 82 36 80 30 74 C20 76 10 74 4 68 Z"), 3f),
+        Stroke(path("M34 74 C30 80 32 90 36 94 L46 94 L44 84 M48 76 C50 82 50 90 54 94 L62 94 L58 84"), 3f),
+        Stroke(path("M60 54 L66 58 L64 62"), 2.5f),
+        Stroke(path("M74 42 L76 46 L78 42 M82 41 L84 45 L86 41"), 2f),
+        Stroke(circle(78f, 30f, 2.5f), 0f, fill = true),
     )
 
     /** FIG. 6: a flying saucer with a dome, three lights and dashed beam lines. */

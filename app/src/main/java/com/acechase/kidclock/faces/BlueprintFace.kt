@@ -77,11 +77,11 @@ class BlueprintFace(context: Context) : ClockFace(context) {
         // The figures: three down the left, three down the right. The right column sits lower than
         // the left so the robot stays out of the weather's corner (right 30%, top 24%).
         BlueprintArt.draw(c, ink, BlueprintArt.rocket, w * 0.104f, h * 0.26f, h * 0.1875f, -10f, Color.WHITE)
-        BlueprintArt.draw(c, ink, BlueprintArt.tank, w * 0.094f, h * 0.505f, h * 0.177f, 0f, Color.WHITE)
+        BlueprintArt.draw(c, ink, BlueprintArt.tank, w * 0.094f, h * 0.49f, h * 0.177f, 0f, Color.WHITE)
         BlueprintArt.draw(c, ink, BlueprintArt.monster, w * 0.104f, h * 0.75f, h * 0.1667f, 0f, Color.WHITE)
         BlueprintArt.draw(c, ink, BlueprintArt.robot, w * 0.899f, h * 0.355f, h * 0.155f, 0f, Color.WHITE)
         BlueprintArt.draw(c, ink, BlueprintArt.trex, w * 0.896f, h * 0.545f, h * 0.17f, 0f, Color.WHITE)
-        BlueprintArt.draw(c, ink, BlueprintArt.ufo, w * 0.896f, h * 0.755f, h * 0.16f, -6f, Color.WHITE)
+        BlueprintArt.draw(c, ink, BlueprintArt.ufo, w * 0.896f, h * 0.735f, h * 0.16f, -6f, Color.WHITE)
 
         // Dimension ticks: one beside the rocket, one under it, one beside the robot.
         p.style = Paint.Style.STROKE
@@ -109,11 +109,11 @@ class BlueprintFace(context: Context) : ClockFace(context) {
         text.textSize = h * 0.01875f
         text.letterSpacing = 0.1f
         c.drawText("FIG. 1  ROCKET", w * 0.07f, h * 0.165f, text)
-        c.drawText("FIG. 2  TANK", w * 0.0486f, h * 0.4063f, text)
+        c.drawText("FIG. 2  TANK", w * 0.0486f, h * 0.44f, text)
         c.drawText("FIG. 3  MONSTER", w * 0.0625f, h * 0.6563f, text)
         c.drawText("FIG. 4  ROBOT", w * 0.8542f, h * 0.265f, text)
         c.drawText("FIG. 5  T-REX", w * 0.8472f, h * 0.455f, text)
-        c.drawText("FIG. 6  UFO", w * 0.8542f, h * 0.665f, text)
+        c.drawText("FIG. 6  UFO", w * 0.8542f, h * 0.695f, text)
 
         // Title block, tucked into the bottom-right corner against the inner border.
         val bw = w * 0.32f; val bh = h * 0.12f

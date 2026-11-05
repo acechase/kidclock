@@ -13,6 +13,7 @@ import com.acechase.kidclock.weather.WeatherDetailActivity
  *
  * Also answers developer hooks for testing from adb (see tools/test-alarm.sh, tools/test-night.sh):
  *   -a com.acechase.kidclock.TEST_ALARM  --ei seconds 20      ring a test alarm in 20 s
+ *   -a com.acechase.kidclock.TEST_GENTLE                      gentle wake-up in ~1 min, alarm ~1 min later
  *   -a com.acechase.kidclock.TEST_MISSED --ei minutes_ago 5   pretend a snooze registered 5 min
  *                                                              ago was lost (as if the device had
  *                                                              been off), then reschedule
@@ -31,6 +32,10 @@ class BootReceiver : BroadcastReceiver() {
         Log.i("BootReceiver", "action=${intent.action}")
         if (intent.action == ACTION_TEST_ALARM) {
             AlarmScheduler.scheduleTest(context, intent.getIntExtra("seconds", 10).coerceIn(1, 3600))
+            return
+        }
+        if (intent.action == ACTION_TEST_GENTLE) {
+            AlarmScheduler.scheduleGentleTest(context)
             return
         }
         if (intent.action == ACTION_TEST_NIGHT) {
@@ -81,6 +86,7 @@ class BootReceiver : BroadcastReceiver() {
 
     companion object {
         const val ACTION_TEST_ALARM = "com.acechase.kidclock.TEST_ALARM"
+        const val ACTION_TEST_GENTLE = "com.acechase.kidclock.TEST_GENTLE"
         const val ACTION_TEST_MISSED = "com.acechase.kidclock.TEST_MISSED"
         const val ACTION_TEST_NIGHT = "com.acechase.kidclock.TEST_NIGHT"
         const val ACTION_TEST_HOLIDAY = "com.acechase.kidclock.TEST_HOLIDAY"

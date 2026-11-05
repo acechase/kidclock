@@ -8,13 +8,13 @@ import android.graphics.RectF
  * Stencil digits in Black Ops One, the way a part number is sprayed on a crate: white, a touch
  * letter-spaced, AM/PM beside them in the same face at a third of the size, the date in spaced
  * capitals underneath, and the alarm line pulled into the left 62% so it clears the Blueprint
- * title block. Made for the Blueprint background but it reads on any of them; at night it is all
+ * title block (the quote sits between the monster figure and that block). Made for the Blueprint background but it reads on any of them; at night it is all
  * amber with no shadows.
  */
 class StencilLook : Look() {
     override val name = "Stencil"
     override fun labelTypeface(fonts: Fonts) = fonts.medium
-    override fun quoteBox(w: Float, h: Float) = RectF(w * 0.06f, h * 0.74f, w * 0.60f, h * 0.86f)
+    override fun quoteBox(w: Float, h: Float) = RectF(w * 0.22f, h * 0.74f, w * 0.64f, h * 0.86f)
 
     override fun draw(c: Canvas, x: LookContext) {
         val w = x.w; val h = x.h

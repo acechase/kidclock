@@ -221,7 +221,9 @@ abstract class ClockFace(context: Context) : View(context) {
             smallPaint.textSize = h * 0.036f
             smallPaint.alpha = if (night) 110 else 220
             smallPaint.textAlign = Paint.Align.LEFT
+            // Shrink a long line a little before cutting it short ("say “I'm awake” or “I'm up”" is long).
             var t = nextAlarmText
+            while (smallPaint.measureText(t) > w * 0.66f && smallPaint.textSize > h * 0.028f) smallPaint.textSize *= 0.95f
             while (smallPaint.measureText(t) > w * 0.66f && t.length > 8) t = t.dropLast(4) + "…"
             c.drawText(t, w * 0.04f, h * 0.945f, smallPaint)
             smallPaint.textAlign = Paint.Align.CENTER
@@ -288,6 +290,12 @@ abstract class ClockFace(context: Context) : View(context) {
         // smoked glass under light ink, frosted glass under dark ink.
         var widest = 0f
         for (i in 0 until layout.lineCount) widest = maxOf(widest, layout.getLineWidth(i))
+        // The attribution in the look's label face; wide faces (Rubik Mono) shrink to fit, and widen the card.
+        val attr = "— ${q.attribution}"
+        smallPaint.typeface = look.labelTypeface(fonts)
+        smallPaint.textSize = attrSize
+        while (smallPaint.measureText(attr) > inner && smallPaint.textSize > h * 0.016f) smallPaint.textSize *= 0.94f
+        widest = maxOf(widest, smallPaint.measureText(attr))
         val padX = h * 0.03f; val padY = h * 0.018f
         cardRect.set(box.centerX() - widest / 2f - padX, top - padY, box.centerX() + widest / 2f + padX, top + total + padY * 0.6f)
         val lightInk = (0.299f * ((ink shr 16) and 0xFF) + 0.587f * ((ink shr 8) and 0xFF) + 0.114f * (ink and 0xFF)) > 128f
@@ -299,11 +307,9 @@ abstract class ClockFace(context: Context) : View(context) {
         layout.draw(c)
         c.restore()
         smallPaint.color = ink
-        smallPaint.typeface = look.labelTypeface(fonts)
-        smallPaint.textSize = attrSize
         smallPaint.alpha = 180
         smallPaint.setShadowLayer(6f, 0f, 2f, dayShadowColor)
-        c.drawText("— ${q.attribution}", box.centerX(), top + layout.height + attrSize * 1.1f, smallPaint)
+        c.drawText(attr, box.centerX(), top + layout.height + attrSize * 1.1f, smallPaint)
         smallPaint.clearShadowLayer()
         smallPaint.alpha = 255
         smallPaint.typeface = fonts.regular
@@ -346,7 +352,9 @@ abstract class ClockFace(context: Context) : View(context) {
         }
         // Shrink the card to the text so short quotes do not float in an empty box.
         cardRect.bottom = minOf(cardRect.bottom, cardRect.top + littleH + layout.height + h * 0.12f)
-        cardPaint.color = if (night) 0x33FF8A3D else 0x2E000000
+        // Frosted glass under dark ink, smoked under light ink: busy scenes (stuffies, the tank) stay behind the words.
+        val lightInk = (0.299f * ((ink shr 16) and 0xFF) + 0.587f * ((ink shr 8) and 0xFF) + 0.114f * (ink and 0xFF)) > 128f
+        cardPaint.color = if (night) 0x33FF8A3D else if (lightInk) 0x7A000000 else 0xA6FFFFFF.toInt()
         c.drawRoundRect(cardRect, h * 0.03f, h * 0.03f, cardPaint)
         var y = cardRect.top + h * 0.035f
         if (littleLayout != null) {
