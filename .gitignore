@@ -8,3 +8,4 @@ app/src/main/assets/vosk-model/
 .kotlin/
 *.apk
 *.keystore
+.claude/settings.local.json
