@@ -12,7 +12,7 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
 | | |
 |---|---|
 | ![Sky face with weather and the quote of the day](docs/screenshots/sky.webp) | ![Night mode: amber digits on black with the red okay-to-wake moon](docs/screenshots/night.webp) |
-| ![Gentle wake-up: bright screen, quote card and I'm awake button](docs/screenshots/gentle-wake.webp) | ![Analog look: a dial over the Sky background with the digital time, date and quote on the right](docs/screenshots/analog.webp) |
+| ![Gentle wake-up: the sunrise half way up over the hills, the quote card beside it and the I'm awake button](docs/screenshots/gentle-wake.webp) | ![Analog look: a dial over the Sky background with the digital time, date and quote on the right](docs/screenshots/analog.webp) |
 | ![Choosing a look: the Sketch look with the Choose a look banner, chevrons and pager dots](docs/screenshots/looks.webp) | ![Magnets look: each digit on its own tilted coloured tile](docs/screenshots/magnets.webp) |
 | ![Notebook background with the Marker Stacked look: pink marker digits, doodled hearts and tiaras on a ruled page](docs/screenshots/notebook.webp) | ![Doodle Strings background with the Tiara look: beaded pink strings hung with doodled hearts](docs/screenshots/doodle-strings.webp) |
 | ![Halloween design, Witching Hour: copper digits with a witch hat under a moon, bats and a cobweb](docs/screenshots/halloween.webp) | ![Christmas design, Fairy Lights: white serif digits under a string of glowing bulbs, snow and holly](docs/screenshots/christmas.webp) |
@@ -49,11 +49,15 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   and a big sun for "I'm up!" and the words underneath, plus **offline voice commands** ("snooze", "stop", "off",
   "alarm off", "I'm up", "I'm awake")
   using Vosk. The microphone is opened only while ringing and released on snooze, dismiss, or the 10 minute timeout.
+  A whole phrase has to be heard clearly, except the "I'm up" / "I'm awake" family: a quick "I'm up!" reaches the
+  recogniser as "am up" or "i'm up" with the short "up" at low confidence, so those are matched word by word at a
+  lower bar (a lone "up" still does nothing). The rules are pure and unit-tested in `voice/VoiceMatcher.kt`.
 - **Night window** (default 8:30 pm to 6:30 am): black background, amber digits, screen dimmed via the window brightness
   attribute plus a dark overlay; the ambient light sensor nudges brightness. No WRITE_SETTINGS needed.
 - **Always night** switch in Settings: the amber-on-black colours all day, at normal brightness (use the device's own
   brightness if it should also be dim).
-- **Okay-to-wake lamp**: red crescent during the night window, green dot for 90 minutes after it ends.
+- **Okay-to-wake lamp**: red crescent during the night window, green dot for 90 minutes after it ends (not during
+  a gentle wake-up, when the sunrise is the signal).
 - **Weather** from Open-Meteo (no API key): current temp, icon, today's high/low. Location from settings or an IP guess.
   The weather is the only thing in the app that touches the network, and it fails soft (`weather/WeatherCore.kt`,
   unit-tested with a fake network): fetches run off the main thread with 8 s timeouts, any failure is logged and
@@ -61,9 +65,12 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   is hidden rather than shown as current (the detail screen then says "Forecast unavailable · last update ...").
   Alarms, gentle wake-up, voice and quotes never depend on connectivity.
 - **Two-stage mornings**: each alarm can have a *gentle wake-up* N minutes earlier. A soft synthesized sound plays once,
-  the screen goes bright with the green okay-to-wake lamp, and the **quote of the morning** appears. Saying
-  "I'm awake" (or tapping the button) cancels that day's main alarm and keeps the bright display until its time.
-  Otherwise the main alarm rings normally.
+  and the chosen background gives way to a **sunrise** that takes the whole N minutes: deep night with stars, first
+  light on the horizon, the sun coming up over the hills, birds, full morning at the alarm's time. The screen
+  brightness comes up with it (from dim to full), so the room lightens the way a real morning does, and the
+  **quote of the morning** sits beside the sun. Saying "I'm awake" or "I'm up" (or tapping the button) cancels that day's main
+  alarm, finishes the sunrise and keeps the bright display until its time. Otherwise the main alarm rings normally.
+  (`night/Sunrise.kt` is the arithmetic and the colour keyframes, unit-tested; `faces/SunriseScene.kt` paints it.)
 - **Sounds**: everything is synthesized in code (`alarm/Synth.kt`), no audio files. Settings has a chooser with a
   Play preview for each: five **alarm sounds** (Chime, Bells, Marimba, Pulse, Fanfare; `alarm/AlarmSound.kt`) that
   loop with a 30 s volume ramp and follow the sleep-inertia research (hummable melodies, dominant pitch near C5,
@@ -138,6 +145,7 @@ Fonts are not committed as a build step; `tools/fetch-fonts.sh` re-downloads the
 
 ## Testing from adb
 - Settings → Advanced has "Test alarm (10 s)" and "Test gentle wake-up" (gentle sound in ~1 min, alarm 1 min later, self-deleting).
+  `tools/test-alarm.sh --gentle 5` does the same with a five-minute sunrise.
 - `adb shell am broadcast -n com.acechase.kidclock/.alarm.BootReceiver -a com.acechase.kidclock.TEST_ALARM --ei seconds 20`
 - `tools/test-night.sh on|off` shows the amber night colours all day; `tools/test-holiday.sh halloween` (or `newyear`,
   `valentine`, `stpatrick`, `easter`, `july4`, `thanksgiving`, `christmas`, `off`) shows a holiday design now.

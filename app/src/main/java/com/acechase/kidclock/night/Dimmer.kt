@@ -30,11 +30,15 @@ class Dimmer(private val activity: Activity, private val overlay: View) : Sensor
     }
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
-    fun apply(night: Boolean, forceBright: Boolean = false) {
+    /**
+     * [forceBright] overrides the night dimming (the wake window); [brightLevel] is the brightness
+     * it uses, 1 for full and lower while the gentle wake-up sunrise is still coming up.
+     */
+    fun apply(night: Boolean, forceBright: Boolean = false, brightLevel: Float = 1f) {
         val brightness: Float
         val overlayAlpha: Float
         if (forceBright) {
-            brightness = 1f
+            brightness = brightLevel.coerceIn(0.01f, 1f)
             overlayAlpha = 0f
         } else if (night) {
             brightness = 0.02f

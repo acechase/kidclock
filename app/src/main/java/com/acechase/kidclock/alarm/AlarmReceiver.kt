@@ -26,6 +26,7 @@ class AlarmReceiver : BroadcastReceiver() {
         if (isPre) {
             // Gentle wake-up: open the wake window until the main alarm and let the clock play the soft chime.
             prefs.wakeUntilMs = mainAt
+            prefs.wakeStartMs = System.currentTimeMillis()
             prefs.wakeAlarmId = alarmId
             prefs.awakeUntilMs = 0L
             AlarmScheduler.rescheduleAll(context, System.currentTimeMillis() + 30_000L)

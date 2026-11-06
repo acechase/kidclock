@@ -168,13 +168,17 @@ object AlarmScheduler {
         rescheduleAll(context)
     }
 
-    /** One-shot test: gentle wake-up in ~1 minute, main alarm ~1 minute after that. Deletes itself. */
-    fun scheduleGentleTest(context: Context) {
+    /**
+     * One-shot test: gentle wake-up in ~1 minute, main alarm [leadMinutes] (default 1) after that, so the
+     * sunrise runs for that long. Deletes itself.
+     */
+    fun scheduleGentleTest(context: Context, leadMinutes: Int = 1) {
+        val lead = leadMinutes.coerceIn(1, 120)
         val store = AlarmStore(context)
         store.all().filter { it.label == Alarm.TEST_LABEL }.forEach { store.delete(it.id) }
-        val cal = java.util.Calendar.getInstance().apply { add(java.util.Calendar.MINUTE, 2); add(java.util.Calendar.SECOND, 5) }
+        val cal = java.util.Calendar.getInstance().apply { add(java.util.Calendar.MINUTE, 1 + lead); add(java.util.Calendar.SECOND, 5) }
         val a = store.newAlarm(cal.get(java.util.Calendar.HOUR_OF_DAY), cal.get(java.util.Calendar.MINUTE)).apply {
-            days.clear(); label = Alarm.TEST_LABEL; preMinutes = 1
+            days.clear(); label = Alarm.TEST_LABEL; preMinutes = lead
         }
         store.upsert(a)
         rescheduleAll(context)

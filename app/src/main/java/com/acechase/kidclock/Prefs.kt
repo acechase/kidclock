@@ -86,6 +86,11 @@ class Prefs(context: Context) {
         get() = sp.getLong("wakeUntil", 0L)
         set(v) = sp.edit().putLong("wakeUntil", v).apply()
 
+    /** When the current gentle wake-up began: the sunrise runs from here to [wakeUntilMs]. 0 when unknown. */
+    var wakeStartMs: Long
+        get() = sp.getLong("wakeStart", 0L)
+        set(v) = sp.edit().putLong("wakeStart", v).apply()
+
     /** Alarm whose gentle pre-alarm opened the current wake window. */
     var wakeAlarmId: Int
         get() = sp.getInt("wakeAlarmId", -1)

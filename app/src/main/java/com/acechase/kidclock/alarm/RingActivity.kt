@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.acechase.kidclock.Prefs
 import com.acechase.kidclock.R
 import com.acechase.kidclock.voice.VoiceCommandListener
+import com.acechase.kidclock.voice.VoiceMatcher
 import com.acechase.kidclock.weather.SkyView
 import com.acechase.kidclock.weather.WeatherService
 import com.acechase.kidclock.weather.WeatherSky
@@ -95,8 +96,8 @@ class RingActivity : AppCompatActivity() {
             this,
             onCommand = { cmd ->
                 when (cmd) {
-                    VoiceCommandListener.Command.SNOOZE -> snooze()
-                    VoiceCommandListener.Command.DISMISS -> dismiss()
+                    VoiceMatcher.Command.SNOOZE -> snooze()
+                    VoiceMatcher.Command.DISMISS -> dismiss()
                 }
             },
             onStatus = { s ->
