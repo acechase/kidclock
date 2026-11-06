@@ -9,6 +9,7 @@ import android.view.View
 import com.acechase.kidclock.looks.Fonts
 import com.acechase.kidclock.looks.Look
 import com.acechase.kidclock.looks.LookContext
+import com.acechase.kidclock.looks.HoldZone
 import com.acechase.kidclock.looks.LookPickerState
 import com.acechase.kidclock.night.NightSchedule
 import com.acechase.kidclock.weather.Weather
@@ -68,7 +69,7 @@ abstract class ClockFace(context: Context) : View(context) {
     val alarmRect = RectF()
     /** Screen area of the quote (small line or wake-up card); tapping it shows the next quote. Empty when none. */
     val quoteRect = RectF()
-    /** Screen area of the time; holding it for two seconds opens the look picker. */
+    /** Screen area of the time as the look drew it; part of the hold zone that opens the look picker. */
     val timeRect = RectF()
 
     private val smallQuotePaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply { typeface = Typeface.create("serif", Typeface.ITALIC) }
@@ -108,7 +109,17 @@ abstract class ClockFace(context: Context) : View(context) {
 
     abstract fun drawBackground(c: Canvas, w: Float, h: Float, nowMs: Long, night: Boolean)
 
-    /** The finger came down on the time: start showing the hold ring there. */
+    /**
+     * May a finger at (x, y) start the hold that opens the look picker? The whole time/date section counts:
+     * the middle of the screen, minus the settings corner, the weather, the next-alarm line and the quote.
+     */
+    fun inHoldZone(x: Float, y: Float, cornerPx: Float): Boolean = HoldZone.contains(
+        x, y, width.toFloat(), height.toFloat(), timeRect.box(),
+        listOf(weatherRect.box(), alarmRect.box(), quoteRect.box()), cornerPx,
+    )
+    private fun RectF.box() = HoldZone.Box(left, top, right, bottom)
+
+    /** The finger came down in the hold zone: start showing the hold ring there. */
     fun beginHold(x: Float, y: Float, nowMs: Long) {
         holdStartMs = nowMs; holdX = x; holdY = y
         invalidate()

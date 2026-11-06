@@ -40,8 +40,8 @@ import kotlin.math.abs
 
 /**
  * The HOME activity. Fullscreen clock face: swipe left/right to change the background, hold the
- * time for two seconds then swipe to change the look (font and layout), tap the weather for the weather
- * page, hold the top-left corner for two seconds to reach settings. Never sleeps the screen.
+ * time or date for a second then swipe to change the look (font and layout), tap the weather for the
+ * weather page, hold the top-left corner for a second to reach settings. Never sleeps the screen.
  */
 class ClockActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
@@ -215,7 +215,8 @@ class ClockActivity : AppCompatActivity() {
         pickerOverlay.count = LookCatalog.count
     }
 
-    // Hold the time for two seconds to open the look picker. The face shows a filling ring meanwhile.
+    // Hold the time or date for a second to open the look picker. The face shows a filling ring meanwhile.
+    // The hold zone is the whole middle of the screen, so a small finger need not land on the digits.
     private val holdCheck = Runnable {
         if (picker.advance(System.currentTimeMillis()) == LookPickerState.Event.ENTERED) enterPicker()
     }
@@ -228,7 +229,7 @@ class ClockActivity : AppCompatActivity() {
         when (ev.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 if (picker.picking) armIdleExit()
-                if (picker.down(ev.x, ev.y, f.timeRect.contains(ev.x, ev.y), now)) {
+                if (picker.down(ev.x, ev.y, f.inHoldZone(ev.x, ev.y, CORNER_PX), now)) {
                     f.beginHold(ev.x, ev.y, now)
                     handler.postDelayed(holdCheck, LookPickerState.HOLD_MS + 10)
                 }
@@ -391,6 +392,6 @@ class ClockActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_GENTLE_WAKE = "gentle_wake"
         private const val CORNER_PX = 180f
-        private const val HOLD_MS = 2000L
+        private const val HOLD_MS = 1000L
     }
 }

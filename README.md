@@ -27,7 +27,7 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   a coconut hut and the crab), **Night Reef** (seaweed, rising bubbles and a crab under a moon), **Stuffies** (five
   plush animals on a star-print sheet, who swap places each day and wave now and then), **Doodle Notebook** (rockets,
   tanks, monsters, dinosaurs and robots in marker) and **Blueprint** (white line drawings on drafting blue).
-- Eighteen **looks** for the time itself, chosen separately from the background: hold the time for two seconds, then swipe
+- Eighteen **looks** for the time itself, chosen separately from the background: hold anywhere on the time or date for a second, then swipe
   sideways and tap to keep. The first time the picker opens on a background that was drawn for a particular look
   (Stuffies and Plush, Stadium and Scoreboard, and so on), the first swipe jumps to that look. **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
   sweeping second hand, for learning to read clocks), **Sketch** (hand-drawn on a paper scrap), **Whacky** (every digit
@@ -103,7 +103,7 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   Closes on tap or after 60 s. Editing is in Settings (corner-hold).
 - **Missed-alarm recovery**: what was registered with AlarmManager is remembered; if the device was off at that
   moment and it is less than 30 minutes late, it rings on boot instead of being dropped (`alarm/AlarmPlanner.kt`).
-- **Settings** behind a deliberate gesture so stray taps never open them: hold the top-left corner for two seconds.
+- **Settings** behind a deliberate gesture so stray taps never open them: hold the top-left corner for a second.
 
 ## Install on a Portal
 
@@ -121,9 +121,9 @@ plain Android apps and you have adb access) and a computer with `adb`. Nothing h
    ~/unmetaportal/tools/portal-kiosk-enable.sh --component com.acechase.kidclock/.ClockActivity --set-home --yes
    adb shell dumpsys deviceidle whitelist +com.acechase.kidclock   # keep the ticker and weather thread out of doze
    ```
-4. Hold the top-left corner of the clock for two seconds to open Settings: add alarms, pick sounds and
-   volumes, set the weather location. Swipe left or right to change the background; hold the time for two seconds,
-   then swipe, to change the look.
+4. Hold the top-left corner of the clock for a second to open Settings: add alarms, pick sounds and
+   volumes, set the weather location. Swipe left or right to change the background; hold the time or date for a
+   second, then swipe, to change the look.
 
 The APK bundles the ~68 MB offline speech model, so it is about 80 MB. Builds are signed with the Android
 debug key of the machine that built them; to update a Portal from a different machine, uninstall first
@@ -149,8 +149,8 @@ Fonts are not committed as a build step; `tools/fetch-fonts.sh` re-downloads the
 - `adb shell am broadcast -n com.acechase.kidclock/.alarm.BootReceiver -a com.acechase.kidclock.TEST_ALARM --ei seconds 20`
 - `tools/test-night.sh on|off` shows the amber night colours all day; `tools/test-holiday.sh halloween` (or `newyear`,
   `valentine`, `stpatrick`, `easter`, `july4`, `thanksgiving`, `christmas`, `off`) shows a holiday design now.
-- `adb shell input tap 1130 100` opens the weather page; `adb shell input swipe 60 60 60 60 2200` holds the
-  top-left corner and opens Settings. `tools/test-weather.sh RAINY` opens the weather page dressed for a sky
+- `adb shell input tap 1130 100` opens the weather page; `adb shell input swipe 60 60 60 60 1200` holds the
+  top-left corner and opens Settings; `adb shell input swipe 640 400 640 400 1200` opens the look picker. `tools/test-weather.sh RAINY` opens the weather page dressed for a sky
   (`SUNNY CLOUDY RAINY SNOWY STORMY NIGHT`).
 
 ## Device notes

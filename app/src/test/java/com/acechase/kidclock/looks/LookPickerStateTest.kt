@@ -7,23 +7,23 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** The hold-to-pick gesture: two seconds still on the time opens the picker, anything less does not. */
+/** The hold-to-pick gesture: a second still on the time opens the picker, anything less does not. */
 class LookPickerStateTest {
-    private val s = LookPickerState(holdMs = 2000, idleMs = 8000, slopPx = 40f)
+    private val s = LookPickerState(holdMs = 1000, idleMs = 8000, slopPx = 40f)
 
     private fun holdUntilOpen(t0: Long = 10_000L): Long {
         assertTrue(s.down(600f, 400f, onTime = true, now = t0))
-        assertEquals(Event.ENTERED, s.advance(t0 + 2000))
-        return t0 + 2000
+        assertEquals(Event.ENTERED, s.advance(t0 + 1000))
+        return t0 + 1000
     }
 
     @Test
-    fun holdingTheTimeForTwoSecondsOpensThePicker() {
+    fun holdingTheTimeForASecondOpensThePicker() {
         assertTrue(s.down(600f, 400f, onTime = true, now = 1000))
         assertTrue(s.holding)
-        assertNull("not yet", s.advance(2999))
+        assertNull("not yet", s.advance(1999))
         assertFalse(s.picking)
-        assertEquals(Event.ENTERED, s.advance(3000))
+        assertEquals(Event.ENTERED, s.advance(2000))
         assertTrue(s.picking)
         assertFalse("the hold is over once the picker opens", s.holding)
     }
@@ -60,7 +60,7 @@ class LookPickerStateTest {
         assertEquals(0f, s.holdProgress(500), 0f)
         s.down(600f, 400f, onTime = true, now = 1000)
         assertEquals(0f, s.holdProgress(1000), 0.001f)
-        assertEquals(0.5f, s.holdProgress(2000), 0.001f)
+        assertEquals(0.5f, s.holdProgress(1500), 0.001f)
         assertEquals(1f, s.holdProgress(9000), 0.001f)
     }
 
