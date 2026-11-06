@@ -18,7 +18,8 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
 | ![Halloween design, Witching Hour: copper digits with a witch hat under a moon, bats and a cobweb](docs/screenshots/halloween.webp) | ![Christmas design, Fairy Lights: white serif digits under a string of glowing bulbs, snow and holly](docs/screenshots/christmas.webp) |
 
 ## Features
-- Sixteen swipeable backgrounds: **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,
+- Sixteen swipeable backgrounds, with the background's name and a row of pager dots fading in at the bottom
+  while you swipe (`looks/BackgroundStrip.kt`): **Sky** (follows the real time of day: sunrise, day, sunset, stars), **Ocean**,
   **Rainbow**, **Galaxy** (nebula and shooting stars), **Fireflies** (dusk forest; a few stay lit at night), **Aurora**,
   **Meadow** (flowers and butterflies), **Doodle Strings** (beaded pink strings hung with hearts doodled in a dozen
   marker styles, swaying) and **Notebook** (a ruled page covered in doodled hearts), and seven more picked with a 6- and a 9-year-old:

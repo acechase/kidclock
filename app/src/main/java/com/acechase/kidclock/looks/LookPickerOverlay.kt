@@ -89,19 +89,7 @@ class LookPickerOverlay(context: Context) : View(context) {
         if (night) text.clearShadowLayer() else text.setShadowLayer(8f, 0f, 3f, 0x73000000)
         c.drawText(lookName, w / 2f, h * 0.875f, text)
         text.clearShadowLayer()
-        val dot = h * 0.0175f; val active = h * 0.05f; val dgap = h * 0.0175f
-        val dotsW = active + (count - 1) * dot + (count - 1) * dgap
-        var dx = w / 2f - dotsW / 2f
-        val dy = h * 0.935f
-        for (i in 0 until count) {
-            val dw = if (i == index) active else dot
-            rect.set(dx, dy - dot / 2f, dx + dw, dy + dot / 2f)
-            fill.color = ink
-            fill.alpha = if (i == index) 255 else 128
-            c.drawRoundRect(rect, dot / 2f, dot / 2f, fill)
-            dx += dw + dgap
-        }
-        fill.alpha = 255
+        PagerDots.draw(c, w / 2f, h * 0.935f, h, index, count, ink, fill, rect)
     }
 
     companion object {

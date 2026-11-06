@@ -19,6 +19,7 @@ import com.acechase.kidclock.faces.ClockFace
 import com.acechase.kidclock.holiday.HolidayDesigns
 import com.acechase.kidclock.holiday.HolidayManager
 import com.acechase.kidclock.holiday.HolidayPlanner
+import com.acechase.kidclock.looks.BackgroundStrip
 import com.acechase.kidclock.looks.Look
 import com.acechase.kidclock.looks.LookCatalog
 import com.acechase.kidclock.looks.LookPickerOverlay
@@ -63,6 +64,7 @@ class ClockActivity : AppCompatActivity() {
     private var wakeVoice: VoiceCommandListener? = null
     private var wakeVoiceListening = false
     private lateinit var pickerOverlay: LookPickerOverlay
+    private lateinit var backgroundStrip: BackgroundStrip
     private val picker = LookPickerState()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,8 +80,10 @@ class ClockActivity : AppCompatActivity() {
 
         root = FrameLayout(this)
         pickerOverlay = LookPickerOverlay(this).apply { visibility = View.GONE }
+        backgroundStrip = BackgroundStrip(this).apply { visibility = View.GONE }
         overlay = View(this).apply { setBackgroundColor(Color.BLACK); alpha = 0f; isClickable = false }
         setContentView(root)
+        root.addView(backgroundStrip, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         root.addView(pickerOverlay, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         root.addView(overlay, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         dimmer = Dimmer(this, overlay)
@@ -196,6 +200,28 @@ class ClockActivity : AppCompatActivity() {
         holidays.userChanged()
         prefs.faceIndex = Math.floorMod(prefs.faceIndex + step, ClockFace.COUNT)
         applyDesign()
+        showBackgroundStrip()
+    }
+
+    // The name-and-dots strip while swiping backgrounds: shown on each swipe, faded out once the swiping stops.
+    private val fadeStrip = Runnable {
+        backgroundStrip.animate().alpha(0f).setDuration(STRIP_FADE_MS).withEndAction { backgroundStrip.visibility = View.GONE }
+    }
+    private fun showBackgroundStrip() {
+        handler.removeCallbacks(fadeStrip)
+        backgroundStrip.animate().cancel()
+        backgroundStrip.name = ClockFace.NAMES[prefs.faceIndex]
+        backgroundStrip.index = prefs.faceIndex
+        backgroundStrip.count = ClockFace.COUNT
+        face?.let { backgroundStrip.ink = it.chromeInk; backgroundStrip.shadow = it.chromeShadow }
+        backgroundStrip.alpha = 1f
+        backgroundStrip.visibility = View.VISIBLE
+        handler.postDelayed(fadeStrip, STRIP_HOLD_MS)
+    }
+    private fun hideBackgroundStrip() {
+        handler.removeCallbacks(fadeStrip)
+        backgroundStrip.animate().cancel()
+        backgroundStrip.visibility = View.GONE
     }
 
     /** A swipe in the look picker; leaving a holiday look dismisses the holiday the same way. */
@@ -370,6 +396,7 @@ class ClockActivity : AppCompatActivity() {
         cancelHold()
         picker.reset()
         exitPicker()
+        hideBackgroundStrip()
         dimmer.stop()
     }
 
@@ -393,5 +420,8 @@ class ClockActivity : AppCompatActivity() {
         const val EXTRA_GENTLE_WAKE = "gentle_wake"
         private const val CORNER_PX = 180f
         private const val HOLD_MS = 1000L
+        /** How long the background strip stays after the last swipe, and how long it takes to fade. */
+        private const val STRIP_HOLD_MS = 1500L
+        private const val STRIP_FADE_MS = 600L
     }
 }

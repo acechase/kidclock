@@ -103,6 +103,9 @@ abstract class ClockFace(context: Context) : View(context) {
     /** Accent colour for digits in day mode; faces override. */
     protected open val dayTextColor = Color.WHITE
     protected open val dayShadowColor = 0x66000000
+    /** The ink and shadow a transient overlay should use to read on this background right now. */
+    val chromeInk: Int get() = if (night) NIGHT_TEXT else dayTextColor
+    val chromeShadow: Int get() = if (night) 0 else dayShadowColor
     /** The colours in use this frame: the face's own, amber at night, white over the sunrise. */
     private var activeInk = Color.WHITE
     private var activeShadow = 0x66000000
@@ -435,5 +438,10 @@ abstract class ClockFace(context: Context) : View(context) {
             else -> BlueprintFace(context)
         }
         const val COUNT = 16
+        /** The backgrounds' names, in [create] order, for the strip shown while swiping between them. */
+        val NAMES = listOf(
+            "Sky", "Ocean", "Rainbow", "Galaxy", "Fireflies", "Aurora", "Meadow", "Doodle Strings", "Notebook",
+            "Soccer Board", "Stadium", "Crab Tank", "Night Reef", "Stuffies", "Doodle Notebook", "Blueprint",
+        )
     }
 }
