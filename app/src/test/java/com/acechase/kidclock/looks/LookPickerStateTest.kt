@@ -109,4 +109,43 @@ class LookPickerStateTest {
         assertFalse(s.picking)
         assertFalse(s.holding)
     }
+
+    @Test
+    fun aSuggestionTakesTheFirstSwipeEitherWayThenSwipesStepFromThere() {
+        val t = holdUntilOpen()
+        s.suggest(15)
+        assertEquals(15, s.suggestion)
+        assertEquals("the first swipe lands on the suggestion", 15, s.nextLook(current = 0, step = s.swipe(300f, t + 100)!!))
+        assertNull(s.suggestion)
+        assertEquals("then it steps as usual", 16, s.nextLook(current = 15, step = s.swipe(-300f, t + 200)!!))
+        assertEquals(15, s.nextLook(current = 16, step = -1))
+    }
+
+    @Test
+    fun withoutASuggestionSwipesStepAndWrap() {
+        holdUntilOpen()
+        assertEquals(1, s.nextLook(0, 1))
+        assertEquals(17, s.nextLook(0, -1))
+        assertEquals(0, s.nextLook(17, 1))
+    }
+
+    @Test
+    fun aSuggestionOnlySticksWhilePickingAndIsForgottenWhenThePickerCloses() {
+        s.suggest(15)
+        assertNull("not picking yet", s.suggestion)
+        val t = holdUntilOpen()
+        s.suggest(15)
+        assertTrue(s.tap())
+        assertNull("a tap keeps the current look and drops the hint", s.suggestion)
+
+        holdUntilOpen(t + 1000)
+        s.suggest(15)
+        assertEquals(Event.EXITED, s.advance(t + 1000 + 2000 + 8000))
+        assertNull("so does the idle timeout", s.suggestion)
+
+        holdUntilOpen(t + 20_000)
+        s.suggest(15)
+        s.reset()
+        assertNull(s.suggestion)
+    }
 }
