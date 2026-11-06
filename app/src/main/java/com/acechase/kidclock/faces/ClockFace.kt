@@ -52,6 +52,15 @@ abstract class ClockFace(context: Context) : View(context) {
     /** True while the look picker is open: the alarm line, weather and quote step aside. */
     var picking = false
         set(v) { if (field != v) { field = v; invalidate() } }
+    /**
+     * The gentle wake-up sunrise, drawn in place of the background while [wakeMode] is on: how far
+     * it has come, 0 (deep night) to 1 (full morning), or null outside a wake-up. The scene eases
+     * towards a jump (the sun finishes rising when the child says "I'm awake").
+     */
+    var sunrise: Float? = null
+        set(v) { if (field != v) { field = v; invalidate() } }
+    private var shownSunrise = Float.NaN
+    private val sunriseScene by lazy { SunriseScene() }
 
     /** Screen area the weather occupies; tapping it opens the weather page. */
     val weatherRect = RectF()
@@ -93,6 +102,9 @@ abstract class ClockFace(context: Context) : View(context) {
     /** Accent colour for digits in day mode; faces override. */
     protected open val dayTextColor = Color.WHITE
     protected open val dayShadowColor = 0x66000000
+    /** The colours in use this frame: the face's own, amber at night, white over the sunrise. */
+    private var activeInk = Color.WHITE
+    private var activeShadow = 0x66000000
 
     abstract fun drawBackground(c: Canvas, w: Float, h: Float, nowMs: Long, night: Boolean)
 
@@ -112,9 +124,21 @@ abstract class ClockFace(context: Context) : View(context) {
         val nowMs = System.currentTimeMillis()
         val cal = Calendar.getInstance().apply { timeInMillis = nowMs }
 
-        drawBackground(c, w, h, nowMs, night)
+        val sunriseTarget = sunrise
+        val sunriseOn = wakeMode && sunriseTarget != null
+        activeInk = if (night) NIGHT_TEXT else if (sunriseOn) Color.WHITE else dayTextColor
+        activeShadow = if (sunriseOn) SUNRISE_SHADOW else dayShadowColor
+        if (sunriseOn) {
+            // Follow the clock; a jump (say, to full morning) is eased over a few seconds.
+            shownSunrise = if (shownSunrise.isNaN()) sunriseTarget!!
+            else shownSunrise + (sunriseTarget!! - shownSunrise).coerceIn(-SUNRISE_STEP, SUNRISE_STEP)
+            sunriseScene.draw(c, w, h, nowMs, shownSunrise)
+        } else {
+            shownSunrise = Float.NaN
+            drawBackground(c, w, h, nowMs, night)
+        }
 
-        val textColor = if (night) NIGHT_TEXT else dayTextColor
+        val textColor = activeInk
         val hour = cal.get(Calendar.HOUR_OF_DAY)
         val minute = cal.get(Calendar.MINUTE)
         val timeStr = if (use24h) "%02d:%02d".format(hour, minute)
@@ -127,7 +151,7 @@ abstract class ClockFace(context: Context) : View(context) {
         } else {
             look.draw(c, LookContext(
                 w = w, h = h, nowMs = nowMs, cal = cal, timeText = timeStr, ampm = ampm, night = night,
-                ink = textColor, shadow = dayShadowColor, nextAlarmText = nextAlarmText, showChrome = !picking,
+                ink = textColor, shadow = activeShadow, nextAlarmText = nextAlarmText, showChrome = !picking,
                 fonts = fonts, alarmRect = alarmRect, timeRect = timeRect,
             ))
         }
@@ -145,7 +169,7 @@ abstract class ClockFace(context: Context) : View(context) {
             smallPaint.color = textColor
             smallPaint.typeface = if (wakeMode) fonts.regular else look.labelTypeface(fonts)
             smallPaint.fontFeatureSettings = "lnum"
-            smallPaint.setShadowLayer(8f, 0f, 3f, dayShadowColor)
+            smallPaint.setShadowLayer(8f, 0f, 3f, activeShadow)
             smallPaint.textAlign = Paint.Align.RIGHT
             smallPaint.textSize = h * 0.085f
             val tempW = smallPaint.measureText(wx.tempText)
@@ -163,7 +187,8 @@ abstract class ClockFace(context: Context) : View(context) {
         }
 
         // Okay-to-wake lamp (top-left): red moon at night, green sun in the wake window.
-        val lampColor = when (phase) {
+        // Not over the sunrise: the whole screen is the okay-to-wake signal then.
+        val lampColor = if (sunriseOn) 0 else when (phase) {
             NightSchedule.Phase.NIGHT -> 0xFFE04040.toInt()
             NightSchedule.Phase.WAKE_OK -> 0xFF4CD964.toInt()
             NightSchedule.Phase.DAY -> 0
@@ -196,7 +221,7 @@ abstract class ClockFace(context: Context) : View(context) {
     private fun drawWakeLayout(c: Canvas, w: Float, h: Float, cal: Calendar, timeStr: String, ampm: String?, textColor: Int, showQuote: Boolean) {
         timePaint.color = textColor
         smallPaint.color = textColor
-        if (night) timePaint.clearShadowLayer() else timePaint.setShadowLayer(12f, 0f, 6f, dayShadowColor)
+        if (night) timePaint.clearShadowLayer() else timePaint.setShadowLayer(12f, 0f, 6f, activeShadow)
 
         timePaint.textSize = if (showQuote) h * 0.30f else h * 0.42f
         while (timePaint.measureText(timeStr) > w * 0.85f) timePaint.textSize *= 0.95f
@@ -253,7 +278,7 @@ abstract class ClockFace(context: Context) : View(context) {
             smallPaint.typeface = fonts.medium
             smallPaint.textSize = h * 0.0375f
             smallPaint.color = textColor
-            if (night) smallPaint.clearShadowLayer() else smallPaint.setShadowLayer(8f, 0f, 3f, dayShadowColor)
+            if (night) smallPaint.clearShadowLayer() else smallPaint.setShadowLayer(8f, 0f, 3f, activeShadow)
             val hint = "Keep holding to change the look"
             val half = smallPaint.measureText(hint) / 2f + h * 0.02f
             val hx = cx.coerceIn(half, w - half)
@@ -271,9 +296,9 @@ abstract class ClockFace(context: Context) : View(context) {
         val box = look.quoteBox(w, h)
         val inner = box.width().toInt()
         val quoted = "“${q.text}”"
-        val ink = look.quoteInk ?: dayTextColor
+        val ink = look.quoteInk ?: activeInk
         smallQuotePaint.color = ink
-        smallQuotePaint.setShadowLayer(6f, 0f, 2f, dayShadowColor)
+        smallQuotePaint.setShadowLayer(6f, 0f, 2f, activeShadow)
         val attrSize = h * 0.028f
         var size = h * 0.036f
         var layout: StaticLayout
@@ -308,7 +333,7 @@ abstract class ClockFace(context: Context) : View(context) {
         c.restore()
         smallPaint.color = ink
         smallPaint.alpha = 180
-        smallPaint.setShadowLayer(6f, 0f, 2f, dayShadowColor)
+        smallPaint.setShadowLayer(6f, 0f, 2f, activeShadow)
         c.drawText(attr, box.centerX(), top + layout.height + attrSize * 1.1f, smallPaint)
         smallPaint.clearShadowLayer()
         smallPaint.alpha = 255
@@ -322,9 +347,11 @@ abstract class ClockFace(context: Context) : View(context) {
      */
     private fun drawQuote(c: Canvas, w: Float, h: Float, q: Quote) {
         val little = littleLine
-        cardRect.set(w * 0.07f, if (little != null) h * 0.545f else h * 0.555f, w * 0.93f, h * 0.885f)
+        // Over the sunrise the card keeps to the right, leaving the sun's column on the left.
+        val left = if (wakeMode && sunrise != null) w * SunriseScene.CARD_LEFT else w * 0.07f
+        cardRect.set(left, if (little != null) h * 0.545f else h * 0.555f, w * 0.93f, h * 0.885f)
         val inner = (cardRect.width() - h * 0.08f).toInt()
-        val ink = if (night) NIGHT_TEXT else dayTextColor
+        val ink = activeInk
         var littleLayout: StaticLayout? = null
         if (little != null) {
             littlePaint.color = ink
@@ -379,6 +406,9 @@ abstract class ClockFace(context: Context) : View(context) {
 
     companion object {
         const val NIGHT_TEXT = 0xFFFF8A3D.toInt() // warm amber, low blue content
+        private const val SUNRISE_SHADOW = 0x66000000
+        /** Largest change in the drawn sunrise per frame (20 fps): a jump to full morning takes about four seconds. */
+        private const val SUNRISE_STEP = 0.012f
 
         /** One painted background per index; the look drawn over it is chosen separately. */
         fun create(context: Context, index: Int): ClockFace = when (Math.floorMod(index, COUNT)) {

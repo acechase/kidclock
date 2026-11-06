@@ -13,7 +13,8 @@ import com.acechase.kidclock.weather.WeatherDetailActivity
  *
  * Also answers developer hooks for testing from adb (see tools/test-alarm.sh, tools/test-night.sh):
  *   -a com.acechase.kidclock.TEST_ALARM  --ei seconds 20      ring a test alarm in 20 s
- *   -a com.acechase.kidclock.TEST_GENTLE                      gentle wake-up in ~1 min, alarm ~1 min later
+ *   -a com.acechase.kidclock.TEST_GENTLE [--ei minutes 5]     gentle wake-up in ~1 min, alarm N min (default 1)
+ *                                                              later: the sunrise runs for those N minutes
  *   -a com.acechase.kidclock.TEST_MISSED --ei minutes_ago 5   pretend a snooze registered 5 min
  *                                                              ago was lost (as if the device had
  *                                                              been off), then reschedule
@@ -35,7 +36,7 @@ class BootReceiver : BroadcastReceiver() {
             return
         }
         if (intent.action == ACTION_TEST_GENTLE) {
-            AlarmScheduler.scheduleGentleTest(context)
+            AlarmScheduler.scheduleGentleTest(context, intent.getIntExtra("minutes", 1))
             return
         }
         if (intent.action == ACTION_TEST_NIGHT) {

@@ -12,8 +12,8 @@ android {
         applicationId = "com.acechase.kidclock"
         minSdk = 28
         targetSdk = 28
-        versionCode = 8
-        versionName = "0.5.2"
+        versionCode = 9
+        versionName = "0.6"
         ndk { abiFilters += listOf("arm64-v8a") }
     }
 

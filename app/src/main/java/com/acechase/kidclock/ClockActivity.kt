@@ -25,11 +25,13 @@ import com.acechase.kidclock.looks.LookPickerOverlay
 import com.acechase.kidclock.looks.LookPickerState
 import com.acechase.kidclock.night.Dimmer
 import com.acechase.kidclock.night.NightSchedule
+import com.acechase.kidclock.night.Sunrise
 import com.acechase.kidclock.settings.SettingsActivity
 import com.acechase.kidclock.weather.WeatherService
 import com.acechase.kidclock.weather.WeatherDetailActivity
 import com.acechase.kidclock.quotes.QuoteRepository
 import com.acechase.kidclock.voice.VoiceCommandListener
+import com.acechase.kidclock.voice.VoiceMatcher
 import android.widget.Button
 import android.view.Gravity
 import android.graphics.drawable.GradientDrawable
@@ -289,6 +291,12 @@ class ClockActivity : AppCompatActivity() {
         val wakeWindow = schedule.inWakeWindow()
         val gentle = schedule.inGentleWake()
         f.wakeMode = wakeWindow
+        // The sunrise runs from the start of the gentle wake-up to the alarm's time; "I'm awake" finishes it.
+        f.sunrise = when {
+            gentle -> Sunrise.progress(System.currentTimeMillis(), prefs.wakeStartMs, prefs.wakeUntilMs)
+            wakeWindow -> 1f
+            else -> null
+        }
         val quote = if (prefs.quotesEnabled) QuoteRepository.get(this).current(this) else null
         f.quote = if (wakeWindow) quote else null
         f.littleLine = if (wakeWindow && quote != null && prefs.quoteShortLine) QuoteRepository.get(this).littleFor(quote) else null
@@ -312,7 +320,8 @@ class ClockActivity : AppCompatActivity() {
             else -> fmt(nextMain.atMs)
         }
         // Brightness follows the scheduled window only: "Always night" changes colours, not brightness.
-        dimmer.apply(schedule.isScheduledNight(Calendar.getInstance()), forceBright = wakeWindow)
+        // During a gentle wake-up it comes up with the sunrise, so the room lightens the way a morning does.
+        dimmer.apply(schedule.isScheduledNight(Calendar.getInstance()), forceBright = wakeWindow, brightLevel = f.sunrise?.let { Sunrise.brightness(it) } ?: 1f)
         pickerOverlay.night = phase == NightSchedule.Phase.NIGHT
         f.weather = if (prefs.weatherEnabled) WeatherService.cached(this) else null
         WeatherService.maybeRefresh(this) { w -> face?.weather = w }
@@ -341,7 +350,7 @@ class ClockActivity : AppCompatActivity() {
         if (wantVoice && wakeVoice == null) {
             wakeVoice = VoiceCommandListener(
                 this,
-                onCommand = { cmd -> if (cmd == VoiceCommandListener.Command.DISMISS) markAwake() },
+                onCommand = { cmd -> if (cmd == VoiceMatcher.Command.DISMISS) markAwake() },
                 onStatus = { s -> wakeVoiceListening = s == VoiceCommandListener.Status.LISTENING },
                 wakeWindowMode = true,
             ).also { it.start() }
