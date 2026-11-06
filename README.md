@@ -39,8 +39,8 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   shadow over a scoreboard date strip), **Scoreboard** (LED digits in a black panel), **Beach** (rounded navy digits
   with a water-blue shadow), **Bubble** (each digit in its own bubble), **Plush** (cream digits with a brown outline
   and a pink shadow), **Marker Blue** (blue marker digits with a green scribble), **Stencil** (Black Ops One), and
-  six for the skies: **Tide** (white digits half under a rolling waterline), **Stripes** (fat digits filled with
-  rainbow bands in a white edge), **Nebula** (Orbitron digits in a glowing pink-to-cyan nebula with twinkling stars),
+  six for the skies: **Tide** (white digits half under a rolling waterline), **Rainbow Arch** (a seven-band rainbow arching
+  up behind fat white digits), **Nebula** (Orbitron digits in a glowing pink-to-cyan nebula with twinkling stars),
   **Glow** (firefly yellow-green digits in a soft glow, with fireflies drifting round them), **Borealis** (tall digits
   filled with rippling aurora colours) and **Daisy** (leaf-green digits with daisies for the colon).
   Every look has an amber night version.

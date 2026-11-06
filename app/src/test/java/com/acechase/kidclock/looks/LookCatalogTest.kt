@@ -36,7 +36,7 @@ class LookCatalogTest {
     fun eachDrawnForBackgroundNamesItsPartnerLookAndOnlySkyHasNone() {
         // Background indices follow faces/ClockFace.create; look indices follow names.
         assertEquals("Tide", LookCatalog.names[LookCatalog.partnerLook(1)!!])           // Ocean
-        assertEquals("Stripes", LookCatalog.names[LookCatalog.partnerLook(2)!!])        // Rainbow
+        assertEquals("Rainbow Arch", LookCatalog.names[LookCatalog.partnerLook(2)!!])        // Rainbow
         assertEquals("Nebula", LookCatalog.names[LookCatalog.partnerLook(3)!!])         // Galaxy
         assertEquals("Glow", LookCatalog.names[LookCatalog.partnerLook(4)!!])           // Fireflies
         assertEquals("Borealis", LookCatalog.names[LookCatalog.partnerLook(5)!!])       // Aurora

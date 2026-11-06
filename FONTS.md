@@ -32,7 +32,7 @@ The looks in `app/src/main/java/com/acechase/kidclock/looks/` and the holiday lo
 | `pinyon_script.ttf` | Pinyon Script | Fairy Lights (Christmas) |
 | `black_ops_one.ttf` | Black Ops One | Stencil |
 | `lilita_one.ttf` | Lilita One | Tide |
-| `luckiest_guy.ttf` | Luckiest Guy | Stripes |
+| `luckiest_guy.ttf` | Luckiest Guy | Rainbow Arch |
 | `orbitron_bold.ttf` | Orbitron Bold | Nebula |
 | `chewy.ttf` | Chewy | Daisy |
 
