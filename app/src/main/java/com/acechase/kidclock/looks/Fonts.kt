@@ -42,7 +42,7 @@ class Fonts private constructor(private val context: Context) {
     // The Stencil look (Blueprint background).
     val blackOps: Typeface by lazy { load(R.font.black_ops_one) }
 
-    // The sky looks: Tide (Ocean), Stripes (Rainbow), Nebula (Galaxy), Daisy (Meadow).
+    // The sky looks: Tide (Ocean), Rainbow Arch (Rainbow), Nebula (Galaxy), Daisy (Meadow).
     val lilita: Typeface by lazy { load(R.font.lilita_one) }
     val luckiestGuy: Typeface by lazy { load(R.font.luckiest_guy) }
     val orbitron: Typeface by lazy { load(R.font.orbitron_bold) }

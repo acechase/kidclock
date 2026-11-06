@@ -129,7 +129,7 @@ abstract class Look {
             16 -> MarkerBlueLook()
             17 -> StencilLook()
             18 -> TideLook()
-            19 -> StripesLook()
+            19 -> RainbowArchLook()
             20 -> NebulaLook()
             21 -> GlowLook()
             22 -> BorealisLook()
