@@ -44,6 +44,14 @@ class Prefs(context: Context) {
     /** True once a look has ever been stored; false only on a fresh install or one from before looks existed. */
     val hasLookChoice: Boolean get() = sp.contains("look")
 
+    /**
+     * The background the look picker last opened on. The first time it opens on a different one, its
+     * first swipe offers that background's partner look (see LookCatalog.suggestedLook).
+     */
+    var lookHintedFace: Int
+        get() = sp.getInt("lookHintedFace", -1)
+        set(v) = sp.edit().putInt("lookHintedFace", v).apply()
+
     /** Holiday designs: a special background and look from three days before each holiday until the day after. */
     var holidaysEnabled: Boolean
         get() = sp.getBoolean("holidaysOn", true)

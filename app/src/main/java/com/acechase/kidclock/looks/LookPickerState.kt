@@ -8,6 +8,8 @@ import kotlin.math.hypot
  *
  * Flow: finger down on the time → hold for [holdMs] without moving → picking. While picking a
  * horizontal swipe changes the look, a tap keeps it, and [idleMs] without any touch keeps it too.
+ * The activity may [suggest] a look when the picker opens; the first swipe then lands on it
+ * whichever way it goes, and later swipes step through the list from there.
  */
 class LookPickerState(
     private val holdMs: Long = HOLD_MS,
@@ -26,6 +28,9 @@ class LookPickerState(
     private var downX = 0f
     private var downY = 0f
     private var lastTouchMs = 0L
+    /** The look the next swipe jumps to, or null to step as usual. */
+    var suggestion: Int? = null
+        private set
 
     /** Finger down. Returns true when this starts a hold toward the picker. */
     fun down(x: Float, y: Float, onTime: Boolean, now: Long): Boolean {
@@ -63,6 +68,7 @@ class LookPickerState(
         }
         if (picking && now - lastTouchMs >= idleMs) {
             picking = false
+            suggestion = null
             return Event.EXITED
         }
         return null
@@ -75,10 +81,23 @@ class LookPickerState(
         return if (dx < 0) 1 else -1
     }
 
+    /** Have the first swipe after opening jump to [look] (null for none). Only takes effect while picking. */
+    fun suggest(look: Int?) {
+        suggestion = if (picking) look else null
+    }
+
+    /** The look a swipe of [step] lands on from [current]: the suggestion the first time, else the neighbour. */
+    fun nextLook(current: Int, step: Int): Int {
+        val target = suggestion ?: LookCatalog.wrap(current + step)
+        suggestion = null
+        return target
+    }
+
     /** A tap while picking keeps the current look and closes the picker. Returns true when it did. */
     fun tap(): Boolean {
         if (!picking) return false
         picking = false
+        suggestion = null
         return true
     }
 
@@ -86,6 +105,7 @@ class LookPickerState(
     fun reset() {
         picking = false
         holdStartMs = 0L
+        suggestion = null
     }
 
     companion object {

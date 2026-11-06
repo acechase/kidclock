@@ -19,6 +19,26 @@ object LookCatalog {
     fun wrap(index: Int): Int = Math.floorMod(index, names.size)
 
     /**
+     * The look each background was drawn for, by background index (see faces/ClockFace.create):
+     * Doodle Strings/Tiara, Notebook/Marker Stacked, Soccer Board/Jersey, Stadium/Scoreboard,
+     * Crab Tank/Beach, Night Reef/Bubble, Stuffies/Plush, Doodle Notebook/Marker Blue,
+     * Blueprint/Stencil. The painted skies (Sky to Meadow) suit any look and have no partner.
+     */
+    private val partners = mapOf(
+        7 to 8, 8 to 10, 9 to 11, 10 to 12, 11 to 13, 12 to 14, 13 to 15, 14 to 16, 15 to 17,
+    )
+
+    /** The look that matches the background, or null when the background has no particular one. */
+    fun partnerLook(faceIndex: Int): Int? = partners[faceIndex]
+
+    /**
+     * The look the picker should offer on its first swipe after opening on a background: the
+     * background's partner, unless that is already showing (or there is none), in which case null
+     * and the swipe steps as usual.
+     */
+    fun suggestedLook(faceIndex: Int, lookIndex: Int): Int? = partnerLook(faceIndex)?.takeIf { it != lookIndex }
+
+    /**
      * Before looks existed, Analog was stored as the last *background*. Such an install should
      * come back with the Analog look over the first background. Returns the look to switch to,
      * or null when the stored background index needs no migration.

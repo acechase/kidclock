@@ -28,7 +28,8 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   plush animals on a star-print sheet, who swap places each day and wave now and then), **Doodle Notebook** (rockets,
   tanks, monsters, dinosaurs and robots in marker) and **Blueprint** (white line drawings on drafting blue).
 - Eighteen **looks** for the time itself, chosen separately from the background: hold the time for two seconds, then swipe
-  sideways and tap to keep. **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
+  sideways and tap to keep. The first time the picker opens on a background that was drawn for a particular look
+  (Stuffies and Plush, Stadium and Scoreboard, and so on), the first swipe jumps to that look. **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
   sweeping second hand, for learning to read clocks), **Sketch** (hand-drawn on a paper scrap), **Whacky** (every digit
   a different font and tilt), **Pixel** (retro game), **Magnets** (fridge tiles), **Tiara** (slim serif digits in
   champagne rose with a fine tiara on the hour and a script date), **Marker** (Caveat digits with a scribbled pink

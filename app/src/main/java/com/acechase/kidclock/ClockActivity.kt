@@ -200,7 +200,7 @@ class ClockActivity : AppCompatActivity() {
     private fun userShowLook(step: Int) {
         val wasHoliday = holidays.active != null
         holidays.userChanged()
-        val i = LookCatalog.wrap(prefs.lookIndex + step)
+        val i = picker.nextLook(prefs.lookIndex, step)
         prefs.lookIndex = i
         if (wasHoliday) applyDesign() else face?.look = Look.create(i)
         showPickerName()
@@ -242,6 +242,11 @@ class ClockActivity : AppCompatActivity() {
     private fun enterPicker() {
         face?.endHold()
         face?.picking = true
+        // Opening on a background for the first time: the first swipe jumps to the look drawn for it.
+        if (holidays.active == null && prefs.lookHintedFace != prefs.faceIndex) {
+            picker.suggest(LookCatalog.suggestedLook(prefs.faceIndex, prefs.lookIndex))
+            prefs.lookHintedFace = prefs.faceIndex
+        }
         showPickerName()
         pickerOverlay.night = schedule.phase(Calendar.getInstance()) == NightSchedule.Phase.NIGHT
         pickerOverlay.visibility = View.VISIBLE
