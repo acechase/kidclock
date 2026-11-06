@@ -4,7 +4,7 @@ The looks in `app/src/main/java/com/acechase/kidclock/looks/` and the holiday lo
 `app/src/main/java/com/acechase/kidclock/holiday/` draw with these typefaces, shipped in
 `app/src/main/res/font/`. All are published under the SIL Open Font License 1.1
 (https://openfontlicense.org) and were downloaded from Google Fonts with `tools/fetch-fonts.sh`
-(the original eight on 2026-10-30, the rest on 2026-10-31).
+(the original eight on 2026-10-30, most of the rest on 2026-10-31, the last four on 2026-11-06).
 
 | File | Family | Used by |
 | --- | --- | --- |
@@ -23,13 +23,17 @@ The looks in `app/src/main/java/com/acechase/kidclock/looks/` and the holiday lo
 | `playfair_display_italic_medium.ttf` | Playfair Display Medium Italic | Rose (Valentine's Day) |
 | `parisienne.ttf` | Parisienne | Rose (Valentine's Day) |
 | `uncial_antiqua.ttf` | Uncial Antiqua | Clover (St. Patrick's Day) |
-| `comfortaa_bold.ttf` | Comfortaa Bold | Pastel Eggs (Easter) |
+| `comfortaa_bold.ttf` | Comfortaa Bold | Pastel Eggs (Easter), Glow |
 | `quicksand_semibold.ttf` | Quicksand SemiBold | Pastel Eggs (Easter) |
-| `bebas_neue.ttf` | Bebas Neue | Fireworks (Fourth of July) |
+| `bebas_neue.ttf` | Bebas Neue | Fireworks (Fourth of July), Borealis |
 | `fraunces_semibold.ttf` | Fraunces SemiBold | Harvest (Thanksgiving) |
 | `lora_italic_medium.ttf` | Lora Medium Italic | Harvest (Thanksgiving) |
 | `libre_baskerville_bold.ttf` | Libre Baskerville Bold | Fairy Lights (Christmas) |
 | `pinyon_script.ttf` | Pinyon Script | Fairy Lights (Christmas) |
 | `black_ops_one.ttf` | Black Ops One | Stencil |
+| `lilita_one.ttf` | Lilita One | Tide |
+| `luckiest_guy.ttf` | Luckiest Guy | Stripes |
+| `orbitron_bold.ttf` | Orbitron Bold | Nebula |
+| `chewy.ttf` | Chewy | Daisy |
 
 Classic and Analog use the device's Roboto.

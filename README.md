@@ -28,9 +28,9 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   a coconut hut and the crab), **Night Reef** (seaweed, rising bubbles and a crab under a moon), **Stuffies** (five
   plush animals on a star-print sheet, who swap places each day and wave now and then), **Doodle Notebook** (rockets,
   tanks, monsters, dinosaurs and robots in marker) and **Blueprint** (white line drawings on drafting blue).
-- Eighteen **looks** for the time itself. A background that was drawn for a particular look (Stuffies and Plush,
-  Stadium and Scoreboard, and so on) brings that look along when you swipe to it; the plain skies show the look you
-  picked yourself. To pick one, hold anywhere on the time or date for a second, then swipe sideways and tap to keep
+- Twenty-four **looks** for the time itself. Every background but Sky was drawn for a particular look (Stuffies and
+  Plush, Stadium and Scoreboard, Ocean and Tide, and so on) and brings that look along when you swipe to it; Sky shows
+  the look you picked yourself. To pick one, hold anywhere on the time or date for a second, then swipe sideways and tap to keep
   (`looks/LookCatalog.kt` pairs them). **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
   sweeping second hand, for learning to read clocks), **Sketch** (hand-drawn on a paper scrap), **Whacky** (every digit
   a different font and tilt), **Pixel** (retro game), **Magnets** (fridge tiles), **Tiara** (slim serif digits in
@@ -38,7 +38,11 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   underline) and **Marker Stacked** (the stacked layout in pink marker, with doodled tiaras), **Jersey** (navy numerals with a green
   shadow over a scoreboard date strip), **Scoreboard** (LED digits in a black panel), **Beach** (rounded navy digits
   with a water-blue shadow), **Bubble** (each digit in its own bubble), **Plush** (cream digits with a brown outline
-  and a pink shadow), **Marker Blue** (blue marker digits with a green scribble) and **Stencil** (Black Ops One).
+  and a pink shadow), **Marker Blue** (blue marker digits with a green scribble), **Stencil** (Black Ops One), and
+  six for the skies: **Tide** (white digits half under a rolling waterline), **Stripes** (fat digits filled with
+  rainbow bands in a white edge), **Nebula** (Orbitron digits in a glowing pink-to-cyan nebula with twinkling stars),
+  **Glow** (firefly yellow-green digits in a soft glow, with fireflies drifting round them), **Borealis** (tall digits
+  filled with rippling aurora colours) and **Daisy** (leaf-green digits with daisies for the colon).
   Every look has an amber night version.
 - **Holiday designs**: a special background *and* look for New Year's Eve, Valentine's Day, St. Patrick's Day, Easter,
   the Fourth of July, Halloween, Thanksgiving and Christmas. Each appears on its own three days before the holiday

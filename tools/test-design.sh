@@ -4,6 +4,7 @@
 #         9 Soccer Board 10 Stadium 11 Crab Tank 12 Night Reef 13 Stuffies 14 Doodle Notebook 15 Blueprint
 #   look: 0 Classic 1 Bold 2 Stacked 3 Analog 4 Sketch 5 Whacky 6 Pixel 7 Magnets 8 Tiara 9 Marker 10 Marker Stacked
 #         11 Jersey 12 Scoreboard 13 Beach 14 Bubble 15 Plush 16 Marker Blue 17 Stencil
+#         18 Tide 19 Stripes 20 Nebula 21 Glow 22 Borealis 23 Daisy
 # Pass -1 to leave one as it is. Showing a design this way dismisses any holiday design for the day.
 set -euo pipefail
 cd "$(dirname "$0")/.."

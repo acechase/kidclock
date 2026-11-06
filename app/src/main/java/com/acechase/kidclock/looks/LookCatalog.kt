@@ -8,6 +8,7 @@ object LookCatalog {
     val names = listOf(
         "Classic", "Bold", "Stacked", "Analog", "Sketch", "Whacky", "Pixel", "Magnets", "Tiara", "Marker", "Marker Stacked",
         "Jersey", "Scoreboard", "Beach", "Bubble", "Plush", "Marker Blue", "Stencil",
+        "Tide", "Stripes", "Nebula", "Glow", "Borealis", "Daisy",
     )
     val count: Int get() = names.size
 
@@ -22,9 +23,11 @@ object LookCatalog {
      * The look each background was drawn for, by background index (see faces/ClockFace.create):
      * Doodle Strings/Tiara, Notebook/Marker Stacked, Soccer Board/Jersey, Stadium/Scoreboard,
      * Crab Tank/Beach, Night Reef/Bubble, Stuffies/Plush, Doodle Notebook/Marker Blue,
-     * Blueprint/Stencil. The painted skies (Sky to Meadow) suit any look and have no partner.
+     * Blueprint/Stencil, and the skies Ocean/Tide, Rainbow/Stripes, Galaxy/Nebula,
+     * Fireflies/Glow, Aurora/Borealis, Meadow/Daisy. Sky itself suits any look and has no partner.
      */
     private val partners = mapOf(
+        1 to 18, 2 to 19, 3 to 20, 4 to 21, 5 to 22, 6 to 23,
         7 to 8, 8 to 10, 9 to 11, 10 to 12, 11 to 13, 12 to 14, 13 to 15, 14 to 16, 15 to 17,
     )
 
