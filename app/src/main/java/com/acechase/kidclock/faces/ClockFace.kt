@@ -186,16 +186,10 @@ abstract class ClockFace(context: Context) : View(context) {
             smallPaint.typeface = fonts.regular
         }
 
-        // Okay-to-wake lamp (top-left): red moon at night, green sun in the wake window.
-        // Not over the sunrise: the whole screen is the okay-to-wake signal then.
-        val lampColor = if (sunriseOn) 0 else when (phase) {
-            NightSchedule.Phase.NIGHT -> 0xFFE04040.toInt()
-            NightSchedule.Phase.WAKE_OK -> 0xFF4CD964.toInt()
-            NightSchedule.Phase.DAY -> 0
-        }
+        // Stay-in-bed moon (top-left) at night. Morning has no lamp: the gentle wake-up sunrise is the signal.
+        val lampColor = if (phase == NightSchedule.Phase.NIGHT) 0xFFE04040.toInt() else 0
         if (lampColor != 0) {
-            val pulse = if (phase == NightSchedule.Phase.WAKE_OK) 1f + 0.15f * kotlin.math.sin(nowMs / 400.0).toFloat() else 1f
-            val r = h * 0.045f * pulse
+            val r = h * 0.045f
             val cx = w * 0.06f
             val cy = h * 0.10f
             lampPaint.color = lampColor

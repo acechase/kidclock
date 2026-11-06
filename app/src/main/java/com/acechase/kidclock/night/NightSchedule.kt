@@ -19,7 +19,6 @@ class NightSchedule(private val prefs: Prefs) {
      */
     fun isNight(now: Calendar = Calendar.getInstance()): Boolean = prefs.alwaysNight || isScheduledNight(now)
 
-    /** WAKE_OK shows a green light for 90 minutes after the night ends. */
     /** True while a gentle wake-up is in progress or after "I'm awake" until the cancelled alarm's time. */
     fun inWakeWindow(nowMs: Long = System.currentTimeMillis()): Boolean = isPending(prefs.wakeUntilMs, nowMs) || isPending(prefs.awakeUntilMs, nowMs)
 
@@ -28,11 +27,10 @@ class NightSchedule(private val prefs: Prefs) {
 
     private fun isPending(until: Long, nowMs: Long) = until > nowMs && until - nowMs < 3 * 60 * 60_000L
 
+    /** WAKE_OK is the wake window: day colours even inside the night window, so the sunrise can run. */
     fun phase(now: Calendar = Calendar.getInstance()): Phase {
         if (inWakeWindow(now.timeInMillis)) return Phase.WAKE_OK
-        if (isNight(now)) return Phase.NIGHT
-        val sinceEnd = ((minuteOfDay(now) - prefs.nightEndMin) + 24 * 60) % (24 * 60)
-        return if (sinceEnd < 90) Phase.WAKE_OK else Phase.DAY
+        return if (isNight(now)) Phase.NIGHT else Phase.DAY
     }
 
     companion object {

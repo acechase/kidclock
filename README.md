@@ -56,8 +56,8 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   attribute plus a dark overlay; the ambient light sensor nudges brightness. No WRITE_SETTINGS needed.
 - **Always night** switch in Settings: the amber-on-black colours all day, at normal brightness (use the device's own
   brightness if it should also be dim).
-- **Okay-to-wake lamp**: red crescent during the night window, green dot for 90 minutes after it ends (not during
-  a gentle wake-up, when the sunrise is the signal).
+- **Stay-in-bed moon**: a red crescent in the top-left corner during the night window. There is no morning lamp;
+  the gentle wake-up sunrise is the signal that it is time to get up.
 - **Weather** from Open-Meteo (no API key): current temp, icon, today's high/low. Location from settings or an IP guess.
   The weather is the only thing in the app that touches the network, and it fails soft (`weather/WeatherCore.kt`,
   unit-tested with a fake network): fetches run off the main thread with 8 s timeouts, any failure is logged and
