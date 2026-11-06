@@ -114,7 +114,7 @@ class LookPickerStateTest {
     fun swipesStepThroughTheLooksAndWrap() {
         val t = holdUntilOpen()
         assertEquals("swipe left goes forward", 1, s.nextLook(current = 0, step = s.swipe(-300f, t + 100)!!))
-        assertEquals("swipe right goes back", 17, s.nextLook(current = 0, step = s.swipe(300f, t + 200)!!))
-        assertEquals(0, s.nextLook(17, 1))
+        assertEquals("swipe right goes back", 23, s.nextLook(current = 0, step = s.swipe(300f, t + 200)!!))
+        assertEquals(0, s.nextLook(23, 1))
     }
 }

@@ -127,7 +127,13 @@ abstract class Look {
             14 -> BubbleLook()
             15 -> PlushLook()
             16 -> MarkerBlueLook()
-            else -> StencilLook()
+            17 -> StencilLook()
+            18 -> TideLook()
+            19 -> StripesLook()
+            20 -> NebulaLook()
+            21 -> GlowLook()
+            22 -> BorealisLook()
+            else -> DaisyLook()
         }
     }
 }

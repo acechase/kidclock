@@ -7,8 +7,8 @@ import org.junit.Test
 
 class LookCatalogTest {
     @Test
-    fun eighteenDistinctLooksAndStorybookStaysOut() {
-        assertEquals(18, LookCatalog.count)
+    fun twentyFourDistinctLooksAndStorybookStaysOut() {
+        assertEquals(24, LookCatalog.count)
         assertEquals(LookCatalog.names.size, LookCatalog.names.toSet().size)
         assertEquals("Classic", LookCatalog.names[LookCatalog.CLASSIC])
         assertEquals("Analog", LookCatalog.names[LookCatalog.ANALOG])
@@ -17,9 +17,9 @@ class LookCatalogTest {
 
     @Test
     fun indexWrapsBothWays() {
-        assertEquals(0, LookCatalog.wrap(18))
-        assertEquals(17, LookCatalog.wrap(-1))
-        assertEquals(3, LookCatalog.wrap(21))
+        assertEquals(0, LookCatalog.wrap(24))
+        assertEquals(23, LookCatalog.wrap(-1))
+        assertEquals(3, LookCatalog.wrap(27))
     }
 
     @Test
@@ -33,8 +33,14 @@ class LookCatalogTest {
     }
 
     @Test
-    fun eachDrawnForBackgroundNamesItsPartnerLookAndTheSkiesHaveNone() {
+    fun eachDrawnForBackgroundNamesItsPartnerLookAndOnlySkyHasNone() {
         // Background indices follow faces/ClockFace.create; look indices follow names.
+        assertEquals("Tide", LookCatalog.names[LookCatalog.partnerLook(1)!!])           // Ocean
+        assertEquals("Stripes", LookCatalog.names[LookCatalog.partnerLook(2)!!])        // Rainbow
+        assertEquals("Nebula", LookCatalog.names[LookCatalog.partnerLook(3)!!])         // Galaxy
+        assertEquals("Glow", LookCatalog.names[LookCatalog.partnerLook(4)!!])           // Fireflies
+        assertEquals("Borealis", LookCatalog.names[LookCatalog.partnerLook(5)!!])       // Aurora
+        assertEquals("Daisy", LookCatalog.names[LookCatalog.partnerLook(6)!!])          // Meadow
         assertEquals("Tiara", LookCatalog.names[LookCatalog.partnerLook(7)!!])          // Doodle Strings
         assertEquals("Marker Stacked", LookCatalog.names[LookCatalog.partnerLook(8)!!]) // Notebook
         assertEquals("Jersey", LookCatalog.names[LookCatalog.partnerLook(9)!!])         // Soccer Board
@@ -44,7 +50,7 @@ class LookCatalogTest {
         assertEquals("Plush", LookCatalog.names[LookCatalog.partnerLook(13)!!])         // Stuffies
         assertEquals("Marker Blue", LookCatalog.names[LookCatalog.partnerLook(14)!!])   // Doodle Notebook
         assertEquals("Stencil", LookCatalog.names[LookCatalog.partnerLook(15)!!])       // Blueprint
-        for (sky in 0..6) assertNull("painted skies suit any look", LookCatalog.partnerLook(sky))
+        assertNull("Sky follows the time of day and suits any look", LookCatalog.partnerLook(0))
     }
 
     @Test
@@ -53,8 +59,9 @@ class LookCatalogTest {
         val tiara = 8
         assertEquals("Jersey", LookCatalog.names[LookCatalog.lookForBackground(faceIndex = 9, chosenLook = tiara)])
         assertEquals("Scoreboard", LookCatalog.names[LookCatalog.lookForBackground(faceIndex = 10, chosenLook = tiara)])
-        assertEquals("Tiara", LookCatalog.names[LookCatalog.lookForBackground(faceIndex = 1, chosenLook = tiara)])
-        for (sky in 0..6) assertEquals(LookCatalog.CLASSIC, LookCatalog.lookForBackground(sky, LookCatalog.CLASSIC))
+        assertEquals("Tiara", LookCatalog.names[LookCatalog.lookForBackground(faceIndex = 0, chosenLook = tiara)])
+        assertEquals("Tide", LookCatalog.names[LookCatalog.lookForBackground(faceIndex = 1, chosenLook = tiara)])
+        assertEquals(LookCatalog.CLASSIC, LookCatalog.lookForBackground(0, LookCatalog.CLASSIC))
         assertEquals("the partner wins even over a chosen themed look", 15, LookCatalog.lookForBackground(faceIndex = 13, chosenLook = 12))
     }
 }
