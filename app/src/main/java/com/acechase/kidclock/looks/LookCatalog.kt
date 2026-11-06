@@ -32,11 +32,11 @@ object LookCatalog {
     fun partnerLook(faceIndex: Int): Int? = partners[faceIndex]
 
     /**
-     * The look the picker should offer on its first swipe after opening on a background: the
-     * background's partner, unless that is already showing (or there is none), in which case null
-     * and the swipe steps as usual.
+     * The look a swipe to [faceIndex] shows: the background's partner when it has one, else
+     * [chosenLook], the look the user last picked in the picker. So the drawn-for backgrounds
+     * bring their own look along and the plain skies show whatever the user chose.
      */
-    fun suggestedLook(faceIndex: Int, lookIndex: Int): Int? = partnerLook(faceIndex)?.takeIf { it != lookIndex }
+    fun lookForBackground(faceIndex: Int, chosenLook: Int): Int = partnerLook(faceIndex) ?: chosenLook
 
     /**
      * Before looks existed, Analog was stored as the last *background*. Such an install should

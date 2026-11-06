@@ -195,10 +195,15 @@ class ClockActivity : AppCompatActivity() {
         tick()
     }
 
-    /** A swipe to the next or previous background. Swiping away from a holiday design dismisses it for this year. */
+    /**
+     * A swipe to the next or previous background. The look changes with it: a background drawn for a
+     * look brings that look, a plain sky brings back the look last picked in the picker. Swiping away
+     * from a holiday design dismisses it for this year.
+     */
     private fun userShowFace(step: Int) {
         holidays.userChanged()
         prefs.faceIndex = Math.floorMod(prefs.faceIndex + step, ClockFace.COUNT)
+        prefs.lookIndex = LookCatalog.lookForBackground(prefs.faceIndex, prefs.chosenLook)
         applyDesign()
         showBackgroundStrip()
     }
@@ -224,12 +229,13 @@ class ClockActivity : AppCompatActivity() {
         backgroundStrip.visibility = View.GONE
     }
 
-    /** A swipe in the look picker; leaving a holiday look dismisses the holiday the same way. */
+    /** A swipe in the look picker: the user's own choice, remembered for the skies. Leaving a holiday look dismisses the holiday the same way. */
     private fun userShowLook(step: Int) {
         val wasHoliday = holidays.active != null
         holidays.userChanged()
         val i = picker.nextLook(prefs.lookIndex, step)
         prefs.lookIndex = i
+        prefs.chosenLook = i
         if (wasHoliday) applyDesign() else face?.look = Look.create(i)
         showPickerName()
     }
@@ -271,11 +277,6 @@ class ClockActivity : AppCompatActivity() {
     private fun enterPicker() {
         face?.endHold()
         face?.picking = true
-        // Opening on a background for the first time: the first swipe jumps to the look drawn for it.
-        if (holidays.active == null && prefs.lookHintedFace != prefs.faceIndex) {
-            picker.suggest(LookCatalog.suggestedLook(prefs.faceIndex, prefs.lookIndex))
-            prefs.lookHintedFace = prefs.faceIndex
-        }
         showPickerName()
         pickerOverlay.night = schedule.phase(Calendar.getInstance()) == NightSchedule.Phase.NIGHT
         pickerOverlay.visibility = View.VISIBLE

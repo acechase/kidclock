@@ -48,9 +48,13 @@ class LookCatalogTest {
     }
 
     @Test
-    fun theSuggestionIsThePartnerUnlessItIsAlreadyShowing() {
-        assertEquals(15, LookCatalog.suggestedLook(faceIndex = 13, lookIndex = LookCatalog.CLASSIC))
-        assertNull("Plush is already on", LookCatalog.suggestedLook(faceIndex = 13, lookIndex = 15))
-        assertNull("Sky has no partner", LookCatalog.suggestedLook(faceIndex = 0, lookIndex = LookCatalog.CLASSIC))
+    fun aSwipeToABackgroundBringsItsPartnerLookAndTheSkiesBringBackTheChosenOne() {
+        // Tiara chosen on Sky, then swiping through Soccer Board, Stadium and back to Ocean.
+        val tiara = 8
+        assertEquals("Jersey", LookCatalog.names[LookCatalog.lookForBackground(faceIndex = 9, chosenLook = tiara)])
+        assertEquals("Scoreboard", LookCatalog.names[LookCatalog.lookForBackground(faceIndex = 10, chosenLook = tiara)])
+        assertEquals("Tiara", LookCatalog.names[LookCatalog.lookForBackground(faceIndex = 1, chosenLook = tiara)])
+        for (sky in 0..6) assertEquals(LookCatalog.CLASSIC, LookCatalog.lookForBackground(sky, LookCatalog.CLASSIC))
+        assertEquals("the partner wins even over a chosen themed look", 15, LookCatalog.lookForBackground(faceIndex = 13, chosenLook = 12))
     }
 }
