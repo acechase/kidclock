@@ -109,7 +109,7 @@ class LookPickerState(
     }
 
     companion object {
-        const val HOLD_MS = 2000L
+        const val HOLD_MS = 1000L
         const val IDLE_MS = 8000L
     }
 }
