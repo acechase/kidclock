@@ -37,7 +37,7 @@ class Prefs(context: Context) {
         get() = sp.getInt("face", 0)
         set(v) = sp.edit().putInt("face", v).apply()
 
-    /** Which look (font and layout) draws the time over the background; see looks/LookCatalog. */
+    /** Which look (font and layout) draws the time over the background right now; see looks/LookCatalog. */
     var lookIndex: Int
         get() = sp.getInt("look", 0)
         set(v) = sp.edit().putInt("look", v).apply()
@@ -45,12 +45,13 @@ class Prefs(context: Context) {
     val hasLookChoice: Boolean get() = sp.contains("look")
 
     /**
-     * The background the look picker last opened on. The first time it opens on a different one, its
-     * first swipe offers that background's partner look (see LookCatalog.suggestedLook).
+     * The look the user last picked in the look picker. A background swipe shows the background's
+     * partner look when it has one and this look otherwise (see LookCatalog.lookForBackground), so
+     * the user's own choice comes back on the plain skies.
      */
-    var lookHintedFace: Int
-        get() = sp.getInt("lookHintedFace", -1)
-        set(v) = sp.edit().putInt("lookHintedFace", v).apply()
+    var chosenLook: Int
+        get() = sp.getInt("chosenLook", lookIndex)
+        set(v) = sp.edit().putInt("chosenLook", v).apply()
 
     /** Holiday designs: a special background and look from three days before each holiday until the day after. */
     var holidaysEnabled: Boolean

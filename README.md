@@ -28,9 +28,10 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   a coconut hut and the crab), **Night Reef** (seaweed, rising bubbles and a crab under a moon), **Stuffies** (five
   plush animals on a star-print sheet, who swap places each day and wave now and then), **Doodle Notebook** (rockets,
   tanks, monsters, dinosaurs and robots in marker) and **Blueprint** (white line drawings on drafting blue).
-- Eighteen **looks** for the time itself, chosen separately from the background: hold anywhere on the time or date for a second, then swipe
-  sideways and tap to keep. The first time the picker opens on a background that was drawn for a particular look
-  (Stuffies and Plush, Stadium and Scoreboard, and so on), the first swipe jumps to that look. **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
+- Eighteen **looks** for the time itself. A background that was drawn for a particular look (Stuffies and Plush,
+  Stadium and Scoreboard, and so on) brings that look along when you swipe to it; the plain skies show the look you
+  picked yourself. To pick one, hold anywhere on the time or date for a second, then swipe sideways and tap to keep
+  (`looks/LookCatalog.kt` pairs them). **Classic**, **Bold**, **Stacked** (hour over minutes), **Analog** (a real dial with a
   sweeping second hand, for learning to read clocks), **Sketch** (hand-drawn on a paper scrap), **Whacky** (every digit
   a different font and tilt), **Pixel** (retro game), **Magnets** (fridge tiles), **Tiara** (slim serif digits in
   champagne rose with a fine tiara on the hour and a script date), **Marker** (Caveat digits with a scribbled pink
@@ -123,8 +124,8 @@ plain Android apps and you have adb access) and a computer with `adb`. Nothing h
    adb shell dumpsys deviceidle whitelist +com.acechase.kidclock   # keep the ticker and weather thread out of doze
    ```
 4. Hold the top-left corner of the clock for a second to open Settings: add alarms, pick sounds and
-   volumes, set the weather location. Swipe left or right to change the background; hold the time or date for a
-   second, then swipe, to change the look.
+   volumes, set the weather location. Swipe left or right to change the background (its matching look comes with
+   it); hold the time or date for a second, then swipe, to pick a different look.
 
 The APK bundles the ~68 MB offline speech model, so it is about 80 MB. Builds are signed with the Android
 debug key of the machine that built them; to update a Portal from a different machine, uninstall first

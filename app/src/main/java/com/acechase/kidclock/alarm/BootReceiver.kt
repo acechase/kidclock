@@ -46,7 +46,7 @@ class BootReceiver : BroadcastReceiver() {
         if (intent.action == ACTION_TEST_DESIGN) {
             Prefs(context).apply {
                 intent.getIntExtra("face", -1).takeIf { it >= 0 }?.let { faceIndex = it }
-                intent.getIntExtra("look", -1).takeIf { it >= 0 }?.let { lookIndex = it }
+                intent.getIntExtra("look", -1).takeIf { it >= 0 }?.let { lookIndex = it; chosenLook = it }
                 holidayActive?.let { holidayDismissed = it; holidayActive = null }
             }
             return
