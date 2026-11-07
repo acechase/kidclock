@@ -91,7 +91,7 @@ Fork it, or install the APK as-is: see [Install on a Portal](#install-on-a-porta
   its own override: a few easy sight words on top of the morning quote with the full quote beneath, what-to-wear and
   raincoat picture tiles on the weather page, and picture buttons when the alarm rings. The rules are pure and
   unit-tested (`quotes/QuoteRules.kt`).
-- **Quote library**: 260 curated quotes and advice lines for a bright 11-year-old in `app/src/main/assets/quotes.json`
+- **Quote library**: nearly 300 curated quotes and advice lines for a bright 11-year-old in `app/src/main/assets/quotes.json`
   (attributed quotes plus house "Morning advice"). Six are picked each day, one per theme, with no repeats for
   about a month. The current one appears large on the gentle wake-up card and, if enabled, small and quiet on the
   everyday clock face (hidden at night). Tap the quote to move to the next of the day's six. Settings
