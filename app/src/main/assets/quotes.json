@@ -2691,6 +2691,348 @@
       ],
       "id": 262,
       "age": 8
+    },
+    {
+      "text": "If not me, who? If not now, when?",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "courage",
+        "purpose"
+      ],
+      "id": 263,
+      "age": 8,
+      "origin": "UN HeForShe speech, 20 Sep 2014"
+    },
+    {
+      "text": "Both men and women should feel free to be sensitive. Both men and women should feel free to be strong.",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "self-worth"
+      ],
+      "id": 264,
+      "age": 11,
+      "origin": "UN HeForShe speech, 20 Sep 2014"
+    },
+    {
+      "text": "I don't want other people to decide who I am. I want to decide that for myself.",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "self-worth"
+      ],
+      "id": 265,
+      "age": 8,
+      "origin": "Elle interview, 2009 (via Mental Floss)"
+    },
+    {
+      "text": "I don't want the fear of failure to stop me from doing what I really care about.",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "courage"
+      ],
+      "id": 266,
+      "age": 11,
+      "origin": "Vogue, June 2011 (via Mental Floss)"
+    },
+    {
+      "text": "There's nothing wrong with being afraid. It's not the absence of fear; it's overcoming it.",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "courage"
+      ],
+      "id": 267,
+      "age": 8,
+      "origin": "press conference, July 2011 (via Mental Floss)"
+    },
+    {
+      "text": "Becoming yourself is really hard and confusing, and it's a process.",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "self-worth"
+      ],
+      "id": 268,
+      "age": 11,
+      "origin": "MTV Movie Awards Trailblazer speech, 2013"
+    },
+    {
+      "text": "I truly, truly believe that beauty is something that comes from within.",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "self-worth"
+      ],
+      "id": 269,
+      "age": 8,
+      "origin": "Hello! magazine, Sep 2011 (via Mental Floss)"
+    },
+    {
+      "text": "Don't expect change to happen overnight. Even if it's not always visible, it's making more impact than you think.",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "perseverance",
+        "hope"
+      ],
+      "id": 270,
+      "age": 11,
+      "origin": "Twitter live chat, Jan 2015 (via Mental Floss)"
+    },
+    {
+      "text": "I never feel so accomplished as when I open a tough jar.",
+      "author": "Emma Watson",
+      "source": null,
+      "tags": [
+        "humor"
+      ],
+      "id": 271,
+      "age": 8,
+      "origin": "tweet, Nov 2012 (via Mental Floss)"
+    },
+    {
+      "text": "Never be ashamed of trying. Effortlessness is a myth.",
+      "author": "Taylor Swift",
+      "source": null,
+      "tags": [
+        "perseverance"
+      ],
+      "id": 272,
+      "age": 8,
+      "origin": "NYU commencement speech, 18 May 2022"
+    },
+    {
+      "text": "Life can be heavy, especially if you try to carry it all at once.",
+      "author": "Taylor Swift",
+      "source": null,
+      "tags": [
+        "mindfulness"
+      ],
+      "id": 273,
+      "age": 11,
+      "origin": "NYU commencement speech, 18 May 2022"
+    },
+    {
+      "text": "My experience has been that my mistakes led to the best things in my life.",
+      "author": "Taylor Swift",
+      "source": null,
+      "tags": [
+        "mistakes"
+      ],
+      "id": 274,
+      "age": 8,
+      "origin": "NYU commencement speech, 18 May 2022"
+    },
+    {
+      "text": "The scary news is you're on your own now, but the cool news is you're on your own now.",
+      "author": "Taylor Swift",
+      "source": null,
+      "tags": [
+        "courage",
+        "humor"
+      ],
+      "id": 275,
+      "age": 11,
+      "origin": "NYU commencement speech, 18 May 2022"
+    },
+    {
+      "text": "Being embarrassed when you mess up is part of the human experience.",
+      "author": "Taylor Swift",
+      "source": null,
+      "tags": [
+        "mistakes"
+      ],
+      "id": 276,
+      "age": 8,
+      "origin": "NYU commencement speech, 18 May 2022"
+    },
+    {
+      "text": "Fearless is not the absence of fear. It's not being completely unafraid. Fearless is living in spite of those things that scare you to death.",
+      "author": "Taylor Swift",
+      "source": null,
+      "tags": [
+        "courage"
+      ],
+      "id": 277,
+      "age": 8,
+      "origin": "Fearless album prologue, 2008"
+    },
+    {
+      "text": "Let us pick up our books and our pens. They are our most powerful weapons.",
+      "author": "Malala Yousafzai",
+      "source": null,
+      "tags": [
+        "learning",
+        "courage"
+      ],
+      "id": 278,
+      "age": 8,
+      "origin": "UN Youth Assembly speech, 12 Jul 2013"
+    },
+    {
+      "text": "I've learned you are never too small to make a difference.",
+      "author": "Greta Thunberg",
+      "source": null,
+      "tags": [
+        "purpose",
+        "self-belief"
+      ],
+      "id": 279,
+      "age": 6,
+      "origin": "COP24 speech, Katowice, Dec 2018"
+    },
+    {
+      "text": "I'm not the next Usain Bolt or Michael Phelps. I'm the first Simone Biles.",
+      "author": "Simone Biles",
+      "source": null,
+      "tags": [
+        "self-worth"
+      ],
+      "id": 280,
+      "age": 8,
+      "origin": "after the Rio Olympics all-around final, Aug 2016"
+    },
+    {
+      "text": "There is always light, if only we're brave enough to see it, if only we're brave enough to be it.",
+      "author": "Amanda Gorman",
+      "source": "The Hill We Climb",
+      "tags": [
+        "hope",
+        "courage"
+      ],
+      "id": 281,
+      "age": 8,
+      "origin": "inauguration poem, 20 Jan 2021"
+    },
+    {
+      "text": "To those who thought they were putting water on my fire, you're really adding gas to it.",
+      "author": "Coco Gauff",
+      "source": null,
+      "tags": [
+        "perseverance"
+      ],
+      "id": 282,
+      "age": 11,
+      "origin": "US Open trophy speech, 9 Sep 2023"
+    },
+    {
+      "text": "Everything makes a difference. Don't feel pressured to come up with something big.",
+      "author": "Gitanjali Rao",
+      "source": null,
+      "tags": [
+        "purpose",
+        "science"
+      ],
+      "id": 283,
+      "age": 8,
+      "origin": "TIME Kid of the Year interview with Angelina Jolie, Dec 2020"
+    },
+    {
+      "text": "If I can do it, you can do it, and anyone can do it.",
+      "author": "Gitanjali Rao",
+      "source": null,
+      "tags": [
+        "self-belief"
+      ],
+      "id": 284,
+      "age": 6,
+      "origin": "TIME Kid of the Year interview with Angelina Jolie, Dec 2020"
+    },
+    {
+      "text": "Don't ever let anyone tell you that you're too young or you won't understand.",
+      "author": "Isabel Wijsen",
+      "source": null,
+      "tags": [
+        "self-belief",
+        "courage"
+      ],
+      "id": 285,
+      "age": 8,
+      "origin": "TEDGlobal London, 2015 (Bye Bye Plastic Bags)"
+    },
+    {
+      "text": "Us kids may only be 25 percent of the world's population, but we are 100 percent of the future.",
+      "author": "Isabel Wijsen",
+      "source": null,
+      "tags": [
+        "purpose",
+        "hope"
+      ],
+      "id": 286,
+      "age": 8,
+      "origin": "Reuters / Jakarta Post, Oct 2020 (Bye Bye Plastic Bags)"
+    },
+    {
+      "text": "Human history is basically a list of things that couldn't be done, and then were done.",
+      "author": "Boyan Slat",
+      "source": null,
+      "tags": [
+        "perseverance",
+        "science"
+      ],
+      "id": 287,
+      "age": 11,
+      "origin": "Green Prophet, May 2013 (The Ocean Cleanup)"
+    },
+    {
+      "text": "Just look at what we can do when we come together.",
+      "author": "Marcus Rashford",
+      "source": null,
+      "tags": [
+        "kindness",
+        "friendship"
+      ],
+      "id": 288,
+      "age": 8,
+      "origin": "tweet on the free school meals campaign, June 2020"
+    },
+    {
+      "text": "The more I am myself, the better my life is.",
+      "author": "Billie Eilish",
+      "source": null,
+      "tags": [
+        "self-worth"
+      ],
+      "id": 289,
+      "age": 8,
+      "origin": "Allure interview (via American Songwriter, Sep 2023)"
+    },
+    {
+      "text": "Young people rise to the occasion time and time again.",
+      "author": "Yara Shahidi",
+      "source": null,
+      "tags": [
+        "self-belief"
+      ],
+      "id": 290,
+      "age": 11,
+      "origin": "National Geographic 33 profile, 2025"
+    },
+    {
+      "text": "Treat people with kindness.",
+      "author": "Harry Styles",
+      "source": null,
+      "tags": [
+        "kindness"
+      ],
+      "id": 291,
+      "age": 6,
+      "origin": "his motto, song and tour slogan (2019)"
+    },
+    {
+      "text": "It's OK to fall sometimes. I'm just going to get back up and push even harder.",
+      "author": "Sky Brown",
+      "source": null,
+      "tags": [
+        "perseverance",
+        "mistakes"
+      ],
+      "id": 292,
+      "age": 6,
+      "origin": "video from hospital after her 2020 fall, age 11"
     }
   ],
   "little": [
